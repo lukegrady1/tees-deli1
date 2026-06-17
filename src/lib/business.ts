@@ -754,4 +754,5 @@ export const dailySpecial: {
   postedLabel: "June 15",
 };
 
-export const SITE_URL = "https://teesdeli.example.com";
+// Live GitHub Pages URL (project site). Update if a custom domain is added.
+export const SITE_URL = "https://lukegrady1.github.io/tees-deli1";

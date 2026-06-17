@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL, cateringOfferings } from "@/lib/business";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",

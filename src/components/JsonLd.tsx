@@ -12,7 +12,7 @@ export function LocalBusinessJsonLd() {
     "@type": "Restaurant",
     "@id": `${SITE_URL}/#business`,
     name: business.name,
-    image: `${SITE_URL}/opengraph-image`,
+    image: `${SITE_URL}/breakfast-pizza.webp`,
     url: SITE_URL,
     telephone: business.phone.display,
     email: business.email,
