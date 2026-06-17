@@ -92,7 +92,7 @@ export function Header() {
             <span className="xl:hidden">Call</span>
           </a>
 
-          <Button href="/contact" size="lg" className="hidden sm:inline-flex">
+          <Button href="/contact" size="lg" className="hidden lg:inline-flex">
             Get a Quote
           </Button>
 
