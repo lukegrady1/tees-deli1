@@ -27,14 +27,16 @@ export function Hero() {
 
           <Reveal delay={0.06}>
             <h1 className="mt-6 font-display text-[2.6rem] font-semibold leading-[1.04] tracking-tight sm:text-5xl lg:text-[3.6rem]">
-              Catering that makes
-              <br />
-              you look <span className="text-clay">good.</span>
+              TEE&rsquo;s Deli &amp; Catering in{" "}
+              <span className="text-clay">West Boylston, MA</span>
             </h1>
           </Reveal>
 
           <Reveal delay={0.12}>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-stone">
+              <span className="font-medium text-espresso">
+                Catering that makes you look good.
+              </span>{" "}
               Full-service catering for offices, college teams, and private
               functions across the Worcester area — plus a fresh, made-to-order
               deli when you walk in.
