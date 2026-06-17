@@ -16,7 +16,9 @@ export function Hero() {
       />
       <Container className="grid items-start gap-12 pb-16 pt-4 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
         <div className="max-w-xl">
-          <Reveal>
+          {/* Location tag: hidden on phones, shown on tablet/desktop (sm+).
+              Hidden via the wrapper since the badge itself is inline-flex. */}
+          <Reveal className="hidden sm:block">
             <span className="inline-flex items-center gap-2 rounded-full border border-sand bg-card px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-stone">
               <ForkKnife weight="regular" className="size-3.5 text-clay" aria-hidden />
               {business.serviceArea}

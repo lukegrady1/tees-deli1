@@ -92,9 +92,13 @@ export function Header() {
             <span className="xl:hidden">Call</span>
           </a>
 
-          <Button href="/contact" size="lg" className="hidden lg:inline-flex">
-            Get a Quote
-          </Button>
+          {/* Wrapper controls visibility — the Button's base `inline-flex`
+              would otherwise override a `hidden` utility on the button itself. */}
+          <span className="hidden lg:inline-flex">
+            <Button href="/contact" size="lg">
+              Get a Quote
+            </Button>
+          </span>
 
           <button
             type="button"
