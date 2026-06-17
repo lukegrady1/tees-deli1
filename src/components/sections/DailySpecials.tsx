@@ -8,6 +8,7 @@ import { business, dailySpecial } from "@/lib/business";
 import { Section, Eyebrow } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
+import { asset } from "@/lib/basePath";
 
 /**
  * Daily specials. Mirrors how they post a flyer on Facebook: a single flyer
@@ -57,7 +58,7 @@ export function DailySpecials({ tone = "paper" }: { tone?: "paper" | "sand" }) {
             {flyer ? (
               <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-sand bg-card shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]">
                 <Image
-                  src={flyer}
+                  src={asset(flyer)}
                   alt={dailySpecial.alt}
                   fill
                   sizes="(max-width: 768px) 90vw, 400px"

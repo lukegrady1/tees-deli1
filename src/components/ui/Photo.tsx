@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ForkKnife } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "@/lib/cn";
+import { asset } from "@/lib/basePath";
 
 /**
  * Framed photo slot. Pass `src` to show a real image (object-cover within the
@@ -12,6 +13,7 @@ export function Photo({
   src,
   sizes,
   ratio = "4/3",
+  fit = "cover",
   className,
   tone = "sand",
 }: {
@@ -19,6 +21,8 @@ export function Photo({
   src?: string;
   sizes?: string;
   ratio?: "4/3" | "3/2" | "16/9" | "1/1" | "3/4";
+  /** "cover" crops to fill (photos); "contain" shows the whole image (flyers). */
+  fit?: "cover" | "contain";
   className?: string;
   tone?: "sand" | "espresso";
 }) {
@@ -34,11 +38,11 @@ export function Photo({
         )}
       >
         <Image
-          src={src}
+          src={asset(src)}
           alt={label}
           fill
           sizes={sizes ?? "(max-width: 768px) 100vw, 50vw"}
-          className="object-cover"
+          className={fit === "contain" ? "object-contain" : "object-cover"}
         />
       </div>
     );

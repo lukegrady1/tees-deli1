@@ -9,6 +9,7 @@ import { business, nav } from "@/lib/business";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
+import { asset } from "@/lib/basePath";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -43,7 +44,7 @@ export function Header() {
       <Container className="flex h-28 items-center justify-between gap-4">
         <Link href="/" aria-label={`${business.name} — home`} className="inline-flex">
           <Image
-            src="/tees-deli-logo.webp"
+            src={asset("/tees-deli-logo.webp")}
             alt={`${business.name} logo`}
             width={2048}
             height={1299}

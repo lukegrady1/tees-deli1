@@ -9,6 +9,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { business, hours, nav } from "@/lib/business";
 import { Container } from "@/components/ui/Container";
+import { asset } from "@/lib/basePath";
 
 export function Footer() {
   return (
@@ -23,7 +24,7 @@ export function Footer() {
               className="inline-flex rounded-2xl bg-paper p-3 shadow-sm transition-transform duration-150 ease-[var(--ease-calm)] hover:-translate-y-0.5"
             >
               <Image
-                src="/tees-deli-logo.webp"
+                src={asset("/tees-deli-logo.webp")}
                 alt={`${business.name} logo`}
                 width={2048}
                 height={1299}

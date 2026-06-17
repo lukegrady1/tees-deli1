@@ -63,22 +63,16 @@ export function Hero() {
           </Reveal>
         </div>
 
-        {/* Hero food image — full-bleed feel on paper */}
+        {/* Hero services flyer — shown whole on a clean card */}
         <Reveal delay={0.1} className="lg:pl-4">
-          <div className="relative">
-            <Photo
-              label="Full catering spread — hot and cold, set up and ready to serve"
-              ratio="3/4"
-              className="shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]"
-            />
-            {/* Small stat tile overlapping the photo for depth */}
-            <div className="absolute -bottom-5 -left-5 hidden rounded-2xl border border-sand bg-card px-5 py-4 shadow-sm sm:block">
-              <p className="font-display text-2xl font-semibold text-espresso">
-                {business.reputation.recommendRate}
-              </p>
-              <p className="text-xs text-stone">{business.reputation.note}</p>
-            </div>
-          </div>
+          <Photo
+            label="TEE's Deli & Catering — full-service catering for corporate and private events, breakfasts, luncheons, dinners, barbecues (up to 500 people), boxed lunches, anniversary parties, bereavement meals, class reunions, and chef-for-hire; plus pickup and Breakfast Pizza."
+            src="/homepage-hero.webp"
+            fit="contain"
+            ratio="3/4"
+            sizes="(max-width: 1024px) 92vw, 560px"
+            className="border border-sand bg-card shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]"
+          />
         </Reveal>
       </Container>
     </section>
