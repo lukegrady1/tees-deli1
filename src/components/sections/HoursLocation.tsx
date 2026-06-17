@@ -1,0 +1,102 @@
+import { MapPin, Phone, Clock, Info } from "@phosphor-icons/react/dist/ssr";
+import { business, hours } from "@/lib/business";
+import { Section, Eyebrow } from "@/components/ui/Section";
+import { Reveal } from "@/components/ui/Reveal";
+import { LiveHours } from "@/components/LiveHours";
+
+export function HoursLocation() {
+  // Official pinned Google Maps embed for the TEE's Deli & Catering listing.
+  const mapSrc =
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2948.1159343252975!2d-71.78540772334989!3d42.36136847119279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e40436c407c83b%3A0xf9be32db107e05e4!2sTEE's%20DELI%20%26%20CATERING!5e0!3m2!1sen!2sus!4v1781663402919!5m2!1sen!2sus";
+
+  return (
+    <Section id="visit" tone="paper">
+      <Reveal className="mb-10 max-w-2xl">
+        <Eyebrow>Hours &amp; location</Eyebrow>
+        <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
+          Find us in West Boylston.
+        </h2>
+      </Reveal>
+
+      <div className="grid gap-8 lg:grid-cols-2">
+        <Reveal className="flex flex-col gap-6">
+          {/* Hours */}
+          <div className="rounded-2xl border border-sand bg-card p-6">
+            <h3 className="flex items-center gap-2 font-display text-xl font-semibold">
+              <Clock weight="thin" className="size-5 text-clay" aria-hidden />
+              Hours
+            </h3>
+            <div className="mt-4">
+              <LiveHours />
+            </div>
+            <dl className="mt-5 space-y-4 text-sm">
+              <div>
+                <dt className="font-medium text-espresso">
+                  {hours.walkIn.label}
+                </dt>
+                <dd className="text-stone">{hours.walkIn.summary}</dd>
+                <dd className="mt-1 text-stone">{hours.walkIn.note}</dd>
+              </div>
+              <div>
+                <dt className="font-medium text-espresso">
+                  {hours.catering.label}
+                </dt>
+                <dd className="text-stone">{hours.catering.summary}</dd>
+              </div>
+              <div>
+                <dt className="font-medium text-espresso">
+                  {hours.consults.label}
+                </dt>
+                <dd className="text-stone">{hours.consults.summary}</dd>
+              </div>
+            </dl>
+          </div>
+
+          {/* Location */}
+          <div className="rounded-2xl border border-sand bg-card p-6">
+            <h3 className="flex items-center gap-2 font-display text-xl font-semibold">
+              <MapPin weight="thin" className="size-5 text-clay" aria-hidden />
+              Location
+            </h3>
+            <address className="mt-4 not-italic text-stone">
+              <a
+                href={business.links.maps}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-espresso underline-offset-4 hover:text-clay hover:underline"
+              >
+                {business.address.full}
+              </a>
+            </address>
+            <p className="mt-3 flex items-start gap-2 rounded-xl bg-sand/70 p-3 text-sm text-stone">
+              <Info weight="regular" className="mt-0.5 size-4 shrink-0 text-clay" aria-hidden />
+              We moved from {business.formerAddress} — some maps still show the
+              old, closed address. This West Boylston location is the only one.
+            </p>
+            <a
+              href={`tel:${business.phone.tel}`}
+              className="mt-4 inline-flex items-center gap-2 font-medium text-clay underline-offset-4 hover:underline"
+            >
+              <Phone weight="regular" className="size-4" aria-hidden />
+              {business.phone.display}
+            </a>
+          </div>
+        </Reveal>
+
+        {/* Map */}
+        <Reveal delay={0.1}>
+          <div className="h-full min-h-[420px] overflow-hidden rounded-2xl border border-sand">
+            <iframe
+              title={`Map to ${business.name} in West Boylston, MA`}
+              src={mapSrc}
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+              className="size-full"
+            />
+          </div>
+        </Reveal>
+      </div>
+    </Section>
+  );
+}
