@@ -8,7 +8,10 @@ import { LiveHours } from "@/components/LiveHours";
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[100dvh] items-start overflow-hidden pt-4">
+    <section
+      id="home-hero"
+      className="relative flex min-h-[100dvh] items-start overflow-hidden pt-4"
+    >
       {/* Warm wash anchoring the type side */}
       <div
         aria-hidden
