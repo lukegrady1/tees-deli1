@@ -11,17 +11,17 @@ export function HoursLocation() {
 
   return (
     <Section id="visit" tone="paper">
-      <Reveal className="mb-10 max-w-2xl">
+      <Reveal className="mb-6 max-w-2xl sm:mb-10">
         <Eyebrow>Hours &amp; location</Eyebrow>
         <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
           Find us in West Boylston.
         </h2>
       </Reveal>
 
-      <div className="grid gap-8 lg:grid-cols-2">
-        <Reveal className="flex flex-col gap-6">
+      <div className="grid gap-4 sm:gap-8 lg:grid-cols-2">
+        <Reveal className="flex flex-col gap-4 sm:gap-6">
           {/* Hours */}
-          <div className="rounded-2xl border border-sand bg-card p-6">
+          <div className="rounded-2xl border border-sand bg-card p-5 sm:p-6">
             <h3 className="flex items-center gap-2 font-display text-xl font-semibold">
               <Clock weight="thin" className="size-5 text-clay" aria-hidden />
               Hours
@@ -53,7 +53,7 @@ export function HoursLocation() {
           </div>
 
           {/* Location */}
-          <div className="rounded-2xl border border-sand bg-card p-6">
+          <div className="rounded-2xl border border-sand bg-card p-5 sm:p-6">
             <h3 className="flex items-center gap-2 font-display text-xl font-semibold">
               <MapPin weight="thin" className="size-5 text-clay" aria-hidden />
               Location
@@ -80,7 +80,7 @@ export function HoursLocation() {
 
         {/* Map */}
         <Reveal delay={0.1}>
-          <div className="h-full min-h-[420px] overflow-hidden rounded-2xl border border-sand">
+          <div className="h-full min-h-[240px] overflow-hidden rounded-2xl border border-sand sm:min-h-[420px]">
             <iframe
               title={`Map to ${business.name} in West Boylston, MA`}
               src={mapSrc}

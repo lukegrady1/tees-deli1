@@ -26,7 +26,7 @@ export async function DailySpecials({
 
   return (
     <Section id="specials" tone={tone}>
-      <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div className="grid items-center gap-6 sm:gap-10 lg:grid-cols-2 lg:gap-16">
         <Reveal>
           <Eyebrow>Daily specials</Eyebrow>
           <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
@@ -42,7 +42,7 @@ export async function DailySpecials({
               Latest flyer: {flyer.postedLabel}
             </p>
           )}
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-5 flex flex-col gap-3 sm:mt-7 sm:flex-row sm:items-center">
             <Button
               href={business.links.facebook}
               external
@@ -60,7 +60,10 @@ export async function DailySpecials({
         </Reveal>
 
         <Reveal delay={0.08}>
-          <figure className="mx-auto w-full max-w-sm">
+          {/* The flyer is the whole point of this section and the one thing that
+              changes daily — give it room. Full width on phones, larger than the
+              old max-w-sm from sm up. */}
+          <figure className="mx-auto w-full max-w-sm sm:max-w-md lg:max-w-lg">
             {flyer ? (
               <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-sand bg-card shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]">
                 {/* A posted flyer is served by a route handler rather than from

@@ -8,7 +8,7 @@ export function SocialProof() {
   const { reputation } = business;
   return (
     <Section tone="espresso">
-      <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+      <div className="grid gap-8 sm:gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-clay">
             Trusted locally
@@ -24,7 +24,7 @@ export function SocialProof() {
           </p>
         </Reveal>
 
-        <Reveal delay={0.1} className="grid gap-6">
+        <Reveal delay={0.1} className="grid gap-5 sm:gap-6">
           <div className="flex items-baseline gap-4 border-b border-paper/10 pb-6">
             <span className="font-display text-5xl font-semibold text-paper">
               {reputation.recommendRate}

@@ -115,7 +115,7 @@ export function QuoteForm() {
       noValidate
       className="rounded-2xl border border-sand bg-card p-6 sm:p-8"
     >
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
         <Labeled id={`${uid}-name`} label="Name" error={errors.name}>
           <input
             id={`${uid}-name`}
@@ -206,7 +206,7 @@ export function QuoteForm() {
         </Labeled>
       </div>
 
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+      <div className="mt-5 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:items-center">
         <Button type="submit" size="lg" disabled={submitting}>
           <PaperPlaneTilt weight="regular" className="size-4" aria-hidden />
           {submitting ? "Sending…" : "Request my quote"}

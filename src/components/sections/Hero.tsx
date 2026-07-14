@@ -17,7 +17,7 @@ export function Hero() {
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(80%_60%_at_15%_20%,rgba(181,84,59,0.06),transparent_60%)]"
       />
-      <Container className="grid items-start gap-12 pb-16 pt-4 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+      <Container className="grid items-start gap-6 pb-10 pt-4 sm:gap-12 sm:pb-16 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
         <div className="max-w-xl">
           {/* Location tag: hidden on phones, shown on tablet/desktop (sm+).
               Hidden via the wrapper since the badge itself is inline-flex. */}

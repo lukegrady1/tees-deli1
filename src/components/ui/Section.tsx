@@ -33,7 +33,9 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "relative scroll-mt-28 py-16 sm:py-24",
+        // Tighter vertical rhythm on phones so sections don't each eat a
+        // screen; sm+ keeps the original desktop spacing untouched.
+        "relative scroll-mt-28 py-10 sm:py-24",
         toneClass[tone],
         className,
       )}
