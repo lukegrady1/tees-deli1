@@ -61,6 +61,18 @@ export const metadata: Metadata = {
     images: [`${SITE_URL}/breakfast-pizza.webp`],
   },
   alternates: { canonical: "/" },
+  // Icons live in /public (from the generated favicon set). Declaring them here
+  // rather than as hand-written <link> tags lets Next emit them into <head> and
+  // keeps them right under basePath/metadataBase changes.
+  icons: {
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
