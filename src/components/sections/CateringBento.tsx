@@ -12,8 +12,6 @@ import { cn } from "@/lib/cn";
  * Six equal tiles, with the title laid over the photo rather than stacked under
  * it — the whole section fits on roughly one screen, so nobody has to scroll to
  * find out what we cater. Two columns on phones, three from lg.
- *
- * Breakfast Pizza is flagged with a clay label — never a colored fill.
  */
 export function CateringBento({ withHeading = true }: { withHeading?: boolean }) {
   return (
@@ -63,12 +61,6 @@ export function CateringBento({ withHeading = true }: { withHeading?: boolean })
                 aria-hidden
                 className="absolute inset-0 bg-gradient-to-t from-espresso via-espresso/60 via-35% to-transparent to-70%"
               />
-
-              {o.featured && (
-                <span className="absolute right-3 top-3 rounded-full border border-paper/40 bg-espresso/40 px-2 py-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-paper backdrop-blur-sm">
-                  Signature
-                </span>
-              )}
 
               <div className="relative w-full p-4">
                 <h3 className="font-display text-base font-semibold leading-tight text-paper sm:text-lg">

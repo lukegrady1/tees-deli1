@@ -99,7 +99,6 @@ export type CateringOffering = {
   slug: string;
   title: string;
   blurb: string; // short copy for the bento grid
-  featured?: boolean;
   /**
    * Photo for this offering's tile in the bento grid (homepage + /catering).
    * Omit it and the tile renders the designed placeholder instead of a broken
@@ -461,7 +460,6 @@ export const cateringOfferings: CateringOffering[] = [
     slug: "breakfast-pizza",
     title: "Breakfast Pizza",
     blurb: "Our signature half-sheet focaccia pizza — feeds 8–12.",
-    featured: true,
     cardImage: "/breakfast-pizza.webp",
     // Has its own dedicated page at /catering/breakfast-pizza (no generic detail).
   },
