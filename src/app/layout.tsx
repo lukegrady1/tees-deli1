@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { MobileActionBar } from "@/components/MobileActionBar";
-import { ScrollToTop } from "@/components/ScrollToTop";
-import { LocalBusinessJsonLd } from "@/components/JsonLd";
 import { business, SITE_URL } from "@/lib/business";
 
 // Display — warm soft serif, moderate weights (restrained, not loud).
@@ -76,16 +71,10 @@ export default function RootLayout({
       lang="en"
       className={`${fraunces.variable} ${hanken.variable} h-full antialiased`}
     >
-      {/* grain adds subtle paper atmosphere; pb on small screens reserves room
-          for the persistent mobile action bar so it never overlaps content. */}
-      <body className="grain flex min-h-full flex-col pb-20 lg:pb-0">
-        <LocalBusinessJsonLd />
-        <ScrollToTop />
-        <Header />
-        <main className="relative z-10 flex-1">{children}</main>
-        <Footer />
-        <MobileActionBar />
-      </body>
+      {/* Shell only — grain adds subtle paper atmosphere. The site's header,
+          footer and mobile action bar live in the (site) layout so they don't
+          follow the owner into /admin. */}
+      <body className="grain flex min-h-full flex-col">{children}</body>
     </html>
   );
 }

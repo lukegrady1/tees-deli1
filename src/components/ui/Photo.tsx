@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { ForkKnife } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "@/lib/cn";
-import { asset } from "@/lib/basePath";
 
 /**
  * Framed photo slot. Pass `src` to show a real image (object-cover within the
@@ -38,7 +37,7 @@ export function Photo({
         )}
       >
         <Image
-          src={asset(src)}
+          src={src}
           alt={label}
           fill
           sizes={sizes ?? "(max-width: 768px) 100vw, 50vw"}

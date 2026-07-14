@@ -1,0 +1,9 @@
+# The site is a server-rendered Next.js app (it was a static export while it
+# lived on GitHub Pages). Netlify auto-installs its Next.js Runtime, which needs
+# the publish directory to be .next — not the old ./out.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"

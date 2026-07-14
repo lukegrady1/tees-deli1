@@ -8,7 +8,6 @@ import {
   getOffering,
   SITE_URL,
 } from "@/lib/business";
-import { asset } from "@/lib/basePath";
 import { PageHero } from "@/components/PageHero";
 import { Section, Eyebrow } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
@@ -302,7 +301,7 @@ export default async function CateringOfferingPage({ params }: Params) {
                 <figure>
                   <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-sand bg-card shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]">
                     <Image
-                      src={asset(d.flyer.image)}
+                      src={d.flyer.image}
                       alt={d.flyer.alt}
                       fill
                       sizes="(max-width: 1024px) 92vw, 560px"

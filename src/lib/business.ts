@@ -734,15 +734,12 @@ export const heroDeliItems: MenuItem[] = [
 ];
 
 /**
- * Daily / weekly specials flyer — the same flyer they post on Facebook.
+ * FALLBACK specials flyer only.
  *
- * TO PUBLISH A NEW FLYER:
- *   1. Drop the flyer image into /public (e.g. /public/specials/2026-06-16.jpg)
- *   2. Set `image` to that path (e.g. "/specials/2026-06-16.jpg")
- *   3. Update `alt` and `postedLabel`
- * Set `image` back to null to show the "no flyer posted" placeholder.
- *
- * (No upload backend is wired yet — this is a content slot ready for one.)
+ * The live flyer is whatever the owner last posted at /admin — it's stored in
+ * Netlify Blobs and always wins over this (see lib/specials.ts). This is what
+ * the homepage shows before he has ever posted one, or if he takes his down.
+ * Set `image` to null to show the "no flyer posted" placeholder instead.
  */
 export const dailySpecial: {
   image: string | null;
@@ -754,5 +751,12 @@ export const dailySpecial: {
   postedLabel: "June 15",
 };
 
-// Live GitHub Pages URL (project site). Update if a custom domain is added.
-export const SITE_URL = "https://lukegrady1.github.io/tees-deli1";
+/**
+ * Canonical site URL, used for metadata, sitemap, robots and JSON-LD.
+ * Set NEXT_PUBLIC_SITE_URL in Netlify to the live domain — Netlify's own `URL`
+ * covers deploys until then. Keep this in sync when a custom domain is added.
+ */
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  process.env.URL ??
+  "http://localhost:3000";

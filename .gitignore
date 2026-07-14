@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local Netlify folder
+.netlify
+# Written by `netlify dev` when it boots the Edge Functions runtime
+deno.lock
