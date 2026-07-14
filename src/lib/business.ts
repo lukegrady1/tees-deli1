@@ -393,14 +393,7 @@ export const cateringOfferings: CateringOffering[] = [
  * Real TEE's photos only (their Facebook is the source); stock food shots
  * misrepresent what customers actually get.
  */
-export const sitePhotos: Record<
-  "deliSandwich" | "boxedLunches",
-  string | undefined
-> = {
-  // Homepage deli strip. Wants: a made-to-order sandwich, close up.
-  // Suggested filename: /public/deli-sandwich.webp
-  deliSandwich: undefined,
-
+export const sitePhotos: Record<"boxedLunches", string | undefined> = {
   // /catering "Boxed lunches built for game day".
   // Wants: boxed lunches packed/labeled for a team.
   // Suggested filename: /public/boxed-lunches.webp
@@ -758,22 +751,6 @@ export const menu: { breakfast: MenuGroup[]; lunch: MenuGroup[] } = {
     },
   ],
 };
-
-/** A few hero deli items for the homepage deli strip (real menu items). */
-export const heroDeliItems: MenuItem[] = [
-  {
-    name: "The Rocket",
-    desc: "House special — grilled chicken, bacon, sweet capicola & roasted red peppers",
-  },
-  {
-    name: "Shaved Steak Bomb",
-    desc: "American cheese, peppers, onions & mushrooms",
-  },
-  {
-    name: "Chicken Cheddar Melt",
-    desc: "Grilled chicken, bacon, ranch & cheddar",
-  },
-];
 
 /**
  * FALLBACK specials flyer only.
