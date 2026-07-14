@@ -1,5 +1,5 @@
 import { ArrowRight, ForkKnife } from "@phosphor-icons/react/dist/ssr";
-import { business, heroDeliItems } from "@/lib/business";
+import { business, heroDeliItems, sitePhotos } from "@/lib/business";
 import { Section, Eyebrow } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { Photo } from "@/components/ui/Photo";
@@ -11,7 +11,12 @@ export function DeliStrip() {
     <Section tone="sand">
       <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-16">
         <Reveal>
-          <Photo label="Made-to-order deli sandwich, fresh off the grill" ratio="4/3" />
+          <Photo
+            label="Made-to-order deli sandwich, fresh off the grill"
+            src={sitePhotos.deliSandwich}
+            sizes="(max-width: 1024px) 92vw, 45vw"
+            ratio="4/3"
+          />
         </Reveal>
 
         <Reveal delay={0.08}>

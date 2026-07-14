@@ -46,6 +46,12 @@ export function CateringBento({ withHeading = true }: { withHeading?: boolean })
               >
                 <Photo
                   label={o.title}
+                  src={o.cardImage}
+                  sizes={
+                    large
+                      ? "(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 66vw"
+                      : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  }
                   ratio={large ? "3/2" : "16/9"}
                   className="rounded-none border-0"
                 />

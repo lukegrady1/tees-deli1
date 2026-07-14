@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Check } from "@phosphor-icons/react/dist/ssr";
-import { business, cateringCategories, bbqEvents } from "@/lib/business";
+import {
+  business,
+  cateringCategories,
+  bbqEvents,
+  sitePhotos,
+} from "@/lib/business";
 import { PageHero } from "@/components/PageHero";
 import { Section, Eyebrow } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
@@ -78,6 +83,8 @@ export default function CateringPage() {
           <Reveal>
             <Photo
               label="Custom boxed lunches, packed and labeled for a visiting team"
+              src={sitePhotos.boxedLunches}
+              sizes="(max-width: 1024px) 92vw, 45vw"
               ratio="4/3"
             />
           </Reveal>

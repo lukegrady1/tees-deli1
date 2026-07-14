@@ -102,6 +102,12 @@ export type CateringOffering = {
   span?: "large";
   featured?: boolean;
   /**
+   * Photo for this offering's tile in the bento grid (homepage + /catering).
+   * Omit it and the tile renders the designed placeholder instead of a broken
+   * image — so only set this once the file actually exists in /public.
+   */
+  cardImage?: string;
+  /**
    * Detail content for the offering's own page at /catering/<slug>.
    * Breakfast Pizza has a dedicated, hand-built page instead, so it omits this.
    */
@@ -135,6 +141,9 @@ export const cateringOfferings: CateringOffering[] = [
     blurb:
       "Hot or cold spreads for meetings and offices, delivered and set up across the Worcester area.",
     span: "large",
+    // NEEDS A PHOTO — this is the big bento tile, the most prominent one on the
+    // homepage. Wants an office luncheon spread. Save as /public/corporate-lunch.webp
+    // and set: cardImage + detail.heroImage.
     detail: {
       eyebrow: "Corporate catering",
       intro:
@@ -176,6 +185,9 @@ export const cateringOfferings: CateringOffering[] = [
     title: "College Team Boxed Lunches",
     blurb:
       "The go-to for home and visiting teams — quality, price, and prompt service.",
+    // NEEDS A PHOTO — boxed lunches packed and labeled for a team. Save as
+    // /public/boxed-lunches.webp and set: cardImage, detail.heroImage, and
+    // sitePhotos.boxedLunches (the /catering page uses the same shot).
     detail: {
       eyebrow: "For the teams",
       intro:
@@ -212,6 +224,7 @@ export const cateringOfferings: CateringOffering[] = [
     title: "Company & Family Barbecues",
     blurb:
       "Full-service cookouts for staff appreciation days and family gatherings.",
+    cardImage: "/technetics-family-bbq2.webp",
     detail: {
       eyebrow: "Cookouts",
       intro:
@@ -278,6 +291,8 @@ export const cateringOfferings: CateringOffering[] = [
     slug: "graduations-reunions",
     title: "Graduations & Reunions",
     blurb: "Graduation parties and class reunions handled end to end.",
+    // A real graduation TEE's catered — already in /public, previously unused.
+    cardImage: "/curran-graduation-bbq.webp",
     detail: {
       eyebrow: "Celebrations",
       intro:
@@ -306,6 +321,7 @@ export const cateringOfferings: CateringOffering[] = [
         "Milestone celebrations",
         "Family events",
       ],
+      heroImage: "/curran-graduation-bbq.webp",
     },
   },
   {
@@ -313,6 +329,9 @@ export const cateringOfferings: CateringOffering[] = [
     title: "Bereavement Meals",
     blurb:
       "Thoughtful, fuss-free spreads delivered when families need them most.",
+    // NEEDS A PHOTO — a quiet, simple luncheon spread. Read the room on this
+    // one: nothing celebratory. Save as /public/bereavement-spread.webp and set:
+    // cardImage + detail.heroImage. (The printed menu flyer is already wired.)
     detail: {
       eyebrow: "With care",
       intro:
@@ -361,9 +380,32 @@ export const cateringOfferings: CateringOffering[] = [
     title: "Breakfast Pizza",
     blurb: "Our signature half-sheet focaccia pizza — feeds 8–12.",
     featured: true,
+    cardImage: "/breakfast-pizza.webp",
     // Has its own dedicated page at /catering/breakfast-pizza (no generic detail).
   },
 ];
+
+/**
+ * Photos for the slots that aren't tied to a catering offering.
+ *
+ * TO ADD ONE: drop the image in /public, then set the path here. Leave a value
+ * undefined and the designed placeholder renders instead — never a broken image.
+ * Real TEE's photos only (their Facebook is the source); stock food shots
+ * misrepresent what customers actually get.
+ */
+export const sitePhotos: Record<
+  "deliSandwich" | "boxedLunches",
+  string | undefined
+> = {
+  // Homepage deli strip. Wants: a made-to-order sandwich, close up.
+  // Suggested filename: /public/deli-sandwich.webp
+  deliSandwich: undefined,
+
+  // /catering "Boxed lunches built for game day".
+  // Wants: boxed lunches packed/labeled for a team.
+  // Suggested filename: /public/boxed-lunches.webp
+  boxedLunches: undefined,
+};
 
 /** Look up an offering by slug. */
 export function getOffering(slug: string): CateringOffering | undefined {
