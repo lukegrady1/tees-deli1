@@ -131,6 +131,22 @@ export const bbqEvents: { image: string; caption: string }[] = [
   },
   { image: "/premier-optical-bbq.webp", caption: "Premier Optical company BBQ" },
   { image: "/technetics-family-bbq.webp", caption: "Technetics family BBQ" },
+  {
+    image: "/chicken-kabobs-grill.webp",
+    caption: "Chicken kabobs over the grill",
+  },
+  {
+    image: "/tees-tent-backyard.webp",
+    caption: "Our tent up for a backyard cookout",
+  },
+  {
+    image: "/bbq-staff-grilling.webp",
+    caption: "Our crew on the grill, mid-service",
+  },
+  {
+    image: "/bbq-grill-setup-lawn.webp",
+    caption: "Grill, griddle and tent, set up on the lawn",
+  },
 ];
 
 /** Catering offerings — power the bento grid AND each offering's own page. */
@@ -141,9 +157,7 @@ export const cateringOfferings: CateringOffering[] = [
     blurb:
       "Hot or cold spreads for meetings and offices, delivered and set up across the Worcester area.",
     span: "large",
-    // NEEDS A PHOTO — this is the big bento tile, the most prominent one on the
-    // homepage. Wants an office luncheon spread. Save as /public/corporate-lunch.webp
-    // and set: cardImage + detail.heroImage.
+    cardImage: "/office-buffet-line.webp",
     detail: {
       eyebrow: "Corporate catering",
       intro:
@@ -178,6 +192,33 @@ export const cateringOfferings: CateringOffering[] = [
         "Training days",
         "All-hands & early starts",
       ],
+      heroImage: "/office-buffet-line.webp",
+      gallery: [
+        {
+          image: "/sandwich-wrap-platters.webp",
+          caption: "Sandwich and wrap platters for a cold luncheon",
+        },
+        {
+          image: "/chicken-broccoli-rice-trays.webp",
+          caption: "Hot trays — chicken, broccoli and rice",
+        },
+        {
+          image: "/sausage-peppers-trays.webp",
+          caption: "Sausage, peppers and onions, ready to travel",
+        },
+        {
+          image: "/meatball-trays.webp",
+          caption: "Meatball trays for a hot buffet",
+        },
+        {
+          image: "/antipasto-platter.webp",
+          caption: "Antipasto platter",
+        },
+        {
+          image: "/seafood-salad-rolls-platter.webp",
+          caption: "Seafood salad rolls, platter-ready",
+        },
+      ],
     },
   },
   {
@@ -185,9 +226,7 @@ export const cateringOfferings: CateringOffering[] = [
     title: "College Team Boxed Lunches",
     blurb:
       "The go-to for home and visiting teams — quality, price, and prompt service.",
-    // NEEDS A PHOTO — boxed lunches packed and labeled for a team. Save as
-    // /public/boxed-lunches.webp and set: cardImage, detail.heroImage, and
-    // sitePhotos.boxedLunches (the /catering page uses the same shot).
+    cardImage: "/boxed-lunches-stacked.webp",
     detail: {
       eyebrow: "For the teams",
       intro:
@@ -216,6 +255,33 @@ export const cateringOfferings: CateringOffering[] = [
         "Game-day travel",
         "Tournaments & meets",
         "Team meals",
+      ],
+      heroImage: "/boxed-lunches-open.webp",
+      gallery: [
+        {
+          image: "/team-meals-containers.webp",
+          caption: "Individual hot meals — pasta, rice and grilled chicken",
+        },
+        {
+          image: "/boxed-salads-grilled-chicken.webp",
+          caption: "Grilled chicken salads, boxed with dressing and cutlery",
+        },
+        {
+          image: "/team-meals-boxed-lineup.webp",
+          caption: "Boxed meals and salads lined up for a team",
+        },
+        {
+          image: "/bagged-lunches-rows.webp",
+          caption: "Bagged lunches, ready for pickup",
+        },
+        {
+          image: "/bagged-lunches-tables.webp",
+          caption: "A full team's worth of bagged lunches",
+        },
+        {
+          image: "/college-tailgate-grills.webp",
+          caption: "Game-day tailgate, grills fired up",
+        },
       ],
     },
   },
@@ -322,6 +388,24 @@ export const cateringOfferings: CateringOffering[] = [
         "Family events",
       ],
       heroImage: "/curran-graduation-bbq.webp",
+      gallery: [
+        {
+          image: "/graduation-party-2023.webp",
+          caption: "Graduation party, tented for the rain",
+        },
+        {
+          image: "/graduation-party-tent.webp",
+          caption: "Grad party setup in the backyard",
+        },
+        {
+          image: "/garden-party-buffet.webp",
+          caption: "Garden party buffet, guests served",
+        },
+        {
+          image: "/tees-tents-backyard-party.webp",
+          caption: "Two tents up for a backyard celebration",
+        },
+      ],
     },
   },
   {
@@ -329,9 +413,8 @@ export const cateringOfferings: CateringOffering[] = [
     title: "Bereavement Meals",
     blurb:
       "Thoughtful, fuss-free spreads delivered when families need them most.",
-    // NEEDS A PHOTO — a quiet, simple luncheon spread. Read the room on this
-    // one: nothing celebratory. Save as /public/bereavement-spread.webp and set:
-    // cardImage + detail.heroImage. (The printed menu flyer is already wired.)
+    // Deliberately a quiet, plain platter shot — nothing celebratory here.
+    cardImage: "/sandwich-wrap-platters.webp",
     detail: {
       eyebrow: "With care",
       intro:
@@ -356,6 +439,7 @@ export const cateringOfferings: CateringOffering[] = [
       ],
       includes: ["Bereavement meals"],
       useCases: ["Receptions", "Family gatherings", "Short-notice needs"],
+      heroImage: "/sandwich-wrap-platters.webp",
       flyer: {
         image: "/bereavement-meals.webp",
         alt: "Printed TEE's Deli bereavement meals menu and pricing sheet.",
@@ -395,9 +479,7 @@ export const cateringOfferings: CateringOffering[] = [
  */
 export const sitePhotos: Record<"boxedLunches", string | undefined> = {
   // /catering "Boxed lunches built for game day".
-  // Wants: boxed lunches packed/labeled for a team.
-  // Suggested filename: /public/boxed-lunches.webp
-  boxedLunches: undefined,
+  boxedLunches: "/team-meals-boxed-lineup.webp",
 };
 
 /** Look up an offering by slug. */
