@@ -12,7 +12,10 @@ export function LocalBusinessJsonLd() {
     "@type": "Restaurant",
     "@id": `${SITE_URL}/#business`,
     name: business.name,
+    // schema.org wants these as separate things: `image` is a photo Google can
+    // show in rich results (a logo makes a poor one), `logo` is the mark itself.
     image: `${SITE_URL}/breakfast-pizza.webp`,
+    logo: `${SITE_URL}/og-image.png`,
     url: SITE_URL,
     telephone: business.phone.display,
     email: business.email,

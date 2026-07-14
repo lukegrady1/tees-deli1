@@ -43,13 +43,16 @@ export const metadata: Metadata = {
     description:
       "Full-service catering and a fresh deli serving the Greater Worcester area.",
     url: SITE_URL,
-    // Absolute URLs so they resolve correctly under the Pages subpath.
+    // og-image.png, not the logo file itself: the logo is a transparent WebP,
+    // and transparency renders black in most chat clients. This is the logo
+    // composited on the paper background at the 1200x630 that platforms crop to.
+    // Absolute URLs so scrapers, which don't resolve relative paths, can fetch it.
     images: [
       {
-        url: `${SITE_URL}/breakfast-pizza.webp`,
-        width: 1796,
-        height: 1318,
-        alt: `${business.name} — signature Breakfast Pizza`,
+        url: `${SITE_URL}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: business.name,
       },
     ],
   },
@@ -58,7 +61,7 @@ export const metadata: Metadata = {
     title: `${business.name}`,
     description:
       "Full-service catering and a fresh deli serving the Greater Worcester area.",
-    images: [`${SITE_URL}/breakfast-pizza.webp`],
+    images: [`${SITE_URL}/og-image.png`],
   },
   alternates: { canonical: "/" },
   // Icons live in /public (from the generated favicon set). Declaring them here
