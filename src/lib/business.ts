@@ -99,7 +99,6 @@ export type CateringOffering = {
   slug: string;
   title: string;
   blurb: string; // short copy for the bento grid
-  span?: "large";
   featured?: boolean;
   /**
    * Photo for this offering's tile in the bento grid (homepage + /catering).
@@ -156,7 +155,6 @@ export const cateringOfferings: CateringOffering[] = [
     title: "Corporate Breakfast & Lunch",
     blurb:
       "Hot or cold spreads for meetings and offices, delivered and set up across the Worcester area.",
-    span: "large",
     cardImage: "/office-buffet-line.webp",
     detail: {
       eyebrow: "Corporate catering",

@@ -1,4 +1,4 @@
-import { MapPin, Phone, Clock, Info } from "@phosphor-icons/react/dist/ssr";
+import { MapPin, Phone, Clock } from "@phosphor-icons/react/dist/ssr";
 import { business, hours } from "@/lib/business";
 import { Section, Eyebrow } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
@@ -68,11 +68,6 @@ export function HoursLocation() {
                 {business.address.full}
               </a>
             </address>
-            <p className="mt-3 flex items-start gap-2 rounded-xl bg-sand/70 p-3 text-sm text-stone">
-              <Info weight="regular" className="mt-0.5 size-4 shrink-0 text-clay" aria-hidden />
-              We moved from {business.formerAddress} — some maps still show the
-              old, closed address. This West Boylston location is the only one.
-            </p>
             <a
               href={`tel:${business.phone.tel}`}
               className="mt-4 inline-flex items-center gap-2 font-medium text-clay underline-offset-4 hover:underline"
