@@ -64,6 +64,11 @@ export const metadata: Metadata = {
     images: [`${SITE_URL}/og-image.png`],
   },
   alternates: { canonical: "/" },
+  // Google Search Console site ownership. Next emits this as a
+  // <meta name="google-site-verification"> tag in <head>.
+  verification: {
+    google: "b3TiZVO8pYcFW3SBowNdk9g_zb_dyGGaFRHx6_O4jTA",
+  },
   // Icons live in /public (from the generated favicon set). Declaring them here
   // rather than as hand-written <link> tags lets Next emit them into <head> and
   // keeps them right under basePath/metadataBase changes.
