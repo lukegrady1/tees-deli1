@@ -10,6 +10,17 @@ const nextConfig: NextConfig = {
     // downscaled in the browser first, but leave headroom for a big one.
     serverActions: { bodySizeLimit: "6mb" },
   },
+  async redirects() {
+    return [
+      {
+        // Old bookmarks / links to the static index.html land on the homepage.
+        // The dot is escaped so it's matched literally, not as a wildcard.
+        source: "/index\\.html",
+        destination: "/",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
