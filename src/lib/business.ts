@@ -58,6 +58,29 @@ export const hours = {
   },
 } as const;
 
+/**
+ * Time-boxed service notice, shown at the top of the homepage until `until`
+ * passes — then it stops rendering on its own, so it can't linger past the
+ * closure and turn away customers once the deli is back to normal.
+ *
+ * `until` is an absolute instant with an explicit Eastern offset: the shop and
+ * its customers are in Massachusetts but Netlify's servers run UTC, so "end of
+ * July" has to be pinned to local time or the notice would vanish at 8pm on the
+ * 31st. The homepage revalidates every 60s, so expiry lands within the minute.
+ *
+ * TO EXTEND: move `until`. TO TAKE IT DOWN EARLY: set `body` to null.
+ * Verbatim from the owner's Facebook post of July 14, 2026.
+ */
+export const serviceNotice: {
+  body: string | null;
+  signature: string;
+  until: string;
+} = {
+  body: "Hi everyone! Please be advised that for the remainder of the month of July we will only be available for pre-scheduled catering jobs and events. Walk-in, call ahead and online ordering will not be available. Thank you for your understanding and continued patronage.",
+  signature: "Tom",
+  until: "2026-08-01T00:00:00-04:00",
+};
+
 export type NavItem = { label: string; href: string; external?: boolean };
 
 export const nav: NavItem[] = [

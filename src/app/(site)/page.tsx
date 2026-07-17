@@ -1,3 +1,4 @@
+import { ServiceNotice } from "@/components/ServiceNotice";
 import { Hero } from "@/components/sections/Hero";
 import { CateringBento } from "@/components/sections/CateringBento";
 import { SocialProof } from "@/components/sections/SocialProof";
@@ -16,6 +17,7 @@ export const revalidate = 60;
 export default function Home() {
   return (
     <>
+      <ServiceNotice />
       <Hero />
       <CateringBento />
       <SocialProof />
