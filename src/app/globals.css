@@ -11,8 +11,11 @@
   /* Color tokens */
   --color-paper: #faf8f3; /* warm off-white page background */
   --color-espresso: #211c17; /* primary text + deep trust blocks */
-  --color-clay: #b5543b; /* the single accent — CTAs + key links */
-  --color-clay-deep: #9c4530; /* clay hover/pressed */
+  /* The single accent — CTAs + key links. Sampled from the red in the TEE's
+     logo so the accent and the mark are the same red. Still the ONE accent:
+     the neutrals carry the page (see DESIGN.md §"Color tokens"). */
+  --color-clay: #e2011b;
+  --color-clay-deep: #bc0116; /* clay hover/pressed */
   --color-stone: #6b645b; /* muted/secondary text */
   --color-sand: #efe9df; /* subtle fills, dividers, thin borders */
   --color-card: #ffffff; /* cards */

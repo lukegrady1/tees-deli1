@@ -105,18 +105,18 @@ Confirm Tailwind v4 is set up correctly before styling.
 ## 4. Design system (THIS is what differs from the bright variant)
 
 ### Color tokens — warm neutrals + ONE accent
-Pull color out of the UI almost entirely. A warm paper-and-espresso neutral system does the structural work; a single muted terracotta accent is reserved for action only. Deep "trust" sections use espresso — **not** a colored block.
+Pull color out of the UI almost entirely. A warm paper-and-espresso neutral system does the structural work; a single accent — the red from the TEE's logo — is reserved for action only. Deep "trust" sections use espresso — **not** a colored block.
 
 | Token | Hex | Use |
 |---|---|---|
 | `--paper` | `#FAF8F3` | Page background (warm off-white) |
 | `--espresso` | `#211C17` | Primary text + deep "trust" blocks |
-| `--clay` | `#B5543B` | **The one accent** — primary CTAs and key links only |
+| `--clay` | `#E2011B` | **The one accent** — primary CTAs and key links only. Sampled from the logo red. (Was muted terracotta `#B5543B` — swapped so the accent matches the mark.) |
 | `--stone` | `#6B645B` | Muted/secondary text |
 | `--sand` | `#EFE9DF` | Subtle section fills, dividers, thin card borders |
 | `--card` | `#FFFFFF` | Cards |
 
-**Color logic:** Neutrals carry ~95% of the page. Clay appears only where you want a click. The deep sections that would be colored elsewhere are espresso here — same trust/contrast effect, zero added hue. **No green, no yellow.** Verify contrast: clay-on-paper and paper-on-espresso must pass WCAG AA.
+**Color logic:** Neutrals carry ~95% of the page. Clay appears only where you want a click. The deep sections that would be colored elsewhere are espresso here — same trust/contrast effect, zero added hue. **No green, no yellow.** Verify contrast: clay-on-paper and paper-on-espresso must pass WCAG AA. (Logo red `#E2011B` measures 4.65:1 against paper — AA-passing, but there is little headroom, so deepen rather than brighten if it ever moves.)
 
 > **Optional swap** if a cooler/more "catering-credible" accent is preferred: replace `--clay` with muted pine `#3A5145`. Use one accent only — never both.
 
