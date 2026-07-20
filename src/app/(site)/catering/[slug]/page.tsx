@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Check, ArrowRight, Phone } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, Phone } from "@phosphor-icons/react/dist/ssr";
 import {
   business,
   cateringOfferings,
@@ -46,18 +46,17 @@ export default async function CateringOfferingPage({ params }: Params) {
   if (!o?.detail) notFound();
   const d = o.detail;
   const hasMenu = Boolean(d.flyers?.length || d.pricing);
+  const sideBySideFlyers = (d.flyers?.length ?? 0) > 1;
 
-  // Menu & pricing leads: it's what people come to these pages for, so it sits
-  // directly under the hero and the supporting sections follow. Whichever
-  // section lands first stays paper and sits flush against the hero (pt-0);
-  // everything after it alternates sand/paper. These must be assigned in
-  // render order — `nextTone` advances on each call.
+  // These pages are the owner's flyers plus his own words — the menu leads,
+  // real photos follow, and nothing here is invented marketing copy.
+  // Whichever section lands first sits flush against the hero (pt-0) and stays
+  // paper; the rest alternate. Assigned in render order — `nextTone` advances
+  // on each call.
   let toneStep = 0;
   const nextTone = (): "sand" | "paper" =>
     toneStep++ % 2 === 0 ? "sand" : "paper";
-  const highlightsTone = hasMenu ? nextTone() : ("paper" as const);
-  const galleryTone = d.gallery ? nextTone() : undefined;
-  const includesTone = nextTone();
+  const galleryTone = hasMenu ? nextTone() : ("paper" as const);
   const moreTone = nextTone();
   const quoteTone = nextTone();
 
@@ -115,7 +114,16 @@ export default async function CateringOfferingPage({ params }: Params) {
             </p>
           </Reveal>
 
-          <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
+          {/* One flyer sits beside the price card. Two or more take the full
+              width side by side instead, with the price card stacked above —
+              sharing a half-width column would render each sheet too small to
+              read, which is the whole point of showing them. */}
+          <div
+            className={cn(
+              "grid items-start gap-8 lg:gap-12",
+              !sideBySideFlyers && "lg:grid-cols-2",
+            )}
+          >
             {d.pricing && (
               <Reveal>
                 <div className="rounded-2xl border border-sand bg-card p-6 sm:p-8">
@@ -184,16 +192,10 @@ export default async function CateringOfferingPage({ params }: Params) {
             )}
 
             {d.flyers && d.flyers.length > 0 && (
-              // With a pricing card alongside, the flyers share the right-hand
-              // column and stack. With no pricing card they own the full width,
-              // so multiple sheets sit side by side instead of running down a
-              // half-width column at half the legible size.
               <div
                 className={cn(
                   "grid gap-8",
-                  !d.pricing &&
-                    d.flyers.length > 1 &&
-                    "lg:col-span-2 lg:grid-cols-2 lg:gap-12",
+                  sideBySideFlyers && "lg:grid-cols-2 lg:gap-12",
                 )}
               >
                 {d.flyers.map((f, i) => (
@@ -220,57 +222,17 @@ export default async function CateringOfferingPage({ params }: Params) {
         </Section>
       )}
 
-      {/* Photo + highlights */}
-      <Section
-        tone={highlightsTone}
-        className={hasMenu ? undefined : "pt-0"}
-      >
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <Reveal>
-            <Photo
-              label={d.photoLabel}
-              src={d.heroImage}
-              sizes="(max-width: 1024px) 92vw, 560px"
-              ratio="4/3"
-              className="shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]"
-            />
-          </Reveal>
-          <Reveal delay={0.08}>
-            <Eyebrow>Why it works</Eyebrow>
-            <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
-              What you get.
-            </h2>
-            <ul className="mt-6 space-y-5">
-              {d.highlights.map((h) => (
-                <li key={h.title} className="flex items-start gap-3">
-                  <span
-                    aria-hidden
-                    className="mt-1.5 size-2 shrink-0 rounded-full bg-clay"
-                  />
-                  <div>
-                    <p className="font-medium text-espresso">{h.title}</p>
-                    <p className="mt-0.5 text-sm leading-relaxed text-stone">
-                      {h.body}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
-      </Section>
-
       {/* Real event gallery, when available */}
       {d.gallery && d.gallery.length > 0 && (
         <Section tone={galleryTone}>
+          {/* No blurb here — the strapline used to talk about cookouts, which
+              was wrong on every page but Barbecues. The captions are real and
+              specific, so they carry it. */}
           <Reveal className="mb-8 max-w-2xl">
-            <Eyebrow>Recent events</Eyebrow>
+            <Eyebrow>From our kitchen</Eyebrow>
             <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
-              We&rsquo;ve done this before.
+              The real thing.
             </h2>
-            <p className="mt-4 text-lg text-stone">
-              A few of the cookouts we&rsquo;ve set up around the Worcester area.
-            </p>
           </Reveal>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
             {d.gallery.map((g, i) => (
@@ -291,54 +253,6 @@ export default async function CateringOfferingPage({ params }: Params) {
           </div>
         </Section>
       )}
-
-      {/* What we can include + use cases */}
-      <Section tone={includesTone}>
-        <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
-          <Reveal>
-            <Eyebrow>What we can include</Eyebrow>
-            <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
-              Tailored to your event.
-            </h2>
-            <ul className="mt-6 grid gap-3">
-              {d.includes.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 rounded-xl border border-sand bg-card px-4 py-3"
-                >
-                  <Check
-                    weight="bold"
-                    className="mt-0.5 size-4 shrink-0 text-clay"
-                    aria-hidden
-                  />
-                  <span className="text-espresso">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-
-          <Reveal delay={0.08} className="lg:pt-2">
-            <Eyebrow>Perfect for</Eyebrow>
-            <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
-              When to call us.
-            </h2>
-            <div className="mt-6 flex flex-wrap gap-3">
-              {d.useCases.map((u) => (
-                <span
-                  key={u}
-                  className="rounded-full border border-sand bg-card px-4 py-2 text-sm text-espresso"
-                >
-                  {u}
-                </span>
-              ))}
-            </div>
-            <p className="mt-6 max-w-sm text-stone">
-              Not sure where your event fits? Call us anytime 6am–10pm and
-              we&rsquo;ll build something that works.
-            </p>
-          </Reveal>
-        </div>
-      </Section>
 
       <MoreCatering currentSlug={o.slug} tone={moreTone} />
       <QuoteSection tone={quoteTone} />

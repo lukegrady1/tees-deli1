@@ -23,11 +23,11 @@ export function Footer() {
               className="inline-flex rounded-2xl bg-paper p-3 shadow-sm transition-transform duration-150 ease-[var(--ease-calm)] hover:-translate-y-0.5"
             >
               <Image
-                src={"/tees-deli-logo.webp"}
-                alt={`${business.name} logo`}
-                width={2048}
-                height={1299}
-                className="h-20 w-auto"
+                src={"/tees-deli-logo-20th.webp"}
+                alt={`${business.name} logo — celebrating 20 years in business, 2006–2026`}
+                width={800}
+                height={732}
+                className="h-24 w-auto"
                 priority={false}
               />
             </Link>

@@ -99,14 +99,13 @@ export const nav: NavItem[] = [
     // Mirrors `cateringOfferings` below. Kept as an explicit list rather than
     // derived from it so the nav wording and order can differ from the grid's.
     children: [
-      { label: "Corporate Breakfast & Lunch", href: "/catering/corporate-breakfast-lunch" },
+      { label: "Breakfast Meetings", href: "/catering/breakfast-meetings" },
+      { label: "Luncheons", href: "/catering/luncheons" },
       { label: "College Team Boxed Lunches", href: "/catering/college-team-boxed-lunches" },
       { label: "Company & Family Barbecues", href: "/catering/barbecues" },
       { label: "Hot Entrées", href: "/catering/hot-entrees" },
       { label: "Party Platters", href: "/catering/platters" },
-      { label: "Graduations & Reunions", href: "/catering/graduations-reunions" },
       { label: "Bereavement Meals", href: "/catering/bereavement-meals" },
-      { label: "The TEE-Pack", href: "/catering/tee-pack" },
       { label: "Breakfast Pizza", href: "/catering/breakfast-pizza" },
     ],
   },
@@ -115,16 +114,21 @@ export const nav: NavItem[] = [
   { label: "Contact", href: "/contact" },
 ];
 
-/** Content for an individual catering offering's own page. */
+/**
+ * Content for an individual catering offering's own page.
+ *
+ * `intro` is the owner's own wording, carried over from teesdeli.com verbatim
+ * — these pages deliberately carry no written-for-us marketing copy. If a page
+ * needs to say more, take it from the client, don't compose it here. (An
+ * earlier version had invented "highlights", "includes" and "useCases" blocks;
+ * they were removed for exactly this reason.)
+ */
 export type CateringDetail = {
   eyebrow: string;
   intro: string;
   photoLabel: string;
   metaDescription: string;
-  highlights: { title: string; body: string }[];
-  includes: string[];
-  useCases: string[];
-  /** Optional real photo for the hero/highlights slot (else a placeholder). */
+  /** Optional real photo, used as the card/gallery lead (else a placeholder). */
   heroImage?: string;
   /** Optional gallery of real event photos. */
   gallery?: { image: string; caption: string }[];
@@ -216,45 +220,72 @@ export const bbqEvents: { image: string; caption: string }[] = [
 /** Catering offerings — power the bento grid AND each offering's own page. */
 export const cateringOfferings: CateringOffering[] = [
   {
-    slug: "corporate-breakfast-lunch",
-    title: "Corporate Breakfast & Lunch",
+    slug: "breakfast-meetings",
+    title: "Breakfast Meetings",
     blurb:
-      "Hot or cold spreads for meetings and offices, delivered and set up across the Worcester area.",
+      "Continental or full breakfasts for meetings and offices, delivered and set up.",
+    cardImage: "/breakfast-pastry-platter.webp",
+    detail: {
+      eyebrow: "Corporate catering",
+      intro:
+        "Our Corporate Breakfast Meeting catering offers various options to suit your guests, or we can customize something for you. All bagels, muffins, pastries, and doughnuts are made fresh daily. Ideally, please provide a 24-hour notice, but we can handle last-minute requests if needed.",
+      photoLabel: "Breakfast pastry platter, made fresh for a morning meeting",
+      metaDescription:
+        "Corporate breakfast catering in the Greater Worcester area — continental or full breakfasts from $7.99 per person, delivered and set up. Get a quote.",
+      heroImage: "/breakfast-pastry-platter.webp",
+      gallery: [
+        {
+          image: "/breakfast-pastry-platter.webp",
+          caption: "Bagels, danish and pastries, made fresh daily",
+        },
+        {
+          image: "/breakfast-pizza.webp",
+          caption: "Breakfast pizza — one of the packages",
+        },
+      ],
+      flyers: [
+        {
+          image: "/catering-breakfast-flyer.webp",
+          alt: "TEE's Deli breakfast catering sheet. Six packages priced per person: bagels, danish, muffins and donuts with coffee, tea and water $7.99; breakfast pizza with coffee, tea and water $9.50; breakfast sandwiches with home fries or tater tots $9.50; breakfast sandwiches with coffee, tea and water $9.50; pastries with fruit, yogurt, coffee, tea and water $7.99; scrambled eggs, bacon, sausage and home fries or tater tots $13.99. Add-ons include an airpot of coffee $18.99, fruit bowl $39.99, and breakfast pizza $32.99 full or $17.99 half.",
+          caption: "Breakfast catering — packages and add-ons.",
+        },
+      ],
+      pricing: {
+        rate: "$7.99 – $13.99 per person",
+        rateNote:
+          "Six packages, from bagels and pastries up to scrambled eggs with bacon and sausage. The sheet alongside has each one.",
+        additional: [
+          { label: "Airpot of coffee", value: "$18.99" },
+          { label: "Bagel, danish, muffin or donut", value: "$2.79" },
+          { label: "Fruit bowl", value: "$39.99" },
+          { label: "Home fries or tater tots", value: "$2.79" },
+          { label: "Sausage (3 links)", value: "$2.79" },
+          { label: "Bacon (3 slices)", value: "$3.50" },
+          { label: "Breakfast sandwich", value: "$6.75" },
+          { label: "Breakfast pizza (full / half)", value: "$32.99 / $17.99" },
+          { label: "Juice / water", value: "$1.79 / $1.29" },
+        ],
+        additionalLabel: "Add-ons",
+        fineprint: [
+          "All bagels, muffins, pastries, and doughnuts are made fresh daily.",
+        ],
+      },
+    },
+  },
+  {
+    slug: "luncheons",
+    title: "Luncheons",
+    blurb:
+      "Corporate luncheons, hot or cold — built to the room and the budget.",
     cardImage: "/office-buffet-line.webp",
     detail: {
       eyebrow: "Corporate catering",
       intro:
-        "Our bread and butter. Hot or cold breakfasts and luncheons for offices, meetings, and training days — built to your headcount, delivered, and set up so you can keep the meeting moving.",
+        "Corporate luncheons are a specialty at TEE's Deli & Catering. Our Chicken, Tuna, and Cranberry Walnut Chicken salads are prepared daily from scratch. Additionally, we offer a variety of freshly made side dishes, including Red Bliss Potato Salad, Macaroni Salad, Italian Pasta Salad, Cole Slaw, Apple Pear Slaw, and Broccoli/Bacon Salad.",
       photoLabel:
         "Corporate luncheon buffet, hot and cold options laid out for an office",
       metaDescription:
-        "Corporate breakfast & lunch catering in the Greater Worcester area — continental or full breakfasts and hot or cold luncheons, delivered and set up. Get a quote.",
-      highlights: [
-        {
-          title: "Breakfast, your way",
-          body: "Continental or full breakfasts to start the day right.",
-        },
-        {
-          title: "Hot or cold luncheons",
-          body: "Corporate lunch spreads tailored to the room and the budget.",
-        },
-        {
-          title: "Delivered & set up",
-          body: "On time, set up clean, ready to serve — you take the credit.",
-        },
-      ],
-      includes: [
-        "Continental or full breakfasts",
-        "Corporate luncheons (hot or cold)",
-        "Boxed lunches",
-        "Breakfast Pizza for meetings",
-      ],
-      useCases: [
-        "Team meetings",
-        "Client presentations",
-        "Training days",
-        "All-hands & early starts",
-      ],
+        "Corporate luncheon catering in the Greater Worcester area — hot or cold lunch packages from $10.50 per head, delivered and set up. Get a quote.",
       heroImage: "/office-buffet-line.webp",
       gallery: [
         {
@@ -284,16 +315,30 @@ export const cateringOfferings: CateringOffering[] = [
       ],
       flyers: [
         {
-          image: "/catering-breakfast-flyer.webp",
-          alt: "TEE's Deli breakfast catering sheet. Six packages priced per person: bagels, danish, muffins and donuts with coffee, tea and water $7.99; breakfast pizza with coffee, tea and water $9.50; breakfast sandwiches with home fries or tater tots $9.50; breakfast sandwiches with coffee, tea and water $9.50; pastries with fruit, yogurt, coffee, tea and water $7.99; scrambled eggs, bacon, sausage and home fries or tater tots $13.99. Add-ons include an airpot of coffee $18.99, fruit bowl $39.99, and breakfast pizza $32.99 full or $17.99 half.",
-          caption: "Breakfast catering — packages and add-ons.",
-        },
-        {
           image: "/catering-luncheons-flyer.webp",
           alt: "TEE's Deli luncheons sheet, priced per head. Five lunch packages from $10.50 to $13.99 covering subs, grilled sandwiches, wraps, hot entrées and deli platters, plus substitutions, 5-quart side salad bowls from $29.99, and desserts from $8.99.",
           caption: "Luncheons — packages, sides and desserts.",
         },
       ],
+      pricing: {
+        rate: "$10.50 – $13.99 per head",
+        rateNote:
+          "Five packages, from a sub with chips and a cookie up to a hot entrée or deli platter. All prices per head count.",
+        additional: [
+          { label: "5qt side salad bowl, feeds twenty", value: "$29.99 – $39.99" },
+          { label: "Cookies, one dozen", value: "$8.99" },
+          { label: "Cookie platter (small 4doz / large 7doz)", value: "$29.99 / $45.99" },
+          { label: "Half sheet brownies (24 count)", value: "$34.99" },
+          { label: "Cookie & brownie platter", value: "$45.99" },
+          { label: "Soda instead of bottled water", value: "+$0.75" },
+          { label: "Side dish instead of chips", value: "+$2.00" },
+          { label: "Brownie instead of a cookie", value: "+$1.00" },
+        ],
+        additionalLabel: "Sides, desserts & substitutions",
+        fineprint: [
+          "Please inform us of any dietary restrictions in your group.",
+        ],
+      },
     },
   },
   {
@@ -305,32 +350,11 @@ export const cateringOfferings: CateringOffering[] = [
     detail: {
       eyebrow: "For the teams",
       intro:
-        "We're the top choice for home and visiting teams across Worcester — including colleges like Holy Cross and WPI — on quality, price, and prompt service. Order from the menu or build a custom box for a quote.",
+        "TEE's Deli offers boxed lunches for home and visiting teams, serving colleges like Holy Cross and WPI in Worcester. With quality food, great prices, and prompt service, we are the top choice for visiting teams. Order from our menu or customize your own, and we'll provide a quote.",
       photoLabel:
         "Custom boxed lunches packed and labeled for a visiting team",
       metaDescription:
         "Boxed lunches for college and visiting sports teams in Worcester — serving teams at Holy Cross, WPI and beyond on quality, price, and prompt service. Build a custom box.",
-      highlights: [
-        {
-          title: "Built for game day",
-          body: "Portable, satisfying boxes that travel well and show up on time.",
-        },
-        {
-          title: "Quality, price, prompt",
-          body: "Why visiting teams keep coming back — three things, every time.",
-        },
-        {
-          title: "Menu or custom",
-          body: "Order straight from the menu or build a custom box for a quote.",
-        },
-      ],
-      includes: ["Boxed lunches", "Concessions", "Tailgates"],
-      useCases: [
-        "Home & visiting teams",
-        "Game-day travel",
-        "Tournaments & meets",
-        "Team meals",
-      ],
       heroImage: "/boxed-lunches-open.webp",
       gallery: [
         {
@@ -399,32 +423,11 @@ export const cateringOfferings: CateringOffering[] = [
     detail: {
       eyebrow: "Cookouts",
       intro:
-        "Full-service barbecues for companies and families — from staff appreciation days to backyard gatherings. We bring the cookout to you, set up and ready to serve.",
+        "All our BBQ set-ups are different depending what and where we have to work with. Corporate and Private Barbecues are a specialty of TEE's Deli.",
       photoLabel:
         "Backyard barbecue spread, trays of grilled favorites ready to serve",
       metaDescription:
         "Company & family barbecue catering in the Greater Worcester area — full-service cookouts, tailgates, and concessions, delivered and set up. Get a quote.",
-      highlights: [
-        {
-          title: "Company cookouts",
-          body: "Staff appreciation days and team celebrations done right.",
-        },
-        {
-          title: "Family gatherings",
-          body: "Backyard barbecues without the backyard work.",
-        },
-        {
-          title: "Tailgates & concessions",
-          body: "Game-day spreads and concession-style service, too.",
-        },
-      ],
-      includes: ["Company & family barbecues", "Tailgates", "Concessions"],
-      useCases: [
-        "Staff appreciation",
-        "Family gatherings",
-        "Tailgates",
-        "Summer cookouts",
-      ],
       heroImage: "/technetics-family-bbq2.webp",
       gallery: bbqEvents,
       flyers: [
@@ -467,61 +470,6 @@ export const cateringOfferings: CateringOffering[] = [
     },
   },
   {
-    slug: "graduations-reunions",
-    title: "Graduations & Reunions",
-    blurb: "Graduation parties and class reunions handled end to end.",
-    // A real graduation TEE's catered — already in /public, previously unused.
-    cardImage: "/curran-graduation-bbq.webp",
-    detail: {
-      eyebrow: "Celebrations",
-      intro:
-        "Graduation parties and class reunions, handled end to end. Tell us the headcount and the vibe — we build the menu, deliver, and set up so you can be a guest at your own party.",
-      photoLabel: "Graduation party platters and display, set up for guests",
-      metaDescription:
-        "Graduation party and class reunion catering in the Greater Worcester area — full-service spreads built to your headcount, delivered and set up. Get a quote.",
-      highlights: [
-        {
-          title: "Graduation parties",
-          body: "Crowd-pleasing spreads for the big day.",
-        },
-        {
-          title: "Class reunions",
-          body: "Feed the whole class without lifting a finger.",
-        },
-        {
-          title: "Built to your headcount",
-          body: "Scaled to your guest list and your budget.",
-        },
-      ],
-      includes: ["Graduation parties", "Class reunions"],
-      useCases: [
-        "Graduation parties",
-        "Class reunions",
-        "Milestone celebrations",
-        "Family events",
-      ],
-      heroImage: "/curran-graduation-bbq.webp",
-      gallery: [
-        {
-          image: "/graduation-party-2023.webp",
-          caption: "Graduation party, tented for the rain",
-        },
-        {
-          image: "/graduation-party-tent.webp",
-          caption: "Grad party setup in the backyard",
-        },
-        {
-          image: "/garden-party-buffet.webp",
-          caption: "Garden party buffet, guests served",
-        },
-        {
-          image: "/tees-tents-backyard-party.webp",
-          caption: "Two tents up for a backyard celebration",
-        },
-      ],
-    },
-  },
-  {
     slug: "bereavement-meals",
     title: "Bereavement Meals",
     blurb:
@@ -530,28 +478,14 @@ export const cateringOfferings: CateringOffering[] = [
     cardImage: "/sandwich-wrap-platters.webp",
     detail: {
       eyebrow: "With care",
+        // teesdeli.com's bereavement page is the flyer alone, with no prose.
+        // Kept factual on purpose — the flyer does the talking.
       intro:
-        "Thoughtful, fuss-free meals delivered when families need them most. We handle the food and the setup with care and on short notice, so you can focus on the people who matter.",
+        "Bereavement meals, delivered and set up with care and on short notice.",
       photoLabel:
         "Bereavement meal, simple and comforting, delivered and set up",
       metaDescription:
         "Bereavement meal catering in the Greater Worcester area — thoughtful, fuss-free spreads delivered and set up with care, on short notice. Get a quote.",
-      highlights: [
-        {
-          title: "Handled with care",
-          body: "Comforting food, set up quietly so you don't have to think about it.",
-        },
-        {
-          title: "Short notice welcome",
-          body: "We understand timing is rarely planned — call us anytime.",
-        },
-        {
-          title: "Delivered & set up",
-          body: "We bring it, set it, and get out of the way.",
-        },
-      ],
-      includes: ["Bereavement meals"],
-      useCases: ["Receptions", "Family gatherings", "Short-notice needs"],
       heroImage: "/sandwich-wrap-platters.webp",
       flyers: [
         {
@@ -584,36 +518,10 @@ export const cateringOfferings: CateringOffering[] = [
     detail: {
       eyebrow: "Full-service dinners",
       intro:
-        "Full-service catering for private events at homes, offices, or function halls. We cater baptisms, weddings, first communions, birthday parties, fantasy drafts, bereavement meals, and anniversary parties. Pick-up options are also available.",
+        "TEE's Deli & Catering offers full-service catering for private events at homes, offices, or function halls. We cater Baptisms, Weddings, First Communions, Birthday Parties, Fantasy Drafts, Bereavement Meals, and Anniversary Parties. Pick-up options are also available.",
       photoLabel: "Hot entrée trays — chicken, broccoli and rice, ready to serve",
       metaDescription:
         "Hot entrée catering in the Greater Worcester area — chicken, sausage, pasta and vegetarian pans for weddings, baptisms, birthdays and private events. Full and half pans.",
-      highlights: [
-        {
-          title: "Full or half pans",
-          body: "Priced both ways, so you order to the room and not to a package.",
-        },
-        {
-          title: "Any private event",
-          body: "Baptisms, weddings, communions, birthdays, anniversaries.",
-        },
-        {
-          title: "Delivered or picked up",
-          body: "We'll set it up at the hall, or you collect it from the deli.",
-        },
-      ],
-      includes: [
-        "Chicken entrées",
-        "Sausage & pasta entrées",
-        "Vegetarian & vegan-sauce options",
-        "Rice pilaf & penne sides",
-      ],
-      useCases: [
-        "Weddings & communions",
-        "Baptisms & christenings",
-        "Birthday parties",
-        "Fantasy drafts",
-      ],
       heroImage: "/chicken-broccoli-rice-trays.webp",
       gallery: [
         {
@@ -661,36 +569,10 @@ export const cateringOfferings: CateringOffering[] = [
     detail: {
       eyebrow: "Private parties",
       intro:
-        "Having a private party? Yup — we do those too. Platters built from the same salads and subs we make fresh daily, priced by the tray so you can mix and match to the room.",
+        "Having a private party? Yup! We do those too! Our Chicken, Tuna, and Cranberry Walnut Chicken salads are prepared daily from scratch, and we offer a variety of freshly made side dishes including Red Bliss Potato Salad, Macaroni Salad, Italian Pasta Salad, Cole Slaw, Apple Pear Slaw, and Broccoli/Bacon Salad.",
       photoLabel: "Finger sandwich platter, cut and arranged for a party",
       metaDescription:
         "Party platters from TEE's Deli in West Boylston — finger sandwiches, pin-wheels, sub-cuts, bulkie rolls, wraps, cannoli and cookie trays, priced by the platter.",
-      highlights: [
-        {
-          title: "Made fresh daily",
-          body: "Chicken, tuna and cranberry walnut chicken salads, made from scratch.",
-        },
-        {
-          title: "Priced by the tray",
-          body: "Mix and match platters to the size and shape of your party.",
-        },
-        {
-          title: "On our half-sours",
-          body: "Pin-wheels come on a bed of TEE's homemade half-sour pickles.",
-        },
-      ],
-      includes: [
-        "Finger sandwich platters",
-        "Pin-wheel platters",
-        "Sub-cut & bulkie roll platters",
-        "Wrap & dessert platters",
-      ],
-      useCases: [
-        "Private parties",
-        "Showers & birthdays",
-        "Office gatherings",
-        "Holiday spreads",
-      ],
       heroImage: "/platter-finger-sandwiches.webp",
       gallery: [
         {
@@ -730,77 +612,9 @@ export const cateringOfferings: CateringOffering[] = [
       },
     },
   },
-  {
-    slug: "tee-pack",
-    title: "The TEE-Pack",
-    blurb:
-      "Three meals for four people in an insulated bag — built for vacations and tailgates.",
-    cardImage: "/tee-pack.webp",
-    detail: {
-      eyebrow: "Vacation season",
-      intro:
-        "It's back! Now that we're in vacation season, we're happy to re-introduce the ever-popular TEE-Pack — three meals for four people, packed in a transportable insulated bag. Built for vacations, tailgates, and weekend meal planning.",
-      photoLabel:
-        "The TEE-Pack — three meals for four, laid out with its insulated bag",
-      menuLabel: "TEE-Pack",
-      metaDescription:
-        "The TEE-Pack from TEE's Deli — three meals for four people in a transportable insulated bag, $110. Built for vacations, tailgates and weekend meal planning.",
-      highlights: [
-        {
-          title: "Three meals, four people",
-          body: "Breakfast, lunch and dinner — packed and ready to travel.",
-        },
-        {
-          title: "Ready to heat or grill",
-          body: "Everything arrives cooked or prepped; you just finish it.",
-        },
-        {
-          title: "Yours to keep",
-          body: "The insulated bag comes with it — reuse it on your next order.",
-        },
-      ],
-      includes: [
-        "Breakfast — half a breakfast pizza and home fries, ready to heat",
-        "Lunch — four of TEE's famous Italian subs, with red bliss potato or Italian pasta salad",
-        "Dinner — four chicken kabobs ready to grill, rice pilaf, broccoli bacon salad",
-        "One dozen chocolate chip cookies",
-      ],
-      useCases: [
-        "Vacations",
-        "Tailgates",
-        "Weekend meal planning",
-        "Road trips",
-      ],
-      heroImage: "/tee-pack.webp",
-      gallery: [
-        {
-          image: "/chicken-kabobs-grill.webp",
-          caption: "Chicken kabobs, ready to grill",
-        },
-        {
-          image: "/breakfast-pizza.webp",
-          caption: "Breakfast pizza — half of one comes in the pack",
-        },
-        {
-          image: "/deli-subs-italian.webp",
-          caption: "TEE's famous Italian subs",
-        },
-      ],
-      pricing: {
-        rate: "$110.00",
-        rateNote: "Plus tax, with no add-ons or changes.",
-        additionalLabel: "Packaging",
-        additional: [
-          { label: "Bring your own cooler or bag", value: "−$10.00" },
-          { label: "TEE's 16×10×13 insulated bag", value: "Yours to keep" },
-        ],
-        fineprint: [
-          "24-hour notice required.",
-          "Customizations are available — steak kabobs, marinated chicken breasts, cole slaw, or different sub meats. Call and we'll build it around your group.",
-        ],
-      },
-    },
-  },
+  // The TEE-Pack is pulled for now at the owner's request. Its full entry —
+  // copy, includes, $110 pricing and fine print — is in git at 506c99c; put
+  // that object back here and add the nav child above to restore the page.
   {
     slug: "breakfast-pizza",
     title: "Breakfast Pizza",
@@ -869,6 +683,8 @@ export const breakfastPizza = {
     },
   ],
   halfPrice: "$17.99",
+  // The owner's own list of occasions, from teesdeli.com — not written for us,
+  // which is why it survived the cull of invented per-page copy.
   useCases: [
     "Office meetings",
     "Kids' sleepovers",

@@ -12,13 +12,13 @@ import { cn } from "@/lib/cn";
 
 /**
  * Desktop nav item with a dropdown. The parent stays a real link (Catering
- * still opens /catering) and the caret is a separate control that toggles the
- * panel.
+ * still opens /catering) and the caret is a separate control.
  *
- * Deliberately click-to-open rather than hover-to-open: with both, hovering
- * opens the panel and the click that follows immediately closes it again, so
- * the caret reads as broken. One trigger means mouse, keyboard, and touch all
- * behave the same.
+ * Opens on hover for pointers and on click for keyboard and touch. The catch
+ * with supporting both: hovering has already opened the panel by the time a
+ * click lands, so a plain toggle would close it under a pointer still sitting
+ * on the trigger — the caret reads as broken. Hence `hovering`: while the
+ * pointer is inside, the click is a no-op and moving away is what closes it.
  */
 function NavDropdown({
   item,
@@ -30,6 +30,9 @@ function NavDropdown({
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  // A ref, not state: it only ever gates the click handler, so it must not
+  // trigger a render of its own.
+  const hovering = useRef(false);
   const panelId = `nav-${item.label.toLowerCase().replace(/\W+/g, "-")}`;
 
   // A tap outside dismisses it. Pointerdown rather than click so the panel is
@@ -59,6 +62,17 @@ function NavDropdown({
     <div
       ref={wrapRef}
       className="relative"
+      // The panel is a child of this wrapper and the gap above it is the
+      // panel's own padding, so travelling from the caret down into the menu
+      // never leaves this element — no mouseleave, no flicker.
+      onMouseEnter={() => {
+        hovering.current = true;
+        setOpen(true);
+      }}
+      onMouseLeave={() => {
+        hovering.current = false;
+        setOpen(false);
+      }}
       onKeyDown={(e) => {
         if (e.key === "Escape" && open) {
           setOpen(false);
@@ -79,7 +93,13 @@ function NavDropdown({
         <button
           ref={buttonRef}
           type="button"
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => {
+            // Hover already opened it and mouseleave will close it; toggling
+            // here would shut the panel while the pointer is still on the
+            // caret. Keyboard and touch never set this, so they still toggle.
+            if (hovering.current) return;
+            setOpen((v) => !v);
+          }}
           aria-expanded={open}
           aria-controls={panelId}
           aria-label={`${open ? "Hide" : "Show"} ${item.label} pages`}
@@ -155,15 +175,18 @@ export function Header() {
           : "border-b border-transparent bg-paper/70 backdrop-blur-sm",
       )}
     >
-      <Container className="flex h-28 items-center justify-between gap-4">
+      {/* Taller than the old wordmark needed: the anniversary badge is nearly
+          square rather than a wide oval, so at a given height it takes far less
+          width and its ring text shrinks with it. */}
+      <Container className="flex h-32 items-center justify-between gap-4">
         <Link href="/" aria-label={`${business.name} — home`} className="inline-flex">
           <Image
-            src={"/tees-deli-logo.webp"}
-            alt={`${business.name} logo`}
-            width={2048}
-            height={1299}
+            src={"/tees-deli-logo-20th.webp"}
+            alt={`${business.name} logo — celebrating 20 years in business, 2006–2026`}
+            width={800}
+            height={732}
             priority
-            className="h-20 w-auto sm:h-24"
+            className="h-24 w-auto sm:h-28"
           />
         </Link>
 
