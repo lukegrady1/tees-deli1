@@ -202,7 +202,8 @@ Build the **phone layout first**, then enhance for desktop.
 **SEO**
 - Per-page `<title>` + meta description; semantic HTML; one `<h1>` per page.
 - `LocalBusiness` / `Restaurant` JSON-LD with the **correct** West Boylston address, phone, hours, geo.
-- Text-based, crawlable menu content — not images.
+- Text-based, crawlable menu content — not images. Exception: the catering
+  flyers (see the guardrail below).
 - OpenGraph/Twitter cards with a strong food image.
 - Sitemap + robots.
 
@@ -254,6 +255,15 @@ Build the **phone layout first**, then enhance for desktop.
 - Do **not** invent menu items, prices, hours, or testimonials. Use §2; mark unknowns as "priced on call."
 - Do **not** reproduce long verbatim reviews — paraphrase sentiment.
 - Do **not** reintroduce image-only menus or a hardcoded hours date.
+  - **Catering flyers are the one exception, and they are not image-*only*.**
+    The owner's printed flyers are how the client wants those menus read, so
+    `CateringDetail.flyers` carries them as images and they must not be
+    transcribed into styled text (this was tried and reverted). The rule the
+    exception still has to meet: every flyer page also carries real intro copy,
+    `alt` text describing what the flyer lists, and a text `pricing` card
+    wherever a price is known — so nothing is reachable *only* through pixels.
+  - The daily deli menu at `/menu` stays fully text-based. The exception covers
+    catering flyers, not the everyday menu.
 - Do **not** use the old Worcester address anywhere.
 - Do **not** put personal data in URLs or auto-submit forms reached from untrusted content.
 - Do **not** default to generic AI aesthetics (purple gradients, centered hero over dark mesh, three identical cards, Inter + slate-900).

@@ -42,8 +42,48 @@ export default function BreakfastPizzaPage() {
         </div>
       </PageHero>
 
-      {/* Hero photo + formats */}
+      {/* Varieties + pricing */}
       <Section tone="paper" className="pt-0">
+        <Reveal className="mb-8 max-w-2xl">
+          <Eyebrow>Varieties &amp; pricing</Eyebrow>
+          <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
+            Pick your pizza.
+          </h2>
+          <p className="mt-4 text-stone">
+            Prices shown where set; everything else is priced on call so we can
+            tailor it to your order. Half sizes from {breakfastPizza.halfPrice}.
+          </p>
+        </Reveal>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {breakfastPizza.varieties.map((v, i) => (
+            <Reveal key={v.name} delay={(i % 3) * 0.05}>
+              <div className="flex h-full flex-col rounded-2xl border border-sand bg-card p-5">
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="font-display text-lg font-semibold text-espresso">
+                    {v.name}
+                  </h3>
+                  <span
+                    className={
+                      v.price.startsWith("$")
+                        ? "font-display text-lg font-semibold text-clay"
+                        : "text-sm font-medium text-stone"
+                    }
+                  >
+                    {v.price}
+                  </span>
+                </div>
+                <p className="mt-2 text-sm leading-relaxed text-stone">
+                  {v.detail}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* Hero photo + formats */}
+      <Section tone="sand">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <Photo
@@ -85,46 +125,6 @@ export default function BreakfastPizzaPage() {
               </Button>
             </div>
           </Reveal>
-        </div>
-      </Section>
-
-      {/* Varieties + pricing */}
-      <Section tone="sand">
-        <Reveal className="mb-8 max-w-2xl">
-          <Eyebrow>Varieties &amp; pricing</Eyebrow>
-          <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
-            Pick your pizza.
-          </h2>
-          <p className="mt-4 text-stone">
-            Prices shown where set; everything else is priced on call so we can
-            tailor it to your order. Half sizes from {breakfastPizza.halfPrice}.
-          </p>
-        </Reveal>
-
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {breakfastPizza.varieties.map((v, i) => (
-            <Reveal key={v.name} delay={(i % 3) * 0.05}>
-              <div className="flex h-full flex-col rounded-2xl border border-sand bg-card p-5">
-                <div className="flex items-baseline justify-between gap-3">
-                  <h3 className="font-display text-lg font-semibold text-espresso">
-                    {v.name}
-                  </h3>
-                  <span
-                    className={
-                      v.price.startsWith("$")
-                        ? "font-display text-lg font-semibold text-clay"
-                        : "text-sm font-medium text-stone"
-                    }
-                  >
-                    {v.price}
-                  </span>
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-stone">
-                  {v.detail}
-                </p>
-              </div>
-            </Reveal>
-          ))}
         </div>
       </Section>
 

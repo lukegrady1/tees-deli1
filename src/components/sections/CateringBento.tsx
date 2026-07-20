@@ -9,11 +9,17 @@ import { cn } from "@/lib/cn";
 /**
  * Catering use-cases grid.
  *
- * Six equal tiles, with the title laid over the photo rather than stacked under
- * it — the whole section fits on roughly one screen, so nobody has to scroll to
- * find out what we cater. Two columns on phones, three from lg.
+ * One equal tile per offering, with the title laid over the photo rather than
+ * stacked under it, so the section stays short enough to take in at a glance.
+ * Two columns on phones, three from lg.
+ *
+ * The count is whatever `cateringOfferings` holds. An odd count leaves a gap in
+ * the two-column layout, so the last tile widens to fill the row there and goes
+ * back to a single column at lg (where three columns divide an odd count fine).
  */
 export function CateringBento({ withHeading = true }: { withHeading?: boolean }) {
+  const isOdd = cateringOfferings.length % 2 === 1;
+
   return (
     <Section id="catering" tone="paper">
       {withHeading && (
@@ -31,7 +37,15 @@ export function CateringBento({ withHeading = true }: { withHeading?: boolean })
 
       <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
         {cateringOfferings.map((o, i) => (
-          <Reveal key={o.slug} delay={i * 0.04}>
+          <Reveal
+            key={o.slug}
+            delay={i * 0.04}
+            className={cn(
+              isOdd &&
+                i === cateringOfferings.length - 1 &&
+                "col-span-2 lg:col-span-1",
+            )}
+          >
             <Link
               href={`/catering/${o.slug}`}
               className={cn(

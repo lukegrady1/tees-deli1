@@ -81,10 +81,35 @@ export const serviceNotice: {
   until: "2026-08-01T00:00:00-04:00",
 };
 
-export type NavItem = { label: string; href: string; external?: boolean };
+export type NavItem = {
+  label: string;
+  href: string;
+  external?: boolean;
+  /**
+   * Sub-links shown in a dropdown under this item. The parent stays a real
+   * link — the dropdown supplements it, so Catering still opens /catering.
+   */
+  children?: NavItem[];
+};
 
 export const nav: NavItem[] = [
-  { label: "Catering", href: "/catering" },
+  {
+    label: "Catering",
+    href: "/catering",
+    // Mirrors `cateringOfferings` below. Kept as an explicit list rather than
+    // derived from it so the nav wording and order can differ from the grid's.
+    children: [
+      { label: "Corporate Breakfast & Lunch", href: "/catering/corporate-breakfast-lunch" },
+      { label: "College Team Boxed Lunches", href: "/catering/college-team-boxed-lunches" },
+      { label: "Company & Family Barbecues", href: "/catering/barbecues" },
+      { label: "Hot Entrées", href: "/catering/hot-entrees" },
+      { label: "Party Platters", href: "/catering/platters" },
+      { label: "Graduations & Reunions", href: "/catering/graduations-reunions" },
+      { label: "Bereavement Meals", href: "/catering/bereavement-meals" },
+      { label: "The TEE-Pack", href: "/catering/tee-pack" },
+      { label: "Breakfast Pizza", href: "/catering/breakfast-pizza" },
+    ],
+  },
   { label: "Menu", href: "/menu" },
   { label: "Order", href: business.links.toast, external: true },
   { label: "Contact", href: "/contact" },
@@ -103,8 +128,20 @@ export type CateringDetail = {
   heroImage?: string;
   /** Optional gallery of real event photos. */
   gallery?: { image: string; caption: string }[];
-  /** Optional printed menu/flyer image shown on the offering's page. */
-  flyer?: { image: string; alt: string };
+  /**
+   * Optional printed menu/flyer images shown on the offering's page, in order.
+   * More than one when the owner hands out several sheets for the same service.
+   * These stay images on purpose — the printed layout is how the client wants
+   * the menu read, so don't transcribe them into text here.
+   */
+  flyers?: { image: string; alt: string; caption: string }[];
+  /**
+   * How this offering is named mid-sentence, as in "Here's the ___ menu".
+   * Defaults to the lowercased title, which suits plain descriptive names
+   * ("bereavement meals") but mangles the ones carrying an article or
+   * capitals — "The TEE-Pack" would come out as "the the tee-pack".
+   */
+  menuLabel?: string;
   /**
    * Optional pricing, transcribed as editable text (crawlable + easy to update).
    * Update these values when prices change — no need to re-shoot the flyer.
@@ -114,6 +151,12 @@ export type CateringDetail = {
     rateNote?: string;
     fees?: { label: string; value: string; note?: string }[];
     additional?: { label: string; value: string }[];
+    /**
+     * Heading for the `additional` list. Defaults to "Additional charges",
+     * which only fits when the rows really are surcharges — set it to
+     * something truthful when the list is a price menu or a set of options.
+     */
+    additionalLabel?: string;
     fineprint?: string[];
   };
 };
@@ -239,6 +282,18 @@ export const cateringOfferings: CateringOffering[] = [
           caption: "Seafood salad rolls, platter-ready",
         },
       ],
+      flyers: [
+        {
+          image: "/catering-breakfast-flyer.webp",
+          alt: "TEE's Deli breakfast catering sheet. Six packages priced per person: bagels, danish, muffins and donuts with coffee, tea and water $7.99; breakfast pizza with coffee, tea and water $9.50; breakfast sandwiches with home fries or tater tots $9.50; breakfast sandwiches with coffee, tea and water $9.50; pastries with fruit, yogurt, coffee, tea and water $7.99; scrambled eggs, bacon, sausage and home fries or tater tots $13.99. Add-ons include an airpot of coffee $18.99, fruit bowl $39.99, and breakfast pizza $32.99 full or $17.99 half.",
+          caption: "Breakfast catering — packages and add-ons.",
+        },
+        {
+          image: "/catering-luncheons-flyer.webp",
+          alt: "TEE's Deli luncheons sheet, priced per head. Five lunch packages from $10.50 to $13.99 covering subs, grilled sandwiches, wraps, hot entrées and deli platters, plus substitutions, 5-quart side salad bowls from $29.99, and desserts from $8.99.",
+          caption: "Luncheons — packages, sides and desserts.",
+        },
+      ],
     },
   },
   {
@@ -303,6 +358,36 @@ export const cateringOfferings: CateringOffering[] = [
           caption: "Game-day tailgate, grills fired up",
         },
       ],
+      // Only the current sheet. The old site also had a June-2024 version of
+      // this same box priced $10.99 — showing both would quote two prices for
+      // one product, so the older one is deliberately not carried over.
+      flyers: [
+        {
+          image: "/boxed-lunch-flyer.webp",
+          alt: "TEE's Deli Basic Box sheet, $11.50 per box: a sandwich, 1oz bag of chips, 1½oz chocolate chip cookie, and a banana or 16oz water. Protein choices include turkey, Italian, chicken salad, roast beef, tuna, grilled chicken, ham and chicken Caesar, with vegan, vegetarian and PBJ also available. Bread choices are a 7-inch sub roll, bulkie roll, sliced white, wheat or marble rye, gluten-free for $1.00 more, or 12-inch white, wheat or tomato wraps.",
+          caption: "The Basic Box — $11.50, with protein and bread choices.",
+        },
+      ],
+      pricing: {
+        rate: "$11.50 per box",
+        rateNote:
+          "TEE's Deli Basic Box — sandwich, chips, cookie, and a banana or bottled water.",
+        additionalLabel: "Options & add-ons",
+        additional: [
+          { label: "Make it a large sub", value: "+$2.00" },
+          { label: "Upgrade to a 4.5oz cookie", value: "+$2.00" },
+          { label: "Grilled instead of cold sandwich", value: "+$3.00" },
+          { label: "Gluten-free bread", value: "+$1.00" },
+          { label: "Add 20oz Poland Springs water", value: "+$1.25" },
+          {
+            label: "Add 20oz Gatorade, Snapple or Vitamin Water",
+            value: "+$2.00",
+          },
+        ],
+        fineprint: [
+          "Every lunch comes in a 9″ × 4″ × 3″ box or a 12lb paper bag with napkins and mayo and mustard packs, labeled with the sandwich name, the person's name, or a number.",
+        ],
+      },
     },
   },
   {
@@ -342,10 +427,18 @@ export const cateringOfferings: CateringOffering[] = [
       ],
       heroImage: "/technetics-family-bbq2.webp",
       gallery: bbqEvents,
-      flyer: {
-        image: "/barbecue-menu.webp",
-        alt: "Printed TEE's Basic Barbecue catering menu and pricing sheet.",
-      },
+      flyers: [
+        {
+          image: "/barbecue-menu.webp",
+          alt: "Printed TEE's Basic Barbecue menu and pricing sheet — suggested menu for 50 guests, side dishes, what every barbecue includes, and full pricing.",
+          caption: "The printed TEE's Basic Barbecue sheet.",
+        },
+        {
+          image: "/barbecue-entrees-sides.webp",
+          alt: "Printed TEE's Deli barbecue sheet listing entrées — hot dogs, cheeseburgers, sausages, grilled chicken, steak tips, shaved steak — and side dishes.",
+          caption: "Entrée and side dish choices.",
+        },
+      ],
       pricing: {
         rate: "$18.00 per person",
         rateNote:
@@ -460,10 +553,13 @@ export const cateringOfferings: CateringOffering[] = [
       includes: ["Bereavement meals"],
       useCases: ["Receptions", "Family gatherings", "Short-notice needs"],
       heroImage: "/sandwich-wrap-platters.webp",
-      flyer: {
-        image: "/bereavement-meals.webp",
-        alt: "Printed TEE's Deli bereavement meals menu and pricing sheet.",
-      },
+      flyers: [
+        {
+          image: "/bereavement-meals.webp",
+          alt: "Printed TEE's Deli bereavement meals menu and pricing sheet.",
+          caption: "The printed bereavement meals flyer.",
+        },
+      ],
       pricing: {
         rate: "$25.00 per person",
         rateNote:
@@ -475,6 +571,232 @@ export const cateringOfferings: CateringOffering[] = [
         fineprint: [
           "Price includes set-up, tend & cleanup (one attendant for three hours), plates, napkins, utensils, chafing dishes with Sterno, and travel time (up to one hour round trip).",
           "The menu is a suggested starting point — tell us what you have in mind and we'll put together an estimate for you.",
+        ],
+      },
+    },
+  },
+  {
+    slug: "hot-entrees",
+    title: "Hot Entrées",
+    blurb:
+      "Full and half pans of chicken, sausage, pasta and more — for private events or pick-up.",
+    cardImage: "/chicken-broccoli-rice-trays.webp",
+    detail: {
+      eyebrow: "Full-service dinners",
+      intro:
+        "Full-service catering for private events at homes, offices, or function halls. We cater baptisms, weddings, first communions, birthday parties, fantasy drafts, bereavement meals, and anniversary parties. Pick-up options are also available.",
+      photoLabel: "Hot entrée trays — chicken, broccoli and rice, ready to serve",
+      metaDescription:
+        "Hot entrée catering in the Greater Worcester area — chicken, sausage, pasta and vegetarian pans for weddings, baptisms, birthdays and private events. Full and half pans.",
+      highlights: [
+        {
+          title: "Full or half pans",
+          body: "Priced both ways, so you order to the room and not to a package.",
+        },
+        {
+          title: "Any private event",
+          body: "Baptisms, weddings, communions, birthdays, anniversaries.",
+        },
+        {
+          title: "Delivered or picked up",
+          body: "We'll set it up at the hall, or you collect it from the deli.",
+        },
+      ],
+      includes: [
+        "Chicken entrées",
+        "Sausage & pasta entrées",
+        "Vegetarian & vegan-sauce options",
+        "Rice pilaf & penne sides",
+      ],
+      useCases: [
+        "Weddings & communions",
+        "Baptisms & christenings",
+        "Birthday parties",
+        "Fantasy drafts",
+      ],
+      heroImage: "/chicken-broccoli-rice-trays.webp",
+      gallery: [
+        {
+          image: "/italian-pickletizer.webp",
+          caption: "The Italian Pickle-tizer",
+        },
+        {
+          image: "/sausage-peppers-trays.webp",
+          caption: "Sausage with peppers and onions",
+        },
+        {
+          image: "/meatball-trays.webp",
+          caption: "Meatballs in homemade marinara",
+        },
+      ],
+      flyers: [
+        {
+          image: "/catering-hot-entrees-flyer.webp",
+          alt: "TEE's Deli dinners sheet listing seventeen hot entrées with full pan and half pan prices, including Chicken Roquette $89.99/$55.00, Chicken & Broccoli $79.99/$49.99, Chicken Parmesan $85.00/$55.00, Chicken Tenders $125.00/$65.00, Chicken Normandy, Piccata, Marsala and Cacciatore at $79.99/$49.99, Chicken Teriyaki with Pineapple $89.99/$55.00, Roast Porketta $89.99/$59.99, marinated steak tips at market price, Vegetable Medley $59.99/$35.00 and Vegetable Lo Mein $65.00/$39.99.",
+          caption: "Hot entrées — full and half pan pricing.",
+        },
+      ],
+      pricing: {
+        rate: "From $59.99 per full pan",
+        rateNote:
+          "Seventeen entrées, each priced by full or half pan — see the sheet for the full list.",
+        additionalLabel: "Also available",
+        additional: [
+          { label: "Italian Pickle-tizer", value: "$39.99" },
+          { label: "Marinated steak tips", value: "Market price" },
+        ],
+        fineprint: [
+          "The Italian Pickle-tizer is Italian sub ingredients stuffed inside our homemade half-sour pickles.",
+          "Prices may change — call us to confirm and to talk through quantities for your headcount.",
+        ],
+      },
+    },
+  },
+  {
+    slug: "platters",
+    title: "Party Platters",
+    blurb:
+      "Finger sandwiches, pin-wheels, sub-cuts, wraps and dessert trays for private parties.",
+    cardImage: "/platter-finger-sandwiches.webp",
+    detail: {
+      eyebrow: "Private parties",
+      intro:
+        "Having a private party? Yup — we do those too. Platters built from the same salads and subs we make fresh daily, priced by the tray so you can mix and match to the room.",
+      photoLabel: "Finger sandwich platter, cut and arranged for a party",
+      metaDescription:
+        "Party platters from TEE's Deli in West Boylston — finger sandwiches, pin-wheels, sub-cuts, bulkie rolls, wraps, cannoli and cookie trays, priced by the platter.",
+      highlights: [
+        {
+          title: "Made fresh daily",
+          body: "Chicken, tuna and cranberry walnut chicken salads, made from scratch.",
+        },
+        {
+          title: "Priced by the tray",
+          body: "Mix and match platters to the size and shape of your party.",
+        },
+        {
+          title: "On our half-sours",
+          body: "Pin-wheels come on a bed of TEE's homemade half-sour pickles.",
+        },
+      ],
+      includes: [
+        "Finger sandwich platters",
+        "Pin-wheel platters",
+        "Sub-cut & bulkie roll platters",
+        "Wrap & dessert platters",
+      ],
+      useCases: [
+        "Private parties",
+        "Showers & birthdays",
+        "Office gatherings",
+        "Holiday spreads",
+      ],
+      heroImage: "/platter-finger-sandwiches.webp",
+      gallery: [
+        {
+          image: "/platter-pinwheels.webp",
+          caption: "Turkey pin-wheels on homemade half-sours",
+        },
+        { image: "/platter-sub-cuts.webp", caption: "Sub-cut platter" },
+        { image: "/platter-bulkie-rolls.webp", caption: "Bulkie roll platter" },
+        { image: "/platter-wraps.webp", caption: "Sandwich wrap platter" },
+        { image: "/platter-cannoli.webp", caption: "Cannoli platter" },
+        {
+          image: "/platter-cookies-brownies.webp",
+          caption: "Cookie & brownie platter",
+        },
+      ],
+      pricing: {
+        rate: "Platters from $29.99",
+        rateNote:
+          "Priced per platter. Finger sandwiches come as egg, tuna, chicken or ham salad; pin-wheels as turkey with garlic aioli, roast beef with horseradish cream, or grilled veggies with hummus.",
+        additionalLabel: "Platter prices",
+        additional: [
+          { label: "Finger sandwich platter", value: "$49.99" },
+          { label: "Pin-wheel platter", value: "$64.99" },
+          { label: "Sub-cut platter (24 cut)", value: "$54.99" },
+          { label: "Sub-cut platter (36 cut)", value: "$79.99" },
+          { label: "Bulkie roll platter (16 piece)", value: "$59.99" },
+          { label: "Bulkie roll platter (28 piece)", value: "$99.00" },
+          { label: "Sandwich wrap platter (20 piece)", value: "$75.00" },
+          { label: "Cannoli platter", value: "$64.99" },
+          { label: "Cookies & brownies platter", value: "$49.99" },
+          { label: "Cookie platter (large, 7 dozen)", value: "$45.99" },
+          { label: "Cookie platter (small)", value: "$29.99" },
+        ],
+        fineprint: [
+          "All pin-wheel platters come on a bed of TEE's homemade half-sour pickles.",
+        ],
+      },
+    },
+  },
+  {
+    slug: "tee-pack",
+    title: "The TEE-Pack",
+    blurb:
+      "Three meals for four people in an insulated bag — built for vacations and tailgates.",
+    cardImage: "/tee-pack.webp",
+    detail: {
+      eyebrow: "Vacation season",
+      intro:
+        "It's back! Now that we're in vacation season, we're happy to re-introduce the ever-popular TEE-Pack — three meals for four people, packed in a transportable insulated bag. Built for vacations, tailgates, and weekend meal planning.",
+      photoLabel:
+        "The TEE-Pack — three meals for four, laid out with its insulated bag",
+      menuLabel: "TEE-Pack",
+      metaDescription:
+        "The TEE-Pack from TEE's Deli — three meals for four people in a transportable insulated bag, $110. Built for vacations, tailgates and weekend meal planning.",
+      highlights: [
+        {
+          title: "Three meals, four people",
+          body: "Breakfast, lunch and dinner — packed and ready to travel.",
+        },
+        {
+          title: "Ready to heat or grill",
+          body: "Everything arrives cooked or prepped; you just finish it.",
+        },
+        {
+          title: "Yours to keep",
+          body: "The insulated bag comes with it — reuse it on your next order.",
+        },
+      ],
+      includes: [
+        "Breakfast — half a breakfast pizza and home fries, ready to heat",
+        "Lunch — four of TEE's famous Italian subs, with red bliss potato or Italian pasta salad",
+        "Dinner — four chicken kabobs ready to grill, rice pilaf, broccoli bacon salad",
+        "One dozen chocolate chip cookies",
+      ],
+      useCases: [
+        "Vacations",
+        "Tailgates",
+        "Weekend meal planning",
+        "Road trips",
+      ],
+      heroImage: "/tee-pack.webp",
+      gallery: [
+        {
+          image: "/chicken-kabobs-grill.webp",
+          caption: "Chicken kabobs, ready to grill",
+        },
+        {
+          image: "/breakfast-pizza.webp",
+          caption: "Breakfast pizza — half of one comes in the pack",
+        },
+        {
+          image: "/deli-subs-italian.webp",
+          caption: "TEE's famous Italian subs",
+        },
+      ],
+      pricing: {
+        rate: "$110.00",
+        rateNote: "Plus tax, with no add-ons or changes.",
+        additionalLabel: "Packaging",
+        additional: [
+          { label: "Bring your own cooler or bag", value: "−$10.00" },
+          { label: "TEE's 16×10×13 insulated bag", value: "Yours to keep" },
+        ],
+        fineprint: [
+          "24-hour notice required.",
+          "Customizations are available — steak kabobs, marinated chicken breasts, cole slaw, or different sub meats. Call and we'll build it around your group.",
         ],
       },
     },

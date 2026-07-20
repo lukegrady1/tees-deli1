@@ -15,6 +15,7 @@ import { Photo } from "@/components/ui/Photo";
 import { Reveal } from "@/components/ui/Reveal";
 import { MoreCatering } from "@/components/sections/MoreCatering";
 import { QuoteSection } from "@/components/sections/QuoteSection";
+import { cn } from "@/lib/cn";
 
 // Only the offerings that have generic detail content are valid here;
 // Breakfast Pizza is served by its own sibling route. Unknown slugs → 404.
@@ -44,16 +45,19 @@ export default async function CateringOfferingPage({ params }: Params) {
   const o = getOffering(slug);
   if (!o?.detail) notFound();
   const d = o.detail;
-  const hasMenu = Boolean(d.flyer || d.pricing);
+  const hasMenu = Boolean(d.flyers?.length || d.pricing);
 
-  // The photo+highlights section is always paper; everything after it
-  // alternates sand/paper regardless of which optional sections are present.
+  // Menu & pricing leads: it's what people come to these pages for, so it sits
+  // directly under the hero and the supporting sections follow. Whichever
+  // section lands first stays paper and sits flush against the hero (pt-0);
+  // everything after it alternates sand/paper. These must be assigned in
+  // render order — `nextTone` advances on each call.
   let toneStep = 0;
   const nextTone = (): "sand" | "paper" =>
     toneStep++ % 2 === 0 ? "sand" : "paper";
+  const highlightsTone = hasMenu ? nextTone() : ("paper" as const);
   const galleryTone = d.gallery ? nextTone() : undefined;
   const includesTone = nextTone();
-  const menuTone = hasMenu ? nextTone() : undefined;
   const moreTone = nextTone();
   const quoteTone = nextTone();
 
@@ -96,8 +100,131 @@ export default async function CateringOfferingPage({ params }: Params) {
         </div>
       </PageHero>
 
+      {/* Menu & pricing — editable text first, printed flyer as reference */}
+      {hasMenu && (
+        <Section id="menu" tone="paper" className="pt-0">
+          <Reveal className="mb-8 max-w-2xl">
+            <Eyebrow>The details</Eyebrow>
+            <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
+              Menu &amp; pricing.
+            </h2>
+            <p className="mt-4 text-lg text-stone">
+              Here&rsquo;s the {d.menuLabel ?? o.title.toLowerCase()} menu and
+              pricing. Prices and options may change — call us to confirm and
+              customize for your event.
+            </p>
+          </Reveal>
+
+          <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
+            {d.pricing && (
+              <Reveal>
+                <div className="rounded-2xl border border-sand bg-card p-6 sm:p-8">
+                  <p className="font-display text-3xl font-semibold text-espresso">
+                    {d.pricing.rate}
+                  </p>
+                  {d.pricing.rateNote && (
+                    <p className="mt-1 text-sm text-stone">
+                      {d.pricing.rateNote}
+                    </p>
+                  )}
+
+                  {d.pricing.fees && d.pricing.fees.length > 0 && (
+                    <div className="mt-6 space-y-4 border-t border-sand pt-6">
+                      {d.pricing.fees.map((f) => (
+                        <div key={f.label}>
+                          <div className="flex items-baseline justify-between gap-4">
+                            <span className="font-medium text-espresso">
+                              {f.label}
+                            </span>
+                            <span className="shrink-0 font-display font-semibold text-clay">
+                              {f.value}
+                            </span>
+                          </div>
+                          {f.note && (
+                            <p className="mt-1 text-sm leading-relaxed text-stone">
+                              {f.note}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {d.pricing.additional && d.pricing.additional.length > 0 && (
+                    <div className="mt-6 border-t border-sand pt-6">
+                      <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-stone">
+                        {d.pricing.additionalLabel ?? "Additional charges"}
+                      </h3>
+                      <ul className="mt-3 divide-y divide-sand">
+                        {d.pricing.additional.map((a) => (
+                          <li
+                            key={a.label}
+                            className="flex items-baseline justify-between gap-4 py-2.5"
+                          >
+                            <span className="text-espresso">{a.label}</span>
+                            <span className="shrink-0 text-right text-sm font-medium text-stone">
+                              {a.value}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {d.pricing.fineprint?.map((line) => (
+                    <p
+                      key={line}
+                      className="mt-4 text-sm leading-relaxed text-stone"
+                    >
+                      {line}
+                    </p>
+                  ))}
+                </div>
+              </Reveal>
+            )}
+
+            {d.flyers && d.flyers.length > 0 && (
+              // With a pricing card alongside, the flyers share the right-hand
+              // column and stack. With no pricing card they own the full width,
+              // so multiple sheets sit side by side instead of running down a
+              // half-width column at half the legible size.
+              <div
+                className={cn(
+                  "grid gap-8",
+                  !d.pricing &&
+                    d.flyers.length > 1 &&
+                    "lg:col-span-2 lg:grid-cols-2 lg:gap-12",
+                )}
+              >
+                {d.flyers.map((f, i) => (
+                  <Reveal key={f.image} delay={0.08 + i * 0.06}>
+                    <figure>
+                      <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-sand bg-card shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]">
+                        <Image
+                          src={f.image}
+                          alt={f.alt}
+                          fill
+                          sizes="(max-width: 1024px) 92vw, 560px"
+                          className="object-contain p-2"
+                        />
+                      </div>
+                      <figcaption className="mt-3 text-center text-sm text-stone">
+                        {f.caption}
+                      </figcaption>
+                    </figure>
+                  </Reveal>
+                ))}
+              </div>
+            )}
+          </div>
+        </Section>
+      )}
+
       {/* Photo + highlights */}
-      <Section tone="paper" className="pt-0">
+      <Section
+        tone={highlightsTone}
+        className={hasMenu ? undefined : "pt-0"}
+      >
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <Photo
@@ -212,111 +339,6 @@ export default async function CateringOfferingPage({ params }: Params) {
           </Reveal>
         </div>
       </Section>
-
-      {/* Menu & pricing — editable text first, printed flyer as reference */}
-      {(d.flyer || d.pricing) && (
-        <Section id="menu" tone={menuTone}>
-          <Reveal className="mb-8 max-w-2xl">
-            <Eyebrow>The details</Eyebrow>
-            <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
-              Menu &amp; pricing.
-            </h2>
-            <p className="mt-4 text-lg text-stone">
-              Here&rsquo;s the {o.title.toLowerCase()} menu and pricing. Prices
-              and options may change — call us to confirm and customize for your
-              event.
-            </p>
-          </Reveal>
-
-          <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
-            {d.pricing && (
-              <Reveal>
-                <div className="rounded-2xl border border-sand bg-card p-6 sm:p-8">
-                  <p className="font-display text-3xl font-semibold text-espresso">
-                    {d.pricing.rate}
-                  </p>
-                  {d.pricing.rateNote && (
-                    <p className="mt-1 text-sm text-stone">
-                      {d.pricing.rateNote}
-                    </p>
-                  )}
-
-                  {d.pricing.fees && d.pricing.fees.length > 0 && (
-                    <div className="mt-6 space-y-4 border-t border-sand pt-6">
-                      {d.pricing.fees.map((f) => (
-                        <div key={f.label}>
-                          <div className="flex items-baseline justify-between gap-4">
-                            <span className="font-medium text-espresso">
-                              {f.label}
-                            </span>
-                            <span className="shrink-0 font-display font-semibold text-clay">
-                              {f.value}
-                            </span>
-                          </div>
-                          {f.note && (
-                            <p className="mt-1 text-sm leading-relaxed text-stone">
-                              {f.note}
-                            </p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {d.pricing.additional && d.pricing.additional.length > 0 && (
-                    <div className="mt-6 border-t border-sand pt-6">
-                      <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-stone">
-                        Additional charges
-                      </h3>
-                      <ul className="mt-3 divide-y divide-sand">
-                        {d.pricing.additional.map((a) => (
-                          <li
-                            key={a.label}
-                            className="flex items-baseline justify-between gap-4 py-2.5"
-                          >
-                            <span className="text-espresso">{a.label}</span>
-                            <span className="shrink-0 text-right text-sm font-medium text-stone">
-                              {a.value}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {d.pricing.fineprint?.map((line) => (
-                    <p
-                      key={line}
-                      className="mt-4 text-sm leading-relaxed text-stone"
-                    >
-                      {line}
-                    </p>
-                  ))}
-                </div>
-              </Reveal>
-            )}
-
-            {d.flyer && (
-              <Reveal delay={0.08}>
-                <figure>
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-sand bg-card shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]">
-                    <Image
-                      src={d.flyer.image}
-                      alt={d.flyer.alt}
-                      fill
-                      sizes="(max-width: 1024px) 92vw, 560px"
-                      className="object-contain p-2"
-                    />
-                  </div>
-                  <figcaption className="mt-3 text-center text-sm text-stone">
-                    The printed {o.title.toLowerCase()} flyer.
-                  </figcaption>
-                </figure>
-              </Reveal>
-            )}
-          </div>
-        </Section>
-      )}
 
       <MoreCatering currentSlug={o.slug} tone={moreTone} />
       <QuoteSection tone={quoteTone} />
