@@ -134,6 +134,7 @@ export function Footer() {
             </ul>
             <div className="mt-5 space-y-1 text-xs text-paper/55">
               <p>{hours.walkIn.label}: {hours.walkIn.summary}</p>
+              <p>{hours.walkIn.short} for the deli.</p>
               <p>{hours.catering.label}: {hours.catering.summary}</p>
             </div>
           </div>

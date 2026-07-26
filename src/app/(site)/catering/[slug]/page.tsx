@@ -46,7 +46,8 @@ export default async function CateringOfferingPage({ params }: Params) {
   if (!o?.detail) notFound();
   const d = o.detail;
   const hasMenu = Boolean(d.flyers?.length || d.pricing);
-  const sideBySideFlyers = (d.flyers?.length ?? 0) > 1;
+  const flyerCount = d.flyers?.length ?? 0;
+  const sideBySideFlyers = flyerCount > 1;
 
   // These pages are the owner's flyers plus his own words — the menu leads,
   // real photos follow, and nothing here is invented marketing copy.
@@ -117,11 +118,13 @@ export default async function CateringOfferingPage({ params }: Params) {
           {/* One flyer sits beside the price card. Two or more take the full
               width side by side instead, with the price card stacked above —
               sharing a half-width column would render each sheet too small to
-              read, which is the whole point of showing them. */}
+              read, which is the whole point of showing them. With no flyer at
+              all the card runs full width; a lone card in a two-column grid
+              would sit in half the page against dead space. */}
           <div
             className={cn(
               "grid items-start gap-8 lg:gap-12",
-              !sideBySideFlyers && "lg:grid-cols-2",
+              flyerCount === 1 && "lg:grid-cols-2",
             )}
           >
             {d.pricing && (
@@ -134,6 +137,37 @@ export default async function CateringOfferingPage({ params }: Params) {
                     <p className="mt-1 text-sm text-stone">
                       {d.pricing.rateNote}
                     </p>
+                  )}
+
+                  {/* Choices carried over from a retired flyer. Two columns
+                      once the card has the page to itself, since without a
+                      flyer beside it these lists would otherwise run as one
+                      long ribbon down a full-width card. */}
+                  {d.pricing.lists && d.pricing.lists.length > 0 && (
+                    <div
+                      className={cn(
+                        "mt-6 grid gap-6 border-t border-sand pt-6",
+                        flyerCount === 0 && "sm:grid-cols-2",
+                      )}
+                    >
+                      {d.pricing.lists.map((l) => (
+                        <div key={l.label}>
+                          <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-stone">
+                            {l.label}
+                          </h3>
+                          <ul className="mt-3 space-y-1.5">
+                            {l.items.map((item) => (
+                              <li
+                                key={item}
+                                className="text-espresso before:mr-2 before:text-clay before:content-['·']"
+                              >
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
                   )}
 
                   {d.pricing.fees && d.pricing.fees.length > 0 && (

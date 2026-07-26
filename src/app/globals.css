@@ -37,6 +37,20 @@
 
   /* Easing — calm and confident, no bounce */
   --ease-calm: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Full-screen mobile nav sheet drops in from under the header. */
+  --animate-sheet-in: sheet-in 220ms var(--ease-calm) both;
+
+  @keyframes sheet-in {
+    from {
+      opacity: 0;
+      transform: translateY(-0.75rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 :root {

@@ -4,6 +4,7 @@ import { PageHero } from "@/components/PageHero";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { MenuExplorer } from "@/components/MenuExplorer";
+import { WalkInNotice } from "@/components/WalkInNotice";
 
 export const metadata: Metadata = {
   title: "Menu",
@@ -26,6 +27,10 @@ export default function MenuPage() {
       </PageHero>
 
       <Section tone="paper" className="pt-0">
+        {/* Above the menu, not below it — someone reading this page is deciding
+            whether to come in, and the deli's hours move with the catering
+            schedule. */}
+        <WalkInNotice className="mb-8 max-w-2xl" />
         <MenuExplorer breakfast={menu.breakfast} lunch={menu.lunch} />
         <p className="mt-8 text-sm text-stone">
           Before ordering, please let our staff know about any food allergies or

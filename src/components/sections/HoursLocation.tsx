@@ -3,6 +3,7 @@ import { business, hours } from "@/lib/business";
 import { Section, Eyebrow } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { LiveHours } from "@/components/LiveHours";
+import { WalkInNotice } from "@/components/WalkInNotice";
 
 export function HoursLocation() {
   // Official pinned Google Maps embed for the TEE's Deli & Catering listing.
@@ -35,7 +36,12 @@ export function HoursLocation() {
                   {hours.walkIn.label}
                 </dt>
                 <dd className="text-stone">{hours.walkIn.summary}</dd>
-                <dd className="mt-1 text-stone">{hours.walkIn.note}</dd>
+                {/* Called out rather than set as fine print: the storefront
+                    times are the one thing on this page that can be wrong on
+                    any given day, so the caveat has to carry equal weight. */}
+                <dd className="mt-2">
+                  <WalkInNotice />
+                </dd>
               </div>
               <div>
                 <dt className="font-medium text-espresso">

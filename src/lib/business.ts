@@ -43,8 +43,13 @@ export const business = {
 export const hours = {
   walkIn: {
     label: "Walk-in storefront",
-    summary: "≈ 6:30am – 2pm daily",
-    note: "Hours shift as catering jobs come in — call ahead to confirm.",
+    // Deliberately leads with "vary": these are a typical day, not a promise.
+    // A big catering job can move both ends, so every place the storefront
+    // hours appear has to carry the caveat with them — see `note`/`short`.
+    summary: "Hours vary — usually ≈ 6:30am – 2pm",
+    note: "Deli hours change day to day depending on the catering jobs we have on. Please call before you head over so we can tell you if we're open.",
+    /** Compact version for tight spots (footer, live status line). */
+    short: "Hours vary — please call ahead",
     openHour: 6.5,
     closeHour: 14,
   },
@@ -137,6 +142,11 @@ export type CateringDetail = {
    * More than one when the owner hands out several sheets for the same service.
    * These stay images on purpose — the printed layout is how the client wants
    * the menu read, so don't transcribe them into text here.
+   *
+   * The exception is a sheet that has been retired (see Boxed Lunches): once
+   * the image comes off a page, everything it said has to be carried by
+   * `pricing.lists` and the rest of the pricing block instead, or the page
+   * quietly loses information the customer needs.
    */
   flyers?: { image: string; alt: string; caption: string }[];
   /**
@@ -153,6 +163,13 @@ export type CateringDetail = {
   pricing?: {
     rate: string;
     rateNote?: string;
+    /**
+     * Labelled lists with no prices against them — what's in the box, the
+     * protein choices, the bread choices. This is where a retired flyer's
+     * content goes: the priced rows belong in `additional`, everything else
+     * the sheet told the customer belongs here.
+     */
+    lists?: { label: string; items: string[] }[];
     fees?: { label: string; value: string; note?: string }[];
     additional?: { label: string; value: string }[];
     /**
@@ -285,7 +302,7 @@ export const cateringOfferings: CateringOffering[] = [
       photoLabel:
         "Corporate luncheon buffet, hot and cold options laid out for an office",
       metaDescription:
-        "Corporate luncheon catering in the Greater Worcester area — hot or cold lunch packages from $10.50 per head, delivered and set up. Get a quote.",
+        "Corporate luncheon catering in the Greater Worcester area — hot or cold lunch packages from $10.50 per person, delivered and set up. Get a quote.",
       heroImage: "/office-buffet-line.webp",
       gallery: [
         {
@@ -316,14 +333,14 @@ export const cateringOfferings: CateringOffering[] = [
       flyers: [
         {
           image: "/catering-luncheons-flyer.webp",
-          alt: "TEE's Deli luncheons sheet, priced per head. Five lunch packages from $10.50 to $13.99 covering subs, grilled sandwiches, wraps, hot entrées and deli platters, plus substitutions, 5-quart side salad bowls from $29.99, and desserts from $8.99.",
+          alt: "TEE's Deli luncheons sheet, priced per person. Five lunch packages from $10.50 to $13.99 covering subs, grilled sandwiches, wraps, hot entrées and deli platters, plus substitutions, 5-quart side salad bowls from $29.99, and desserts from $8.99.",
           caption: "Luncheons — packages, sides and desserts.",
         },
       ],
       pricing: {
-        rate: "$10.50 – $13.99 per head",
+        rate: "$10.50 – $13.99 per person",
         rateNote:
-          "Five packages, from a sub with chips and a cookie up to a hot entrée or deli platter. All prices per head count.",
+          "Five packages, from a sub with chips and a cookie up to a hot entrée or deli platter. All prices per person.",
         additional: [
           { label: "5qt side salad bowl, feeds twenty", value: "$29.99 – $39.99" },
           { label: "Cookies, one dozen", value: "$8.99" },
@@ -382,20 +399,41 @@ export const cateringOfferings: CateringOffering[] = [
           caption: "Game-day tailgate, grills fired up",
         },
       ],
-      // Only the current sheet. The old site also had a June-2024 version of
-      // this same box priced $10.99 — showing both would quote two prices for
-      // one product, so the older one is deliberately not carried over.
-      flyers: [
-        {
-          image: "/boxed-lunch-flyer.webp",
-          alt: "TEE's Deli Basic Box sheet, $11.50 per box: a sandwich, 1oz bag of chips, 1½oz chocolate chip cookie, and a banana or 16oz water. Protein choices include turkey, Italian, chicken salad, roast beef, tuna, grilled chicken, ham and chicken Caesar, with vegan, vegetarian and PBJ also available. Bread choices are a 7-inch sub roll, bulkie roll, sliced white, wheat or marble rye, gluten-free for $1.00 more, or 12-inch white, wheat or tomato wraps.",
-          caption: "The Basic Box — $11.50, with protein and bread choices.",
-        },
-      ],
+      // No flyer image here on purpose. The printed sheet only exists at the
+      // old $11.50 price — the re-export at $11.99 came back with spelling
+      // errors — so the sheet is off the page and everything it said is
+      // transcribed below. Restore a `flyers` entry only with a clean sheet at
+      // the current price, and check nothing below goes stale when you do.
       pricing: {
-        rate: "$11.50 per box",
+        rate: "$11.99 per box",
         rateNote:
-          "TEE's Deli Basic Box — sandwich, chips, cookie, and a banana or bottled water.",
+          "TEE's Deli Basic Box — a sandwich, a 1oz bag of chips, a 1.5oz chocolate chip cookie, and a banana or a 16oz water.",
+        lists: [
+          {
+            label: "Protein choices",
+            items: [
+              "Turkey",
+              "Italian",
+              "Chicken salad",
+              "Roast beef",
+              "Tuna",
+              "Grilled chicken",
+              "Ham",
+              "Chicken Caesar",
+              "Vegan, vegetarian and PBJ also available",
+            ],
+          },
+          {
+            label: "Bread choices",
+            items: [
+              "7″ sub roll",
+              "Bulkie roll",
+              "Sliced white, wheat or marble rye",
+              "12″ wrap — white, wheat or tomato",
+              "Gluten-free, $1.00 more",
+            ],
+          },
+        ],
         additionalLabel: "Options & add-ons",
         additional: [
           { label: "Make it a large sub", value: "+$2.00" },
@@ -445,7 +483,7 @@ export const cateringOfferings: CateringOffering[] = [
       pricing: {
         rate: "$18.00 per person",
         rateNote:
-          "Food cost per head, with no add-ons or changes. Suggested menu based on 50 guests.",
+          "Food cost per person, with no add-ons or changes. Suggested menu based on 50 guests.",
         fees: [
           {
             label: "Set-up fee",
@@ -565,7 +603,7 @@ export const cateringOfferings: CateringOffering[] = [
     title: "Party Platters",
     blurb:
       "Finger sandwiches, pin-wheels, sub-cuts, wraps and dessert trays for private parties.",
-    cardImage: "/platter-finger-sandwiches.webp",
+    cardImage: "/platter-finger-tuna.webp",
     detail: {
       eyebrow: "Private parties",
       intro:
@@ -573,10 +611,29 @@ export const cateringOfferings: CateringOffering[] = [
       photoLabel: "Finger sandwich platter, cut and arranged for a party",
       metaDescription:
         "Party platters from TEE's Deli in West Boylston — finger sandwiches, pin-wheels, sub-cuts, bulkie rolls, wraps, cannoli and cookie trays, priced by the platter.",
-      heroImage: "/platter-finger-sandwiches.webp",
+      heroImage: "/platter-finger-tuna.webp",
+      // In the order teesdeli.com/platters.html shows them: the three finger
+      // sandwich fillings, then the pin-wheels, then the rest of the savoury
+      // platters, then desserts — the same sequence as the price list below.
       gallery: [
         {
-          image: "/platter-pinwheels.webp",
+          image: "/platter-finger-tuna.webp",
+          caption: "Tuna finger sandwich platter",
+        },
+        {
+          image: "/platter-finger-egg-salad.webp",
+          caption: "Egg salad finger sandwich platter",
+        },
+        {
+          image: "/platter-finger-cranberry-walnut.webp",
+          caption: "Cranberry walnut chicken salad finger platter",
+        },
+        {
+          image: "/platter-pinwheels-veggie-hummus.webp",
+          caption: "Grilled vegetable and hummus pin-wheels",
+        },
+        {
+          image: "/platter-pinwheels-turkey.webp",
           caption: "Turkey pin-wheels on homemade half-sours",
         },
         { image: "/platter-sub-cuts.webp", caption: "Sub-cut platter" },
@@ -587,11 +644,16 @@ export const cateringOfferings: CateringOffering[] = [
           image: "/platter-cookies-brownies.webp",
           caption: "Cookie & brownie platter",
         },
+        { image: "/platter-cookies.webp", caption: "Large cookie platter" },
       ],
       pricing: {
-        rate: "Platters from $29.99",
+        // Not "from $29.99": the cheapest line is the small cookie tray, so a
+        // "from" price quotes a dessert for a party spread and reads as a
+        // bait. The list carries the real numbers, in the order the printed
+        // sheet lists them.
+        rate: "Priced by the platter",
         rateNote:
-          "Priced per platter. Finger sandwiches come as egg, tuna, chicken or ham salad; pin-wheels as turkey with garlic aioli, roast beef with horseradish cream, or grilled veggies with hummus.",
+          "Finger sandwich platters start at $49.99. They come as egg, tuna, chicken or ham salad; pin-wheels as turkey with garlic aioli, roast beef with horseradish cream, or grilled veggies with hummus.",
         additionalLabel: "Platter prices",
         additional: [
           { label: "Finger sandwich platter", value: "$49.99" },

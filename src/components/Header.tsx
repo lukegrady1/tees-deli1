@@ -145,6 +145,83 @@ function NavDropdown({
   );
 }
 
+/**
+ * Mobile nav item with children. The row is a real link (Catering still opens
+ * /catering) plus a caret that expands the sub-pages in place.
+ *
+ * The sheet closes on any tap inside it, so the caret has to stop the click
+ * from reaching that handler — otherwise expanding a group would dismiss the
+ * whole menu. Starts expanded when you're already somewhere inside the group;
+ * the sheet is remounted on every open, so this is recomputed each time.
+ */
+function MobileNavGroup({
+  item,
+  pathname,
+}: {
+  item: NavItem & { children: NavItem[] };
+  pathname: string;
+}) {
+  const inGroup =
+    pathname === item.href || pathname.startsWith(`${item.href}/`);
+  const [expanded, setExpanded] = useState(inGroup);
+  const panelId = `mobile-nav-${item.label.toLowerCase().replace(/\W+/g, "-")}`;
+
+  return (
+    <div className="flex flex-col border-b border-sand">
+      <div className="flex items-center">
+        <Link
+          href={item.href}
+          className={cn(
+            "flex-1 py-4 text-xl font-medium active:text-clay",
+            inGroup ? "text-clay" : "text-espresso/90",
+          )}
+        >
+          {item.label}
+        </Link>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setExpanded((v) => !v);
+          }}
+          aria-expanded={expanded}
+          aria-controls={panelId}
+          aria-label={`${expanded ? "Hide" : "Show"} ${item.label} pages`}
+          className="-mr-2 inline-flex size-12 items-center justify-center rounded-xl text-espresso/70 active:text-clay"
+        >
+          <CaretDown
+            weight="bold"
+            aria-hidden
+            className={cn(
+              "size-4 transition-transform duration-200",
+              expanded && "rotate-180",
+            )}
+          />
+        </button>
+      </div>
+
+      {expanded && (
+        <div id={panelId} className="flex flex-col gap-1 pb-3 pl-4">
+          {item.children.map((child) => (
+            <Link
+              key={child.href}
+              href={child.href}
+              className={cn(
+                "border-l-2 border-sand py-2.5 pl-4 text-base active:text-clay",
+                pathname === child.href
+                  ? "border-clay text-clay"
+                  : "text-espresso/75",
+              )}
+            >
+              {child.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -170,16 +247,41 @@ export function Header() {
     <header
       className={cn(
         "sticky top-0 z-50 transition-colors duration-200",
-        scrolled || open
-          ? "border-b border-sand bg-paper/90 backdrop-blur-md"
-          : "border-b border-transparent bg-paper/70 backdrop-blur-sm",
+        // Fully opaque with the sheet open — the sheet itself is solid, and a
+        // translucent bar above it would show the page scrolling underneath.
+        open
+          ? "border-b border-transparent bg-paper"
+          : scrolled
+            ? "border-b border-sand bg-paper/90 backdrop-blur-md"
+            : "border-b border-transparent bg-paper/70 backdrop-blur-sm",
       )}
     >
       {/* Taller than the old wordmark needed: the anniversary badge is nearly
           square rather than a wide oval, so at a given height it takes far less
           width and its ring text shrinks with it. */}
       <Container className="flex h-32 items-center justify-between gap-4">
-        <Link href="/" aria-label={`${business.name} — home`} className="inline-flex">
+        <Link
+          href="/"
+          aria-label={`${business.name} — home`}
+          className="inline-flex"
+          onClick={() => {
+            setOpen(false);
+            // Tapping the logo while already on the homepage is a same-route
+            // navigation, so ScrollToTop never fires — do it here. The scroll
+            // lock has to come off first: a scroll issued against a locked
+            // body goes nowhere, and the effect that clears it doesn't run
+            // until after this render. It sets the same value.
+            if (pathname !== "/") return;
+            document.body.style.overflow = "";
+            window.scrollTo({
+              top: 0,
+              behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+                .matches
+                ? "instant"
+                : "smooth",
+            });
+          }}
+        >
           <Image
             src={"/tees-deli-logo-20th.webp"}
             alt={`${business.name} logo — celebrating 20 years in business, 2006–2026`}
@@ -260,64 +362,68 @@ export function Header() {
         </div>
       </Container>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — a full-screen sheet, not a dropdown. Fixed rather than
+          in flow so it covers the page and the fixed bottom action bar; it
+          starts below the header bar (h-32) so the logo and the close button
+          stay put and visible behind it. Living inside the sticky <header>
+          means it shares that element's stacking context, so it paints above
+          everything on the page without a z-index race. */}
       {open && (
         <div
           id="mobile-menu"
-          className="lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-32 z-40 animate-sheet-in overflow-y-auto overscroll-contain bg-paper lg:hidden"
           // Any tap inside (a nav link or the call link) dismisses the menu.
+          // The disclosure carets stop their clicks before they reach here.
           onClick={() => setOpen(false)}
         >
-          <Container className="flex flex-col gap-1 border-t border-sand py-4">
-            {nav.map((item) =>
-              item.external ? (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-xl px-3 py-3 text-base font-medium text-espresso/90 hover:bg-sand"
-                >
-                  {item.label}
-                </a>
-              ) : (
-                // Sub-links render indented rather than behind an expander:
-                // this sheet closes on any tap inside it, so a disclosure
-                // button would dismiss the menu instead of opening the group.
-                <div key={item.label} className="flex flex-col gap-1">
+          <Container className="flex min-h-full flex-col border-t border-sand pb-[calc(2rem+env(safe-area-inset-bottom))] pt-2">
+            <nav aria-label="Mobile" className="flex flex-col">
+              {nav.map((item) =>
+                item.external ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border-b border-sand py-4 text-xl font-medium text-espresso/90 active:text-clay"
+                  >
+                    {item.label}
+                  </a>
+                ) : item.children?.length ? (
+                  <MobileNavGroup
+                    key={item.label}
+                    item={{ ...item, children: item.children }}
+                    pathname={pathname}
+                  />
+                ) : (
                   <Link
+                    key={item.label}
                     href={item.href}
                     className={cn(
-                      "rounded-xl px-3 py-3 text-base font-medium hover:bg-sand",
+                      "border-b border-sand py-4 text-xl font-medium active:text-clay",
                       pathname === item.href ? "text-clay" : "text-espresso/90",
                     )}
                   >
                     {item.label}
                   </Link>
-                  {item.children?.map((child) => (
-                    <Link
-                      key={child.href}
-                      href={child.href}
-                      className={cn(
-                        "rounded-xl py-2.5 pl-7 pr-3 text-[0.95rem] hover:bg-sand",
-                        pathname === child.href
-                          ? "text-clay"
-                          : "text-espresso/75",
-                      )}
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
-              ),
-            )}
-            <a
-              href={`tel:${business.phone.tel}`}
-              className="mt-1 inline-flex items-center gap-2 rounded-xl px-3 py-3 text-base font-medium text-espresso/90 hover:bg-sand"
-            >
-              <Phone weight="regular" className="size-5" aria-hidden />
-              {business.phone.display}
-            </a>
+                ),
+              )}
+            </nav>
+
+            {/* Pushed to the foot of the sheet so the CTAs sit together at the
+                bottom however short the nav is. */}
+            <div className="mt-auto flex flex-col gap-3 pt-8">
+              <Button href="/contact" size="lg" className="w-full">
+                Get a Quote
+              </Button>
+              <a
+                href={`tel:${business.phone.tel}`}
+                className="inline-flex items-center justify-center gap-2 py-2 text-lg font-medium text-espresso/90 active:text-clay"
+              >
+                <Phone weight="regular" className="size-5" aria-hidden />
+                {business.phone.display}
+              </a>
+            </div>
           </Container>
         </div>
       )}
