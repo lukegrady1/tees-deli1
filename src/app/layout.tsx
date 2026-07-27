@@ -44,15 +44,16 @@ export const metadata: Metadata = {
       "Full-service catering and a fresh deli serving the Greater Worcester area.",
     url: SITE_URL,
     // og-image.png, not the logo file itself: the logo is a transparent WebP,
-    // and transparency renders black in most chat clients. This is the logo
-    // composited on the paper background at the 1200x630 that platforms crop to.
+    // and transparency renders black in most chat clients. This is the
+    // 20th-anniversary mark composited on the paper background at the 1200x630
+    // that platforms crop to, generated from tees-deli-logo-20th-full.webp.
     // Absolute URLs so scrapers, which don't resolve relative paths, can fetch it.
     images: [
       {
         url: `${SITE_URL}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: business.name,
+        alt: `${business.name} — celebrating 20 years in business, 2006–2026`,
       },
     ],
   },
