@@ -5,7 +5,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { business, dailySpecial } from "@/lib/business";
 import { formatPostedLabel, getFlyer } from "@/lib/specials";
-import { Section, Eyebrow } from "@/components/ui/Section";
+import { Section, Eyebrow, centerOnPhone } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -27,7 +27,7 @@ export async function DailySpecials({
   return (
     <Section id="specials" tone={tone}>
       <div className="grid items-center gap-6 sm:gap-10 lg:grid-cols-2 lg:gap-16">
-        <Reveal>
+        <Reveal className={centerOnPhone}>
           <Eyebrow>Daily specials</Eyebrow>
           <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
             Fresh off the board.

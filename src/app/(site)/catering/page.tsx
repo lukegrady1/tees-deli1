@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Check } from "@phosphor-icons/react/dist/ssr";
 import {
   business,
@@ -7,7 +8,7 @@ import {
   sitePhotos,
 } from "@/lib/business";
 import { PageHero } from "@/components/PageHero";
-import { Section, Eyebrow } from "@/components/ui/Section";
+import { Section, Eyebrow, centerOnPhone } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { Photo } from "@/components/ui/Photo";
 import { Reveal } from "@/components/ui/Reveal";
@@ -44,7 +45,7 @@ export default function CateringPage() {
       {/* Full offerings list */}
       <Section tone="sand">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-          <Reveal>
+          <Reveal className={centerOnPhone}>
             <Eyebrow>Everything we cater</Eyebrow>
             <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
               If you&rsquo;re hosting it, we can feed it.
@@ -53,6 +54,25 @@ export default function CateringPage() {
               We specialize in corporate breakfast &amp; lunch meetings, college
               athletic team meals, and company &amp; private barbecues.
             </p>
+
+            {/* The owner's own services sheet. It used to open the homepage,
+                where a scanned text flyer was the first thing anyone saw; it
+                belongs next to the list it duplicates, not above the fold. */}
+            <figure className="mt-8 max-w-sm max-sm:mx-auto">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-sand bg-card shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]">
+                <Image
+                  src="/homepage-hero.webp"
+                  alt="TEE's Deli & Catering services sheet: full-service catering for corporate and private events — breakfasts, luncheons, dinners, barbecues up to 500 people, boxed lunches, anniversary parties, bereavement meals, class reunions and chef-for-hire, plus pick-up breakfasts, lunches, dinners, kabobs, Breakfast Pizza and TEE Packs."
+                  fill
+                  sizes="(max-width: 1024px) 92vw, 384px"
+                  className="object-contain p-2"
+                />
+              </div>
+              <figcaption className="mt-3 text-center text-sm text-stone">
+                Our printed services sheet &mdash; call or text{" "}
+                {business.phone.display} for anything on it.
+              </figcaption>
+            </figure>
           </Reveal>
           <Reveal delay={0.08}>
             <ul className="grid gap-3 sm:grid-cols-2">
@@ -88,7 +108,7 @@ export default function CateringPage() {
               ratio="4/3"
             />
           </Reveal>
-          <Reveal delay={0.08}>
+          <Reveal delay={0.08} className={centerOnPhone}>
             <Eyebrow>For the teams</Eyebrow>
             <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
               Boxed lunches built for game day.
@@ -110,7 +130,7 @@ export default function CateringPage() {
 
       {/* Gallery — real photos from catered events */}
       <Section tone="sand">
-        <Reveal className="mb-8 max-w-2xl">
+        <Reveal className={`mb-8 max-w-2xl ${centerOnPhone}`}>
           <Eyebrow>Gallery</Eyebrow>
           <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
             A taste of what we set up.
@@ -129,7 +149,7 @@ export default function CateringPage() {
                   ratio="4/3"
                   sizes="(max-width: 768px) 45vw, 30vw"
                 />
-                <figcaption className="mt-2 text-sm text-stone">
+                <figcaption className="mt-2 text-center text-sm text-stone">
                   {g.caption}
                 </figcaption>
               </figure>

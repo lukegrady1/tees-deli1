@@ -1,6 +1,6 @@
 import { MapPin, Phone, Clock } from "@phosphor-icons/react/dist/ssr";
 import { business, hours } from "@/lib/business";
-import { Section, Eyebrow } from "@/components/ui/Section";
+import { Section, Eyebrow, centerOnPhone } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { LiveHours } from "@/components/LiveHours";
 import { WalkInNotice } from "@/components/WalkInNotice";
@@ -12,7 +12,7 @@ export function HoursLocation() {
 
   return (
     <Section id="visit" tone="paper">
-      <Reveal className="mb-6 max-w-2xl sm:mb-10">
+      <Reveal className={`mb-6 max-w-2xl ${centerOnPhone} sm:mb-10`}>
         <Eyebrow>Hours &amp; location</Eyebrow>
         <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
           Find us in West Boylston.

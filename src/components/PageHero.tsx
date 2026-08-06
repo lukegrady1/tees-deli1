@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { CaretLeft } from "@phosphor-icons/react/dist/ssr";
 import { Container } from "@/components/ui/Container";
-import { Eyebrow } from "@/components/ui/Section";
+import { Eyebrow, centerOnPhone } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
+import { cn } from "@/lib/cn";
 
 /** Compact, consistent header for inner pages. One h1 per page lives here. */
 export function PageHero({
@@ -26,11 +27,14 @@ export function PageHero({
         className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_20%_0%,rgba(181,84,59,0.06),transparent_60%)]"
       />
       <Container className="pb-14 pt-8 sm:pb-20 sm:pt-10">
-        <Reveal className="max-w-3xl">
+        <Reveal className={cn("max-w-3xl", centerOnPhone)}>
           {breadcrumb && (
+            // Stays hard left at every width, even though the header below it
+            // centres on phones: this is a navigation control, and a centred
+            // back link reads as part of the heading rather than as a way out.
             <Link
               href={breadcrumb.href}
-              className="mb-5 flex w-fit items-center gap-1 text-sm font-medium text-stone transition-colors hover:text-clay"
+              className="mb-5 flex w-fit items-center gap-1 text-left text-sm font-medium text-stone transition-colors hover:text-clay"
             >
               <CaretLeft weight="bold" className="size-3.5" aria-hidden />
               {breadcrumb.label}

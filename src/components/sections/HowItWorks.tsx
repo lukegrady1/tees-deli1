@@ -28,7 +28,7 @@ const steps = [
 export function HowItWorks() {
   return (
     <Section tone="sand">
-      <Reveal className="mb-6 max-w-2xl sm:mb-10">
+      <Reveal className="mx-auto mb-6 max-w-2xl text-center sm:mb-12">
         <Eyebrow>How catering works</Eyebrow>
         <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
           Three steps, zero stress.
@@ -38,8 +38,10 @@ export function HowItWorks() {
       <ol className="grid gap-3 sm:gap-6 md:grid-cols-3">
         {steps.map((s, i) => (
           <Reveal as="li" key={s.title} delay={i * 0.08} className="h-full">
-            <div className="flex h-full flex-col rounded-2xl border border-sand bg-card p-5 sm:p-6">
-              <div className="flex items-center justify-between">
+            <div className="flex h-full flex-col rounded-2xl border border-sand bg-card p-5 max-sm:text-center sm:p-6">
+              {/* Icon and step number sit at opposite ends of the card from sm
+                  up; on phones the card is centred, so they pair up instead. */}
+              <div className="flex items-center justify-between max-sm:justify-center max-sm:gap-4">
                 <s.icon
                   weight="thin"
                   className="size-9 text-espresso"
@@ -58,7 +60,7 @@ export function HowItWorks() {
         ))}
       </ol>
 
-      <Reveal delay={0.1} className="mt-10">
+      <Reveal delay={0.1} className="mt-10 text-center">
         <Button href="/contact" size="lg">
           Start your quote
         </Button>

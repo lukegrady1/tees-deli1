@@ -1,8 +1,8 @@
+import Image from "next/image";
 import { ArrowRight, ForkKnife } from "@phosphor-icons/react/dist/ssr";
 import { business } from "@/lib/business";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { Photo } from "@/components/ui/Photo";
 import { Reveal } from "@/components/ui/Reveal";
 import { LiveHours } from "@/components/LiveHours";
 
@@ -70,16 +70,46 @@ export function Hero() {
           </Reveal>
         </div>
 
-        {/* Hero services flyer — shown whole on a clean card */}
+        {/* Photo mosaic in place of the old services flyer — the flyer now
+            lives on /catering, next to the list it duplicates.
+            One tall frame plus two squares: the 3/5 + 2/5 split gives the tall
+            cell a ~3:4 box, which is the native shape of the subs photo, so
+            nothing important gets cropped away. */}
         <Reveal delay={0.1} className="lg:pl-4">
-          <Photo
-            label="TEE's Deli & Catering — full-service catering for corporate and private events, breakfasts, luncheons, dinners, barbecues (up to 500 people), boxed lunches, anniversary parties, bereavement meals, class reunions, and chef-for-hire; plus pickup and Breakfast Pizza."
-            src="/homepage-hero.webp"
-            fit="contain"
-            ratio="3/4"
-            sizes="(max-width: 1024px) 92vw, 560px"
-            className="border border-sand bg-card shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]"
-          />
+          <div className="grid grid-cols-5 gap-3 sm:gap-4">
+            <figure className="col-span-3 row-span-2 overflow-hidden rounded-2xl border border-sand bg-card shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]">
+              <Image
+                src="/deli-subs-italian.webp"
+                alt="Six three-foot Italian subs built to order on the prep table at TEE's Deli"
+                width={1216}
+                height={1600}
+                priority
+                sizes="(max-width: 1024px) 55vw, 350px"
+                className="size-full object-cover"
+              />
+            </figure>
+            <figure className="col-span-2 aspect-square overflow-hidden rounded-2xl border border-sand bg-card shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]">
+              <Image
+                src="/breakfast-pizza.webp"
+                alt="A half-sheet TEE's breakfast pizza — eggs, bacon, ham and roasted peppers on focaccia"
+                width={1796}
+                height={1318}
+                priority
+                sizes="(max-width: 1024px) 37vw, 235px"
+                className="size-full object-cover"
+              />
+            </figure>
+            <figure className="col-span-2 aspect-square overflow-hidden rounded-2xl border border-sand bg-card shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]">
+              <Image
+                src="/platter-wraps.webp"
+                alt="A catering platter of assorted wraps, cut and arranged for a luncheon"
+                width={827}
+                height={827}
+                sizes="(max-width: 1024px) 37vw, 235px"
+                className="size-full object-cover"
+              />
+            </figure>
+          </div>
         </Reveal>
       </Container>
     </section>

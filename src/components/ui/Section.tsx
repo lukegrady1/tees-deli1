@@ -45,6 +45,17 @@ export function Section({
   );
 }
 
+/**
+ * Section intro blocks (eyebrow → heading → lead paragraph) centre on phones
+ * and go back to left-aligned from sm up.
+ *
+ * The client asked for the phone layout to read centred. It only applies below
+ * sm on purpose: from tablet up the intro usually sits in one column of a
+ * two-column grid, where a centred paragraph next to left-aligned content
+ * reads as a mistake rather than a choice.
+ */
+export const centerOnPhone = "max-sm:text-center";
+
 /** Small eyebrow label used above section headings. */
 export function Eyebrow({
   children,

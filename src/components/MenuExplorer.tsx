@@ -41,7 +41,10 @@ export function MenuExplorer({
         <div
           role="tablist"
           aria-label="Menu section"
-          className="inline-flex rounded-xl border border-sand bg-card p-1"
+          // Centred on phones to sit under the centred page header. Centring
+          // has to go on the toggle itself, not the column: the search field
+          // below is a full-width sibling that must not shrink to its content.
+          className="inline-flex rounded-xl border border-sand bg-card p-1 max-sm:mx-auto"
         >
           {(["breakfast", "lunch"] as const).map((m) => (
             <button

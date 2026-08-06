@@ -9,7 +9,7 @@ import {
   SITE_URL,
 } from "@/lib/business";
 import { PageHero } from "@/components/PageHero";
-import { Section, Eyebrow } from "@/components/ui/Section";
+import { Section, Eyebrow, centerOnPhone } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { Photo } from "@/components/ui/Photo";
 import { Reveal } from "@/components/ui/Reveal";
@@ -103,7 +103,7 @@ export default async function CateringOfferingPage({ params }: Params) {
       {/* Menu & pricing — editable text first, printed flyer as reference */}
       {hasMenu && (
         <Section id="menu" tone="paper" className="pt-0">
-          <Reveal className="mb-8 max-w-2xl">
+          <Reveal className={`mb-8 max-w-2xl ${centerOnPhone}`}>
             <Eyebrow>The details</Eyebrow>
             <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
               Menu &amp; pricing.
@@ -262,7 +262,7 @@ export default async function CateringOfferingPage({ params }: Params) {
           {/* No blurb here — the strapline used to talk about cookouts, which
               was wrong on every page but Barbecues. The captions are real and
               specific, so they carry it. */}
-          <Reveal className="mb-8 max-w-2xl">
+          <Reveal className={`mb-8 max-w-2xl ${centerOnPhone}`}>
             <Eyebrow>From our kitchen</Eyebrow>
             <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
               The real thing.
@@ -278,7 +278,7 @@ export default async function CateringOfferingPage({ params }: Params) {
                     ratio="4/3"
                     sizes="(max-width: 768px) 45vw, 30vw"
                   />
-                  <figcaption className="mt-2 text-sm text-stone">
+                  <figcaption className="mt-2 text-center text-sm text-stone">
                     {g.caption}
                   </figcaption>
                 </figure>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Check } from "@phosphor-icons/react/dist/ssr";
 import { business, breakfastPizza } from "@/lib/business";
 import { PageHero } from "@/components/PageHero";
-import { Section, Eyebrow } from "@/components/ui/Section";
+import { Section, Eyebrow, centerOnPhone } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { Photo } from "@/components/ui/Photo";
 import { Reveal } from "@/components/ui/Reveal";
@@ -44,7 +44,7 @@ export default function BreakfastPizzaPage() {
 
       {/* Varieties + pricing */}
       <Section tone="paper" className="pt-0">
-        <Reveal className="mb-8 max-w-2xl">
+        <Reveal className={`mb-8 max-w-2xl ${centerOnPhone}`}>
           <Eyebrow>Varieties &amp; pricing</Eyebrow>
           <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
             Pick your pizza.
@@ -94,7 +94,7 @@ export default function BreakfastPizzaPage() {
               className="shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]"
             />
           </Reveal>
-          <Reveal delay={0.08}>
+          <Reveal delay={0.08} className={centerOnPhone}>
             <Eyebrow>How it comes</Eyebrow>
             <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
               Two ways to serve it.
@@ -130,13 +130,13 @@ export default function BreakfastPizzaPage() {
 
       {/* Use cases */}
       <Section tone="paper">
-        <Reveal className="mb-8 max-w-2xl">
+        <Reveal className={`mb-8 max-w-2xl ${centerOnPhone}`}>
           <Eyebrow>Perfect for</Eyebrow>
           <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
             More than just meetings.
           </h2>
         </Reveal>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3 max-sm:justify-center">
           {breakfastPizza.useCases.map((u) => (
             <span
               key={u}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { cateringOfferings } from "@/lib/business";
-import { Section, Eyebrow } from "@/components/ui/Section";
+import { Section, Eyebrow, centerOnPhone } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 
 /** Cross-links to the other catering offerings. Used on each /catering/* page. */
@@ -16,7 +16,7 @@ export function MoreCatering({
 
   return (
     <Section tone={tone}>
-      <Reveal className="mb-8 max-w-2xl">
+      <Reveal className={`mb-8 max-w-2xl ${centerOnPhone}`}>
         <Eyebrow>More catering</Eyebrow>
         <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">
           Explore the rest.
@@ -28,7 +28,7 @@ export function MoreCatering({
           <Reveal key={o.slug} delay={(i % 3) * 0.05} className="h-full">
             <Link
               href={`/catering/${o.slug}`}
-              className="group flex h-full flex-col justify-between gap-6 rounded-2xl border border-sand bg-card p-5 transition-transform duration-200 ease-[var(--ease-calm)] hover:-translate-y-[3px]"
+              className="group flex h-full flex-col justify-between gap-6 rounded-2xl border border-sand bg-card p-5 transition-transform duration-200 ease-[var(--ease-calm)] hover:-translate-y-[3px] max-sm:text-center"
             >
               <div>
                 <h3 className="font-display text-xl font-semibold">{o.title}</h3>
