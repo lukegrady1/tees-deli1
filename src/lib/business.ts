@@ -468,12 +468,15 @@ export const cateringOfferings: CateringOffering[] = [
         "Company & family barbecue catering in the Greater Worcester area — full-service cookouts, tailgates, and concessions, delivered and set up. Get a quote.",
       heroImage: "/technetics-family-bbq2.webp",
       gallery: bbqEvents,
+      // The TEE's Basic Barbecue sheet is off the page on purpose, the same
+      // way the Boxed Lunches one is: the printed version exists only at the
+      // old prices ($18.00 a head, $325.00 set-up, $60.00 rates) and still
+      // lists ketchup, mustard and relish, which the owner has since dropped.
+      // Everything it said is transcribed below. Restore a `flyers` entry for
+      // it only with a clean sheet at the current prices, and check nothing
+      // below goes stale when you do. The entrées/sides sheet stays — it
+      // quotes no prices, so nothing on it can fall out of date.
       flyers: [
-        {
-          image: "/barbecue-menu.webp",
-          alt: "Printed TEE's Basic Barbecue menu and pricing sheet — suggested menu for 50 guests, side dishes, what every barbecue includes, and full pricing.",
-          caption: "The printed TEE's Basic Barbecue sheet.",
-        },
         {
           image: "/barbecue-entrees-sides.webp",
           alt: "Printed TEE's Deli barbecue sheet listing entrées — hot dogs, cheeseburgers, sausages, grilled chicken, steak tips, shaved steak — and side dishes.",
@@ -481,13 +484,47 @@ export const cateringOfferings: CateringOffering[] = [
         },
       ],
       pricing: {
-        rate: "$18.00 per person",
+        rate: "$20.00 per person",
         rateNote:
-          "Food cost per person, with no add-ons or changes. Suggested menu based on 50 guests.",
+          "Food cost per person, with no add-ons or changes. Suggested menu based on 50 guests — it's there to give you an idea of the food and where you may be price-wise.",
+        lists: [
+          {
+            label: "Suggested menu, 50 guests",
+            items: [
+              "Hamburgers & veggie burgers — (24) 6oz Bubba Burgers",
+              "Ball park sausage — (20) 4oz sweet Italian sausage",
+              "Sliced grilled chicken breast — (10lbs) TEE's home marinade",
+              "Hot dogs — (16) Kayem natural casing hot dogs",
+            ],
+          },
+          {
+            label: "Side dishes — all homemade, choose any two",
+            items: [
+              "Broccoli/bacon salad",
+              "Italian pasta salad",
+              "Red bliss potato salad",
+              "Cole slaw",
+              "Apple pear slaw",
+              "Macaroni salad (mayo base)",
+            ],
+          },
+          {
+            label: "All barbecues include",
+            items: [
+              "Hamburger, hot dog and torpedo rolls",
+              "Caesar or tossed salad",
+              "Sautéed peppers & onions",
+              "Sliced & diced onions",
+              "Ranch and bleu cheese dressings",
+              "Buffalo, BBQ and teriyaki sauces",
+              "Burger bar — lettuce, tomato, pickles, onions and condiments",
+            ],
+          },
+        ],
         fees: [
           {
             label: "Set-up fee",
-            value: "$325.00",
+            value: "$350.00",
             note: "Includes grill & griddle, tent & serving tables (grill area), two attendants (up to two hours grilling time), and travel time (one hour round trip).",
           },
         ],
@@ -496,9 +533,9 @@ export const cateringOfferings: CateringOffering[] = [
           { label: "Gratuity", value: "Customer discretion" },
           {
             label: "Additional travel time",
-            value: "$60.00 / half hour + $0.75 / mile",
+            value: "$75.00 / half hour + $0.75 / mile",
           },
-          { label: "Extra attendant", value: "$60.00 / hour" },
+          { label: "Extra attendant", value: "$75.00 / hour" },
           { label: "Plates, napkins, utensils, etc.", value: "5% of food cost" },
         ],
         fineprint: [
