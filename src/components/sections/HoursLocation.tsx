@@ -36,6 +36,7 @@ export function HoursLocation() {
                   {hours.walkIn.label}
                 </dt>
                 <dd className="text-stone">{hours.walkIn.summary}</dd>
+                <dd className="text-stone">{hours.walkIn.online}</dd>
                 {/* Called out rather than set as fine print: the storefront
                     times are the one thing on this page that can be wrong on
                     any given day, so the caveat has to carry equal weight. */}

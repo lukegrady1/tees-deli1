@@ -146,7 +146,7 @@ Pull color out of the UI almost entirely. A warm paper-and-espresso neutral syst
 |---|---|
 | `/` | Home — catering-led landing (full structure in §6) |
 | `/catering` | Full catering page: all offerings, use-cases, gallery, quote CTA |
-| `/menu` | Real text breakfast & lunch menu (grouped, searchable) |
+| `/menu` | The owner's printed breakfast & lunch menu sheets, shown as images |
 | `/breakfast-pizza` | Signature-product page (varieties, pricing, use-cases) |
 | `/contact` | Quote form, hours, location/map, phone, email |
 

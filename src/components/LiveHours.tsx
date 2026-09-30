@@ -10,13 +10,20 @@ type Status = { open: boolean; text: string } | null;
 function computeStatus(): Status {
   const now = new Date();
   const h = now.getHours() + now.getMinutes() / 60;
-  const open = h >= hours.walkIn.openHour && h < hours.walkIn.closeHour;
+  const day = now.getDay(); // 0 = Sunday, 6 = Saturday
+  const weekday = day >= 1 && day <= 5;
+  const open =
+    weekday && h >= hours.walkIn.openHour && h < hours.walkIn.closeHour;
   // Hedged wording on purpose. This is the clock against a typical day, not a
   // reading of the actual door — the deli's hours move with the catering
   // schedule — so it must not read as a promise that they're open.
-  return open
-    ? { open: true, text: "Deli usually open now · til ≈ 2pm" }
-    : { open: false, text: "Deli closed now · usually opens ≈ 6:30am" };
+  if (open) return { open: true, text: "Deli usually open now · til ≈ 1:30pm" };
+  return {
+    open: false,
+    text: weekday
+      ? "Deli closed now · usually opens ≈ 6:30am"
+      : "Deli closed weekends · opens Monday ≈ 6:30am",
+  };
 }
 
 /**

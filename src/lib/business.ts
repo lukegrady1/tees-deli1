@@ -43,15 +43,18 @@ export const business = {
 export const hours = {
   walkIn: {
     label: "Walk-in storefront",
-    // Deliberately leads with "vary": these are a typical day, not a promise.
-    // A big catering job can move both ends, so every place the storefront
-    // hours appear has to carry the caveat with them — see `note`/`short`.
-    summary: "Hours vary — usually ≈ 6:30am – 2pm",
-    note: "Deli hours change day to day depending on the catering jobs we have on. Please call before you head over so we can tell you if we're open.",
+    // From the September 2026 printed menu: "General operating hours are
+    // Monday thru Friday 6:30am – 1:30pm." Still a typical day, not a promise:
+    // a catering delivery can close the door mid-morning, so every place the
+    // storefront hours appear has to carry the caveat — see `note`/`short`.
+    summary: "Mon – Fri 6:30am – 1:30pm (hours vary)",
+    note: "We do temporarily close and re-open on days we have scheduled catering deliveries, so please call before you head over — or check Facebook for any upcoming scheduled closings.",
     /** Compact version for tight spots (footer, live status line). */
     short: "Hours vary — please call ahead",
     openHour: 6.5,
-    closeHour: 14,
+    closeHour: 13.5,
+    /** Toast online ordering opens later than the door does. */
+    online: "Online ordering Mon – Fri 8:30am – 1:30pm",
   },
   catering: {
     label: "Pre-scheduled catering",
@@ -59,7 +62,7 @@ export const hours = {
   },
   consults: {
     label: "Catering consults",
-    summary: "Call anytime 6am – 10pm, any day",
+    summary: "Any day until 8pm, except during the lunch hour",
   },
 } as const;
 
@@ -795,300 +798,41 @@ export const breakfastPizza = {
 } as const;
 
 /**
- * Real, text-based menu — transcribed from the storefront menus (replacing the
- * old image-only menus per the brief: crawlable, accessible, no JPEG menus).
- * Prices as printed; omit price for choice/option lines.
+ * The printed menu, shown on /menu as the owner's own sheets rather than a
+ * transcription — his call, September 2026. Lunch pages one and three are
+ * rendered from the Word files he sent ("Daily Page One Sept 2026",
+ * "Daily page three Sept 2026"); the breakfast sheet and lunch page two are
+ * the earlier sheets and still carry their earlier prices.
+ *
+ * TO UPDATE A SHEET: export the new page to an image at 1398 × 1812 with the
+ * red double frame, save it under a NEW filename in /public (the image CDN
+ * caches by URL, so reusing a name can leave the old sheet showing), and
+ * point `image` at it. Keep `alt` in step with what is printed.
  */
-export type MenuItem = { name: string; desc?: string; price?: string };
-export type MenuGroup = { group: string; items: MenuItem[] };
+export type MenuSheet = { title: string; image: string; alt: string };
 
-export const menu: { breakfast: MenuGroup[]; lunch: MenuGroup[] } = {
-  breakfast: [
-    {
-      group: "Breakfast Sandwiches",
-      items: [
-        {
-          name: "Egg, Meat & Cheese",
-          price: "$6.75",
-          desc: "Meats: ham, bacon or sausage. Breads: bagel, bulkie, English muffin, or sliced white, wheat or marble rye.",
-        },
-        { name: "Meat & Cheese", price: "$5.75" },
-        { name: "Egg & Cheese", price: "$4.75" },
-      ],
-    },
-    {
-      group: "Breakfast Wraps",
-      items: [
-        {
-          name: "The “Lunchwrecker”",
-          price: "$10.50",
-          desc: "Two slices bacon, two slices ham, two sausage links, two slices American cheese, two sliced tomatoes and two scrambled eggs in a white flour tortilla.",
-        },
-        {
-          name: "The Western Wrap",
-          price: "$9.99",
-          desc: "Two scrambled eggs with diced ham, onions, red & green bell peppers and American cheese in a white flour tortilla.",
-        },
-        {
-          name: "The Steakfast Wrap",
-          price: "$10.99",
-          desc: "Two scrambled eggs with shaved steak, onions, red & green bell peppers and American cheese in a white flour tortilla.",
-        },
-        {
-          name: "The “Bacon-ater” Wrap",
-          price: "$10.50",
-          desc: "Two scrambled eggs with four slices of bacon and American cheese in a wrap.",
-        },
-        {
-          name: "The “Snausages” Wrap",
-          price: "$8.99",
-          desc: "Two scrambled eggs with two sausage patties, onions and cheddar cheese.",
-        },
-      ],
-    },
-    {
-      group: "Breakfast on Texas Toast",
-      items: [
-        {
-          name: "Breakfast Sandwich on Texas Toast",
-          price: "$8.99",
-          desc: "Two eggs with bacon, ham or sausage and cheese.",
-        },
-        {
-          name: "Western on Texas Toast",
-          price: "$9.99",
-          desc: "Two-egg Western omelet served on Texas toast.",
-        },
-        {
-          name: "Shaved Steak on Texas Toast",
-          price: "$10.99",
-          desc: "Two-egg omelet with shaved steak, peppers, onions and cheese.",
-        },
-      ],
-    },
-    {
-      group: "Sides & Add-ons",
-      items: [
-        { name: "Home Fries", price: "$2.99" },
-        { name: "Extra Egg", price: "$1.75" },
-        { name: "Extra Meat", price: "$2.50" },
-        {
-          name: "Bagel, Bulkie or English Muffin w/ Butter",
-          price: "$1.99",
-        },
-        { name: "Bagel or Bulkie Roll with Cream Cheese", price: "$2.99" },
-        { name: "Toast", price: "$1.99", desc: "White, wheat or marble rye." },
-      ],
-    },
-  ],
-  lunch: [
-    {
-      group: "Deli Sandwiches",
-      items: [
-        { name: "Grilled Chicken", price: "$8.50" },
-        { name: "Roast Turkey", price: "$8.50" },
-        { name: "TEE’s Italian", price: "$8.50" },
-        { name: "Roast Beef", price: "$8.50" },
-        { name: "Ham", price: "$8.50" },
-        { name: "Chicken Salad", price: "$8.50" },
-        { name: "Tuna Salad", price: "$8.99" },
-        { name: "Hard Salami", price: "$8.99" },
-        { name: "Cranberry Walnut Chicken Salad", price: "$8.99" },
-        { name: "Chicken Caesar Salad Wrap", price: "$8.99" },
-        { name: "Vegetarian", price: "$6.99" },
-        { name: "Vegan", price: "$6.99" },
-        {
-          name: "Bread choices",
-          desc: "Sliced white, wheat, marble rye or Texas toast; white, wheat or tomato wraps; sub and bulkie rolls.",
-        },
-      ],
-    },
-    {
-      group: "Grilled Sandwiches",
-      items: [
-        {
-          name: "Steak & Cheese",
-          price: "$9.50",
-          desc: "Add peppers & onions — $10.50.",
-        },
-        { name: "Pastrami", price: "$11.99" },
-        {
-          name: "Buffalo Chicken",
-          price: "$9.50",
-          desc: "With ranch or blue cheese.",
-        },
-        {
-          name: "Barbecue Chicken",
-          price: "$9.50",
-          desc: "With cheddar cheese.",
-        },
-        { name: "Teriyaki Chicken", price: "$9.50" },
-        { name: "Tuna Melt on Marble Rye", price: "$9.99" },
-        {
-          name: "Ball Park Sausage",
-          price: "$8.99",
-          desc: "With peppers and onions.",
-        },
-        { name: "Cheeseburger", price: "$10.99" },
-      ],
-    },
-    {
-      group: "Texas Toasties",
-      items: [
-        { name: "BLTEE with mayo", price: "$10.99" },
-        { name: "Grilled Chicken BLTEE w/ mayo", price: "$10.99" },
-        { name: "Turkey BLTEE with mayo", price: "$10.99" },
-        {
-          name: "Chicken Cheddar Melt",
-          price: "$10.99",
-          desc: "Grilled chicken with bacon, ranch and cheddar cheese.",
-        },
-        { name: "Ham and Swiss", price: "$9.50" },
-        { name: "Chicken Salad Melt", price: "$9.50" },
-      ],
-    },
-    {
-      group: "SpecialTEE — Steak Subs",
-      items: [
-        {
-          name: "Shaved Steak Bomb",
-          price: "$10.99",
-          desc: "Shaved steak with American cheese, peppers, onions and mushrooms on a sub roll.",
-        },
-        {
-          name: "The Tornado",
-          price: "$10.99",
-          desc: "Shaved steak with provolone, roasted red peppers, grilled onions and Genoa hard salami on a sub roll.",
-        },
-        {
-          name: "The Olympian",
-          price: "$10.99",
-          desc: "Shaved steak with American cheese, cheddar, onion rings and barbecue sauce on a sub roll.",
-        },
-        {
-          name: "Marinated Steak Tips Sub",
-          price: "$13.99",
-          desc: "Tender sirloin steak tips in TEE’s special marinade on a sub roll with your favorite toppings.",
-        },
-      ],
-    },
-    {
-      group: "SpecialTEE — Chicken Sandwiches",
-      items: [
-        {
-          name: "The Rocket",
-          price: "$11.99",
-          desc: "House special — grilled chicken with bacon, sweet capicola, roasted red peppers, provolone, sautéed diced tomatoes, olive oil and Italian seasonings on a sub roll.",
-        },
-        {
-          name: "Chicken Cheddar Melt (sub)",
-          price: "$10.99",
-          desc: "Grilled chicken with bacon, cheddar cheese and ranch on a sub roll.",
-        },
-        {
-          name: "Grilled Chicken BLTEE Melt",
-          price: "$10.50",
-          desc: "Grilled chicken with bacon, lettuce, tomato, American cheese and mayo, grilled on Texas toast.",
-        },
-        {
-          name: "Mediterranean Wrap",
-          price: "$9.50",
-          desc: "Grilled chicken with Kalamata olives, feta, pepperoncini and Greek dressing, seared on the grill.",
-        },
-        {
-          name: "TEE’s Asian Wrap",
-          price: "$9.50",
-          desc: "Grilled chicken with roasted red peppers, diced cucumbers, shaved carrots, rice and TEE’s Asian sauce, seared on the grill.",
-        },
-      ],
-    },
-    {
-      group: "Turkey Sandwiches",
-      items: [
-        {
-          name: "The Crusader Special",
-          price: "$9.99",
-          desc: "Sliced turkey breast with tomato, onion, Swiss and Thousand Island, grilled on wheat bread.",
-        },
-        {
-          name: "Turkey Reuben",
-          price: "$9.99",
-          desc: "Sliced turkey breast with sauerkraut, Swiss and Thousand Island, grilled on wheat bread.",
-        },
-        {
-          name: "Turkey Rachel",
-          price: "$9.99",
-          desc: "Sliced turkey breast with cole slaw, Swiss and Thousand Island, grilled on wheat bread.",
-        },
-      ],
-    },
-    {
-      group: "Salads",
-      items: [
-        {
-          name: "Tossed Salad",
-          price: "$5.50",
-          desc: "Side tossed salad — $3.99.",
-        },
-        {
-          name: "Tossed Salad with Grilled Chicken",
-          price: "$8.50",
-          desc: "With buffalo, teriyaki or barbecue chicken $9.50; shaved steak $10.99; chicken salad $8.50; cranberry-walnut chicken salad $9.50; tuna salad $9.50.",
-        },
-        {
-          name: "Greek Salad",
-          price: "$7.50",
-          desc: "With grilled chicken — $9.99.",
-        },
-        {
-          name: "Chef Salad",
-          price: "$9.99",
-          desc: "Hard-boiled egg, ham, turkey, provolone & American cheese.",
-        },
-        {
-          name: "Caesar Salad",
-          price: "$6.50",
-          desc: "With grilled chicken $9.50; grilled veggies $8.99; shaved steak $11.99; cheeseburger $12.99; steak tips $14.99.",
-        },
-        {
-          name: "Dressing choices",
-          desc: "House broccoli, golden Italian, zesty Italian, balsamic, red wine vinaigrette, blue cheese, ranch, Thousand Island, Greek, classic Caesar, and oil & vinegar.",
-        },
-      ],
-    },
-    {
-      group: "Coaches Meals",
-      items: [
-        {
-          name: "Coaches Meal",
-          price: "From ~$12.00",
-          desc: "A joint effort of TEE’s and Holy Cross’ football coaching staff: any Grilled or SpecialTEE sandwich served over rice pilaf or penne pasta instead of bread, with toppings to your liking. Price increases with added ingredients.",
-        },
-      ],
-    },
-    {
-      group: "Sides",
-      items: [
-        { name: "Red Bliss Potato Salad", price: "$2.99" },
-        { name: "Italian Pasta Salad", price: "$2.99" },
-        { name: "Cole Slaw", price: "$2.99" },
-        { name: "Broccoli/Bacon Salad", price: "$3.50" },
-        { name: "Small Chocolate Chip Cookie", price: "$1.25" },
-        { name: "Bag of 1 oz. Lay’s Chips", price: "$1.25" },
-      ],
-    },
-    {
-      group: "Beverages",
-      items: [
-        { name: "12 oz. Can of Coke", price: "$1.75" },
-        { name: "12 oz. Can of Diet Coke", price: "$1.75" },
-        { name: "12 oz. Can of Sprite", price: "$1.75" },
-        { name: "12 oz. Can of Ginger Ale", price: "$1.75" },
-        { name: "16 oz. Bottle of Water", price: "$1.25" },
-      ],
-    },
-  ],
-};
+export const menuSheets: MenuSheet[] = [
+  {
+    title: "Breakfast",
+    image: "/menu-breakfast.webp",
+    alt: "TEE's Deli printed breakfast menu. Breakfast sandwiches with egg, meat and cheese $6.75, meat and cheese $5.75, egg and cheese $4.75. Breakfast wraps: the Lunchwrecker $10.50, Western $9.99, Steakfast $10.99, Bacon-ater $10.50, Snausages $8.99. Breakfast on Texas toast $8.99 to $10.99. Sides and add-ons from $1.75 to $2.99.",
+  },
+  {
+    title: "Lunch · page 1",
+    image: "/menu-lunch-1.webp",
+    alt: "TEE's Deli printed lunch menu, page one, September 2026. Deli sandwiches $7.50 to $9.50 including grilled chicken, roast turkey, TEE's Italian, roast beef, ham, chicken salad, tuna salad, hard salami, cranberry walnut chicken salad and chicken Caesar salad wrap. Grilled sandwiches $8.99 to $12.99 including steak and cheese, pastrami, buffalo, barbecue and teriyaki chicken, tuna melt, ball park sausage and cheeseburger. Texas toasties $10.99 to $11.99. Salads: tossed $5.99, Greek $7.99, chef $10.99, Caesar $6.99, with grilled chicken, shaved steak, cheeseburger or steak tips added. Bread and dressing choices.",
+  },
+  {
+    title: "Lunch · page 2",
+    image: "/menu-lunch-2.webp",
+    alt: "TEE's Deli printed lunch menu, page two. SpecialTEE sandwiches: steak subs including the Shaved Steak Bomb, the Tornado and the Olympian $10.99 and the marinated steak tips sub $13.99. Chicken sandwiches including the chicken cheddar melt $10.99, the Rocket house special $11.99, grilled chicken BLTEE melt $10.50, Mediterranean wrap and TEE's Asian wrap $9.50.",
+  },
+  {
+    title: "Lunch · page 3",
+    image: "/menu-lunch-3.webp",
+    alt: "TEE's Deli printed lunch menu, page three, September 2026. Turkey sandwiches: the Crusader Special, turkey Reuben and turkey Rachel, $10.50 each, grilled on wheat bread. Sides: red bliss potato salad, Italian pasta salad and cole slaw $3.25, broccoli bacon salad $3.99, small chocolate chip cookie $1.50, bag of Lay's chips $1.25. Beverages: 12 oz cans of Coke, Diet Coke, ginger ale and Sprite $2.00, 16 oz bottle of water $1.25. General operating hours Monday through Friday 6:30am to 1:30pm, online ordering 8:30am to 1:30pm; the deli temporarily closes on days with scheduled catering deliveries. Catering hours 5am to 10pm, seven days.",
+  },
+];
 
 /**
  * FALLBACK specials flyer only.
