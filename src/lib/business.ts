@@ -806,10 +806,11 @@ export const breakfastPizza = {
  * "Daily page three April 2025" — the April file is the one he sent with the
  * October batch and it carries the current prices). The breakfast sheet is
  * the earlier image, kept on his instruction: "Breakfast page I made no
- * changes so you can leave the one you have loaded." Note his "Breakfast Menu
- * Oct 26" Word file differs from it in four prices (Lunchwrecker and
- * Bacon-ater $10.99 not $10.50, Western wrap $8.99 not $9.99, extra egg
- * $1.50 not $1.75) — raised with him, unresolved as of October 5, 2026.
+ * changes so you can leave the one you have loaded." His "Breakfast Menu
+ * Oct 26" Word file is stale — it differs from this sheet in four prices
+ * (Lunchwrecker, Bacon-ater, Western wrap, extra egg). Checked against
+ * Toast on October 5, 2026: the sheet on the site is the correct one, so
+ * don't re-render breakfast from that file.
  *
  * TO UPDATE A SHEET: export the new page to an image at 1398 × 1812 with the
  * red double frame, save it under a NEW filename in /public (the image CDN
