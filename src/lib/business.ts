@@ -617,7 +617,7 @@ export const cateringOfferings: CateringOffering[] = [
       ],
       flyers: [
         {
-          image: "/catering-dinners-2026-10.webp",
+          image: "/catering-dinners-2026-10b.webp",
           alt: "TEE's Deli dinners sheet, October 2026, listing seventeen hot entrées with full pan and half pan prices: Chicken & Broccoli $85.00/$55.00, Chicken Parmesan $85.00/$55.00, Chicken Tenders $125.00/$65.00, Chicken Normandy $79.99/$49.99, Chicken Piccata $85.00/$55.00, Chicken Marsala $85.00/$55.00, Chicken or Sausage Cacciatore $85.00/$55.00, Chicken or Sausage with Peppers & Onions $85.00/$49.99, Chicken Teriyaki with Pineapple $89.99/$55.00, Chicken Ranchero $89.99/$55.00, Mac 'n Cheese $74.99/$39.99, Sausage Penne $79.99/$49.99, Meatballs or Sausage $79.99/$49.99, Roast Porketta $129.99 full pan only, Marinated Steak Tips at market price, Vegetable Medley $65.00/$39.99 and Vegetable Lo Mein $69.99/$39.99.",
           caption: "Hot entrées — full and half pan pricing.",
         },
