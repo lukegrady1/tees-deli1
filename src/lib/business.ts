@@ -567,13 +567,13 @@ export const cateringOfferings: CateringOffering[] = [
       heroImage: "/sandwich-wrap-platters.webp",
       flyers: [
         {
-          image: "/bereavement-meals.webp",
-          alt: "Printed TEE's Deli bereavement meals menu and pricing sheet.",
+          image: "/bereavement-meals-2026-08.webp",
+          alt: "TEE's Deli bereavement meals sheet, August 2026. $27.99 per person plus sales tax. Suggested luncheon buffet for 50 guests: small cheese and cracker platter; any two hot entrées such as chicken and broccoli over penne, chicken Normandy, pasta and meatballs, sausage with peppers and onions, or vegetable medley; Caesar, tossed or mixed greens salad; a large finger sandwich platter of chicken, tuna and egg salad; a large sub-cut platter of Italian, roast beef and turkey; broccoli bacon, potato or Italian pasta salad; a cookie and brownie tray; bottled water and canned soda; coffee. Includes set-up, tend and cleanup with one attendant for two and a half hours, plates, napkins, utensils, chafing dishes and Sterno, and 45 minutes of round-trip travel. Hall table and chair set-up and any permits are additional.",
           caption: "The printed bereavement meals flyer.",
         },
       ],
       pricing: {
-        rate: "$25.00 per person",
+        rate: "$27.99 per person",
         rateNote:
           "Plus sales tax. Suggested luncheon buffet based on about 50 guests — fully customizable.",
         additional: [
@@ -581,7 +581,7 @@ export const cateringOfferings: CateringOffering[] = [
           { label: "Permits (if needed)", value: "Additional charge" },
         ],
         fineprint: [
-          "Price includes set-up, tend & cleanup (one attendant for three hours), plates, napkins, utensils, chafing dishes with Sterno, and travel time (up to one hour round trip).",
+          "Price includes set-up, tend & cleanup (one attendant for two and a half hours), plates, napkins, utensils, chafing dishes with Sterno, and travel time (45 minutes round trip).",
           "The menu is a suggested starting point — tell us what you have in mind and we'll put together an estimate for you.",
         ],
       },
@@ -617,13 +617,13 @@ export const cateringOfferings: CateringOffering[] = [
       ],
       flyers: [
         {
-          image: "/catering-hot-entrees-flyer.webp",
-          alt: "TEE's Deli dinners sheet listing seventeen hot entrées with full pan and half pan prices, including Chicken Roquette $89.99/$55.00, Chicken & Broccoli $79.99/$49.99, Chicken Parmesan $85.00/$55.00, Chicken Tenders $125.00/$65.00, Chicken Normandy, Piccata, Marsala and Cacciatore at $79.99/$49.99, Chicken Teriyaki with Pineapple $89.99/$55.00, Roast Porketta $89.99/$59.99, marinated steak tips at market price, Vegetable Medley $59.99/$35.00 and Vegetable Lo Mein $65.00/$39.99.",
+          image: "/catering-dinners-2026-10.webp",
+          alt: "TEE's Deli dinners sheet, October 2026, listing seventeen hot entrées with full pan and half pan prices: Chicken & Broccoli $85.00/$55.00, Chicken Parmesan $85.00/$55.00, Chicken Tenders $125.00/$65.00, Chicken Normandy $79.99/$49.99, Chicken Piccata $85.00/$55.00, Chicken Marsala $85.00/$55.00, Chicken or Sausage Cacciatore $85.00/$55.00, Chicken or Sausage with Peppers & Onions $85.00/$49.99, Chicken Teriyaki with Pineapple $89.99/$55.00, Chicken Ranchero $89.99/$55.00, Mac 'n Cheese $74.99/$39.99, Sausage Penne $79.99/$49.99, Meatballs or Sausage $79.99/$49.99, Roast Porketta $129.99 full pan only, Marinated Steak Tips at market price, Vegetable Medley $65.00/$39.99 and Vegetable Lo Mein $69.99/$39.99.",
           caption: "Hot entrées — full and half pan pricing.",
         },
       ],
       pricing: {
-        rate: "From $59.99 per full pan",
+        rate: "From $65.00 per full pan",
         rateNote:
           "Seventeen entrées, each priced by full or half pan — see the sheet for the full list.",
         additionalLabel: "Also available",
@@ -799,10 +799,17 @@ export const breakfastPizza = {
 
 /**
  * The printed menu, shown on /menu as the owner's own sheets rather than a
- * transcription — his call, September 2026. Lunch pages one and three are
- * rendered from the Word files he sent ("Daily Page One Sept 2026",
- * "Daily page three Sept 2026"); the breakfast sheet and lunch page two are
- * the earlier sheets and still carry their earlier prices.
+ * transcription — his call, September 2026.
+ *
+ * October 2026: lunch pages one, two and three are rendered from the Word
+ * files he sent ("Daily Page One Sept 2026 (1)", "Daily page two Oct 26",
+ * "Daily page three April 2025" — the April file is the one he sent with the
+ * October batch and it carries the current prices). The breakfast sheet is
+ * the earlier image, kept on his instruction: "Breakfast page I made no
+ * changes so you can leave the one you have loaded." Note his "Breakfast Menu
+ * Oct 26" Word file differs from it in four prices (Lunchwrecker and
+ * Bacon-ater $10.99 not $10.50, Western wrap $8.99 not $9.99, extra egg
+ * $1.50 not $1.75) — raised with him, unresolved as of October 5, 2026.
  *
  * TO UPDATE A SHEET: export the new page to an image at 1398 × 1812 with the
  * red double frame, save it under a NEW filename in /public (the image CDN
@@ -819,18 +826,18 @@ export const menuSheets: MenuSheet[] = [
   },
   {
     title: "Lunch · page 1",
-    image: "/menu-lunch-1.webp",
-    alt: "TEE's Deli printed lunch menu, page one, September 2026. Deli sandwiches $7.50 to $9.50 including grilled chicken, roast turkey, TEE's Italian, roast beef, ham, chicken salad, tuna salad, hard salami, cranberry walnut chicken salad and chicken Caesar salad wrap. Grilled sandwiches $8.99 to $12.99 including steak and cheese, pastrami, buffalo, barbecue and teriyaki chicken, tuna melt, ball park sausage and cheeseburger. Texas toasties $10.99 to $11.99. Salads: tossed $5.99, Greek $7.99, chef $10.99, Caesar $6.99, with grilled chicken, shaved steak, cheeseburger or steak tips added. Bread and dressing choices.",
+    image: "/menu-lunch-1-2026-10.webp",
+    alt: "TEE's Deli printed lunch menu, page one, September 2026. Deli sandwiches: grilled chicken $8.99, roast beef $9.50, roast turkey $8.99, ham $8.99, TEE's Italian $9.50, tuna salad $9.50, chicken salad $8.99, hard salami $9.50, vegan $7.50, vegetarian $7.50, cranberry walnut chicken salad $9.50, chicken Caesar salad wrap $9.50. Grilled sandwiches: steak and cheese $9.99 or $10.99 with peppers and onions, pastrami $12.99, buffalo chicken with ranch or blue cheese $9.99, barbecue chicken with cheddar $9.99, teriyaki chicken $9.99, tuna melt on marble rye $10.99, ball park sausage with peppers and onions $8.99, cheeseburger $10.99. Texas toasties: BLTEE with mayo $11.99, grilled chicken BLTEE $11.99, turkey BLTEE $11.99, chicken cheddar melt $11.99, ham and Swiss $10.99. Bread choices: sliced white, wheat, marble rye and Texas toast; white, wheat and tomato wraps; sub and bulkie rolls. Salads: tossed $5.99, side tossed $3.99, tossed with grilled chicken $8.99, with buffalo, teriyaki or barbecue chicken $9.99, with shaved steak $11.99, with chicken salad $8.99, with cranberry walnut chicken salad or tuna salad $9.99; Greek $7.99 or $10.99 with grilled chicken; chef $10.99; Caesar $7.99, with grilled chicken $10.99, shaved steak $12.99, cheeseburger $13.99 or steak tips $15.99. Dressing choices listed, house dressing is the broccoli salad dressing.",
   },
   {
     title: "Lunch · page 2",
-    image: "/menu-lunch-2.webp",
-    alt: "TEE's Deli printed lunch menu, page two. SpecialTEE sandwiches: steak subs including the Shaved Steak Bomb, the Tornado and the Olympian $10.99 and the marinated steak tips sub $13.99. Chicken sandwiches including the chicken cheddar melt $10.99, the Rocket house special $11.99, grilled chicken BLTEE melt $10.50, Mediterranean wrap and TEE's Asian wrap $9.50.",
+    image: "/menu-lunch-2-2026-10.webp",
+    alt: "TEE's Deli printed lunch menu, page two, October 2026. SpecialTEE sandwiches. Steak subs: Shaved Steak Bomb $10.99, the Tornado $11.99, the Olympian $11.99, marinated steak tips sub $14.99. Chicken sandwiches: chicken cheddar melt $11.50, the Rocket house special $11.99, Mediterranean wrap $10.99, TEE's Asian wrap $10.99, chicken cheese bomb sub $11.50 with teriyaki, buffalo or barbecue sauce for $1.00 more.",
   },
   {
     title: "Lunch · page 3",
-    image: "/menu-lunch-3.webp",
-    alt: "TEE's Deli printed lunch menu, page three, September 2026. Turkey sandwiches: the Crusader Special, turkey Reuben and turkey Rachel, $10.50 each, grilled on wheat bread. Sides: red bliss potato salad, Italian pasta salad and cole slaw $3.25, broccoli bacon salad $3.99, small chocolate chip cookie $1.50, bag of Lay's chips $1.25. Beverages: 12 oz cans of Coke, Diet Coke, ginger ale and Sprite $2.00, 16 oz bottle of water $1.25. General operating hours Monday through Friday 6:30am to 1:30pm, online ordering 8:30am to 1:30pm; the deli temporarily closes on days with scheduled catering deliveries. Catering hours 5am to 10pm, seven days.",
+    image: "/menu-lunch-3-2026-10.webp",
+    alt: "TEE's Deli printed lunch menu, page three. SpecialTEEs from the grill, continued: the Crusader Special $10.99, turkey Reuben $10.99, pastrami Reuben $14.99, turkey Rachel $10.99, pastrami Rachel $14.99. Sides: red bliss potato salad, Italian pasta salad and cole slaw $3.25, broccoli bacon salad $3.99, small chocolate chip cookie $1.50, bag of Lay's chips $1.25. Beverages: 12 oz cans of Coke, Diet Coke, ginger ale and Sprite $2.00, 16 oz bottle of water $1.25. General operating hours Monday through Friday 6:30am to 1:30pm, online ordering 8:30am to 1:30pm; the deli opens and closes during business hours for catering deliveries, so check here or Facebook for changes.",
   },
 ];
 
