@@ -305,7 +305,7 @@ export const cateringOfferings: CateringOffering[] = [
       photoLabel:
         "Corporate luncheon buffet, hot and cold options laid out for an office",
       metaDescription:
-        "Corporate luncheon catering in the Greater Worcester area — hot or cold lunch packages from $10.50 per person, delivered and set up. Get a quote.",
+        "Corporate luncheon catering in the Greater Worcester area — hot or cold lunch packages from $10.99 per person, delivered and set up. Get a quote.",
       heroImage: "/office-buffet-line.webp",
       gallery: [
         {
@@ -335,21 +335,21 @@ export const cateringOfferings: CateringOffering[] = [
       ],
       flyers: [
         {
-          image: "/catering-luncheons-flyer.webp",
-          alt: "TEE's Deli luncheons sheet, priced per person. Five lunch packages from $10.50 to $13.99 covering subs, grilled sandwiches, wraps, hot entrées and deli platters, plus substitutions, 5-quart side salad bowls from $29.99, and desserts from $8.99.",
+          image: "/catering-luncheons-2026-10.webp",
+          alt: "TEE's Deli luncheons sheet, October 2026, priced per head count. TEE's Lunch A, a sub, bulkie or wrap with chips, cookie and a 16 oz bottle of water, $11.99. Lunch B, a grilled sandwich or wrap with chips, cookie and water, $14.99. Lunch C, a sandwich or wrap with chips and a cookie, $10.99. Lunch D, a hot entrée with vegetable, salad, cookie and water, $14.99 for most entrées. Lunch E, a deli platter of turkey, ham, roast beef and salami with fixings, cheeses, sub and bulkie rolls, cookie and water, $13.99. Substitutions: a 12 oz can of soda instead of water adds 75 cents per head, any side dish instead of chips adds $2.00, a brownie instead of a cookie adds $1.00. Sides, 5-quart bowls that feed twenty: red bliss potato salad, Italian pasta salad and macaroni salad $34.99, apple pear slaw and broccoli bacon salad $45.99. Desserts: cookies by the dozen $8.99, assorted cookie platter small 4 dozen $29.99 or large 7 dozen $49.99, half sheet of 24 brownies $39.99, cookie and brownie platter with 2 dozen of each $49.99.",
           caption: "Luncheons — packages, sides and desserts.",
         },
       ],
       pricing: {
-        rate: "$10.50 – $13.99 per person",
+        rate: "$10.99 – $14.99 per person",
         rateNote:
           "Five packages, from a sub with chips and a cookie up to a hot entrée or deli platter. All prices per person.",
         additional: [
-          { label: "5qt side salad bowl, feeds twenty", value: "$29.99 – $39.99" },
+          { label: "5qt side salad bowl, feeds twenty", value: "$34.99 – $45.99" },
           { label: "Cookies, one dozen", value: "$8.99" },
-          { label: "Cookie platter (small 4doz / large 7doz)", value: "$29.99 / $45.99" },
-          { label: "Half sheet brownies (24 count)", value: "$34.99" },
-          { label: "Cookie & brownie platter", value: "$45.99" },
+          { label: "Cookie platter (small 4doz / large 7doz)", value: "$29.99 / $49.99" },
+          { label: "Half sheet brownies (24 count)", value: "$39.99" },
+          { label: "Cookie & brownie platter", value: "$49.99" },
           { label: "Soda instead of bottled water", value: "+$0.75" },
           { label: "Side dish instead of chips", value: "+$2.00" },
           { label: "Brownie instead of a cookie", value: "+$1.00" },
@@ -693,23 +693,23 @@ export const cateringOfferings: CateringOffering[] = [
         // sheet lists them.
         rate: "Priced by the platter",
         rateNote:
-          "Finger sandwich platters start at $49.99. They come as egg, tuna, chicken or ham salad; pin-wheels as turkey with garlic aioli, roast beef with horseradish cream, or grilled veggies with hummus.",
+          "Finger sandwich platters start at $54.99. They come as egg, tuna, chicken or ham salad; pin-wheels as turkey with garlic aioli, roast beef with horseradish cream, or grilled veggies with hummus.",
+        // October 2026 prices from the owner's "Platters Page Changes" note.
+        // He dropped the 28-piece bulkie roll and the half-sour pickle line,
+        // and split the wrap platter into a small and a large.
         additionalLabel: "Platter prices",
         additional: [
-          { label: "Finger sandwich platter", value: "$49.99" },
-          { label: "Pin-wheel platter", value: "$64.99" },
-          { label: "Sub-cut platter (24 cut)", value: "$54.99" },
-          { label: "Sub-cut platter (36 cut)", value: "$79.99" },
-          { label: "Bulkie roll platter (16 piece)", value: "$59.99" },
-          { label: "Bulkie roll platter (28 piece)", value: "$99.00" },
-          { label: "Sandwich wrap platter (20 piece)", value: "$75.00" },
-          { label: "Cannoli platter", value: "$64.99" },
+          { label: "Finger sandwich platter", value: "$54.99" },
+          { label: "Pin-wheel platter", value: "$74.99" },
+          { label: "Sub-cut platter (small)", value: "$59.99" },
+          { label: "Sub-cut platter (large)", value: "$84.99" },
+          { label: "Bulkie roll platter", value: "$69.99" },
+          { label: "Sandwich wrap platter (small)", value: "$79.99" },
+          { label: "Sandwich wrap platter (large)", value: "$109.99" },
+          { label: "Cannoli platter", value: "$74.99" },
           { label: "Cookies & brownies platter", value: "$49.99" },
-          { label: "Cookie platter (large, 7 dozen)", value: "$45.99" },
+          { label: "Cookie platter (large, 7 dozen)", value: "$49.99" },
           { label: "Cookie platter (small)", value: "$29.99" },
-        ],
-        fineprint: [
-          "All pin-wheel platters come on a bed of TEE's homemade half-sour pickles.",
         ],
       },
     },
