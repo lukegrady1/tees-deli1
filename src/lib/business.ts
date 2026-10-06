@@ -567,7 +567,7 @@ export const cateringOfferings: CateringOffering[] = [
       heroImage: "/sandwich-wrap-platters.webp",
       flyers: [
         {
-          image: "/bereavement-meals-2026-08.webp",
+          image: "/bereavement-meals-2026-10.webp",
           alt: "TEE's Deli bereavement meals sheet, August 2026. $27.99 per person plus sales tax. Suggested luncheon buffet for 50 guests: small cheese and cracker platter; any two hot entrées such as chicken and broccoli over penne, chicken Normandy, pasta and meatballs, sausage with peppers and onions, or vegetable medley; Caesar, tossed or mixed greens salad; a large finger sandwich platter of chicken, tuna and egg salad; a large sub-cut platter of Italian, roast beef and turkey; broccoli bacon, potato or Italian pasta salad; a cookie and brownie tray; bottled water and canned soda; coffee. Includes set-up, tend and cleanup with one attendant for two and a half hours, plates, napkins, utensils, chafing dishes and Sterno, and 45 minutes of round-trip travel. Hall table and chair set-up and any permits are additional.",
           caption: "The printed bereavement meals flyer.",
         },
@@ -617,7 +617,7 @@ export const cateringOfferings: CateringOffering[] = [
       ],
       flyers: [
         {
-          image: "/catering-dinners-2026-10b.webp",
+          image: "/catering-dinners-2026-10c.webp",
           alt: "TEE's Deli dinners sheet, October 2026, listing seventeen hot entrées with full pan and half pan prices: Chicken & Broccoli $85.00/$55.00, Chicken Parmesan $85.00/$55.00, Chicken Tenders $125.00/$65.00, Chicken Normandy $79.99/$49.99, Chicken Piccata $85.00/$55.00, Chicken Marsala $85.00/$55.00, Chicken or Sausage Cacciatore $85.00/$55.00, Chicken or Sausage with Peppers & Onions $85.00/$49.99, Chicken Teriyaki with Pineapple $89.99/$55.00, Chicken Ranchero $89.99/$55.00, Mac 'n Cheese $74.99/$39.99, Sausage Penne $79.99/$49.99, Meatballs or Sausage $79.99/$49.99, Roast Porketta $129.99 full pan only, Marinated Steak Tips at market price, Vegetable Medley $65.00/$39.99 and Vegetable Lo Mein $69.99/$39.99.",
           caption: "Hot entrées — full and half pan pricing.",
         },
