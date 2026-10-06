@@ -18,7 +18,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Let's plan your catering."
-        intro="Request a quote below, or reach us directly — we answer catering calls anytime from 6am to 10pm, any day."
+        intro="Call us for a quote — we answer catering calls anytime from 6am to 10pm, any day."
       >
         <div className="flex flex-wrap gap-3">
           <a
