@@ -624,7 +624,7 @@ export const cateringOfferings: CateringOffering[] = [
         // The owner's call, October 2026: side dishes belong with dinners
         // ("has to be under dinners and/or around appetizers"), not luncheons.
         {
-          image: "/catering-side-dishes-2026-10.webp",
+          image: "/catering-side-dishes-2026-10b.webp",
           alt: "TEE's Deli side dishes sheet, October 2026, priced by the 5-quart bowl that feeds 15 to 20 or the tray that feeds 35 or more. Red bliss potato salad, Italian pasta salad and macaroni salad $34.99 a bowl or $64.99 a tray; apple pear slaw and broccoli bacon salad $45.99 a bowl or $79.99 a tray.",
           caption: "Side dishes — by the bowl or the tray.",
         },
