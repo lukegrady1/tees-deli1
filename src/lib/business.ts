@@ -621,6 +621,13 @@ export const cateringOfferings: CateringOffering[] = [
           alt: "TEE's Deli dinners sheet, October 2026, listing seventeen hot entrées with full pan and half pan prices: Chicken & Broccoli $85.00/$55.00, Chicken Parmesan $85.00/$55.00, Chicken Tenders $125.00/$65.00, Chicken Normandy $79.99/$49.99, Chicken Piccata $85.00/$55.00, Chicken Marsala $85.00/$55.00, Chicken or Sausage Cacciatore $85.00/$55.00, Chicken or Sausage with Peppers & Onions $85.00/$49.99, Chicken Teriyaki with Pineapple $89.99/$55.00, Chicken Ranchero $89.99/$55.00, Mac 'n Cheese $74.99/$39.99, Sausage Penne $79.99/$49.99, Meatballs or Sausage $79.99/$49.99, Roast Porketta $129.99 full pan only, Marinated Steak Tips at market price, Vegetable Medley $65.00/$39.99 and Vegetable Lo Mein $69.99/$39.99.",
           caption: "Hot entrées — full and half pan pricing.",
         },
+        // The owner's call, October 2026: side dishes belong with dinners
+        // ("has to be under dinners and/or around appetizers"), not luncheons.
+        {
+          image: "/catering-side-dishes-2026-10.webp",
+          alt: "TEE's Deli side dishes sheet, October 2026, priced by the 5-quart bowl that feeds 15 to 20 or the tray that feeds 35 or more. Red bliss potato salad, Italian pasta salad and macaroni salad $34.99 a bowl or $64.99 a tray; apple pear slaw and broccoli bacon salad $45.99 a bowl or $79.99 a tray.",
+          caption: "Side dishes — by the bowl or the tray.",
+        },
       ],
       pricing: {
         rate: "From $65.00 per full pan",
@@ -630,6 +637,7 @@ export const cateringOfferings: CateringOffering[] = [
         additional: [
           { label: "Italian Pickle-tizer", value: "$39.99" },
           { label: "Marinated steak tips", value: "Market price" },
+          { label: "Side dishes, 5qt bowl / tray", value: "$34.99 – $45.99 / $64.99 – $79.99" },
         ],
         fineprint: [
           "The Italian Pickle-tizer is Italian sub ingredients stuffed inside our homemade half-sour pickles.",
