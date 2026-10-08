@@ -34,8 +34,10 @@ Uploads are downscaled in the browser to 1600px / JPEG before they're sent, so a
 phone photo arrives as a few hundred KB rather than several MB. The server
 re-checks type and size regardless.
 
-If no flyer has been posted (or the owner takes his down), the homepage falls
-back to `dailySpecial` in `src/lib/business.ts`, then to a placeholder.
+If no flyer has been posted (or the owner takes his down), the homepage shows a
+"check our Facebook page" card in the flyer's place. There is no fallback flyer
+in the repo, so under a plain `next dev` (no Blobs) you will always see that
+card.
 
 Auth is a single shared password, not user accounts — appropriate for a flyer
 uploader, not for anything sensitive. Don't reuse the password elsewhere.

@@ -851,24 +851,6 @@ export const menuSheets: MenuSheet[] = [
 ];
 
 /**
- * FALLBACK specials flyer only.
- *
- * The live flyer is whatever the owner last posted at /admin — it's stored in
- * Netlify Blobs and always wins over this (see lib/specials.ts). This is what
- * the homepage shows before he has ever posted one, or if he takes his down.
- * Set `image` to null to show the "no flyer posted" placeholder instead.
- */
-export const dailySpecial: {
-  image: string | null;
-  alt: string;
-  postedLabel: string | null;
-} = {
-  image: "/daily-special-6-15.webp",
-  alt: "TEE's Deli daily specials for June 15 — Breakfast: “Kinglish” muffin sandwich with two eggs, sausage, onions and cheddar, served with home fries, $10.99. Lunch: Chicken Parmesan sub with choice of side, $12.99.",
-  postedLabel: "June 15",
-};
-
-/**
  * Canonical site URL, used for metadata, sitemap, robots and JSON-LD.
  * Set NEXT_PUBLIC_SITE_URL in Netlify to the live domain — Netlify's own `URL`
  * covers deploys until then. Keep this in sync when a custom domain is added.

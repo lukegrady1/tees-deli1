@@ -19,10 +19,11 @@ export default function Home() {
     <>
       <ServiceNotice />
       <Hero />
+      {/* Specials sit right under the hero: it's what regulars come back for. */}
+      <DailySpecials tone="sand" />
       <CateringBento />
       <SocialProof />
       <HowItWorks />
-      <DailySpecials />
       <QuoteSection />
       <HoursLocation />
     </>

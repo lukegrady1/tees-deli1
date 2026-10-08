@@ -1,9 +1,5 @@
-import {
-  Megaphone,
-  FacebookLogo,
-  Phone,
-} from "@phosphor-icons/react/dist/ssr";
-import { business, dailySpecial } from "@/lib/business";
+import { FacebookLogo, Phone } from "@phosphor-icons/react/dist/ssr";
+import { business } from "@/lib/business";
 import { formatPostedLabel, getFlyer } from "@/lib/specials";
 import { Section, Eyebrow, centerOnPhone } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
@@ -14,8 +10,7 @@ import { Reveal } from "@/components/ui/Reveal";
  * image is the content.
  *
  * The flyer is whatever the owner last posted at /admin. Until he posts one — or
- * if he takes it down — we fall back to `dailySpecial` in business.ts, and to a
- * placeholder if that's empty too.
+ * if he takes it down — the slot points people to Facebook instead.
  */
 export async function DailySpecials({
   tone = "paper",
@@ -37,11 +32,6 @@ export async function DailySpecials({
             find on our Facebook page. Check here for today&rsquo;s deals, or
             give us a call to hear what&rsquo;s cooking.
           </p>
-          {flyer?.postedLabel && (
-            <p className="mt-3 text-sm font-medium text-stone">
-              Latest flyer: {flyer.postedLabel}
-            </p>
-          )}
           <div className="mt-5 flex flex-col gap-3 sm:mt-7 sm:flex-row sm:items-center">
             <Button
               href={business.links.facebook}
@@ -76,11 +66,13 @@ export async function DailySpecials({
                 />
               </div>
             ) : (
-              <FlyerPlaceholder />
+              <NoFlyer />
             )}
-            <figcaption className="mt-3 text-center text-sm text-stone">
-              Updated regularly — check back often.
-            </figcaption>
+            {flyer && (
+              <figcaption className="mt-3 text-center text-sm font-medium text-stone">
+                Specials for {flyer.postedLabel}
+              </figcaption>
+            )}
           </figure>
         </Reveal>
       </div>
@@ -88,51 +80,43 @@ export async function DailySpecials({
   );
 }
 
-type ResolvedFlyer = { src: string; alt: string; postedLabel: string | null };
+type ResolvedFlyer = { src: string; alt: string; postedLabel: string };
 
-/** Owner-posted flyer wins; the one committed in business.ts is the fallback. */
+/** The owner-posted flyer, or null if none is up. */
 async function resolveFlyer(): Promise<ResolvedFlyer | null> {
   const posted = await getFlyer();
+  if (!posted) return null;
 
-  if (posted) {
-    const postedLabel = formatPostedLabel(posted.postedAt);
-    return {
-      // Trailing slash is canonical here (next.config trailingSlash), so linking
-      // it directly avoids a 308 on every page view. postedAt busts the cache so
-      // a replaced flyer shows up immediately.
-      src: `/api/specials/flyer/?v=${encodeURIComponent(posted.postedAt)}`,
-      alt: `TEE's Deli daily specials flyer, posted ${postedLabel}.`,
-      postedLabel,
-    };
-  }
-
-  if (dailySpecial.image) {
-    return {
-      src: dailySpecial.image,
-      alt: dailySpecial.alt,
-      postedLabel: dailySpecial.postedLabel,
-    };
-  }
-
-  return null;
+  const postedLabel = formatPostedLabel(posted.postedAt);
+  return {
+    // Trailing slash is canonical here (next.config trailingSlash), so linking
+    // it directly avoids a 308 on every page view. postedAt busts the cache so
+    // a replaced flyer shows up immediately.
+    src: `/api/specials/flyer/?v=${encodeURIComponent(posted.postedAt)}`,
+    alt: `TEE's Deli daily specials flyer for ${postedLabel}.`,
+    postedLabel,
+  };
 }
 
-/** Empty-state slot shown until a flyer is published. */
-function FlyerPlaceholder() {
+/** What fills the flyer slot when nothing is posted. */
+function NoFlyer() {
   return (
-    <div className="flex aspect-[3/4] flex-col items-center justify-center gap-5 rounded-2xl border-2 border-dashed border-stone/30 bg-sand/50 p-8 text-center">
-      <span className="flex size-14 items-center justify-center rounded-full bg-card text-clay">
-        <Megaphone weight="thin" className="size-7" aria-hidden />
+    <div className="flex aspect-[3/4] flex-col items-center justify-center gap-5 rounded-2xl border border-sand bg-card p-8 text-center shadow-[0_30px_60px_-30px_rgba(33,28,23,0.35)]">
+      <span className="flex size-14 items-center justify-center rounded-full bg-sand text-clay">
+        <FacebookLogo weight="regular" className="size-7" aria-hidden />
       </span>
       <div>
         <p className="font-display text-xl font-semibold text-espresso">
-          Today&rsquo;s specials flyer
+          No specials posted yet
         </p>
         <p className="mt-2 text-sm leading-relaxed text-stone">
-          This is where the daily specials flyer appears — post it here just like
-          on Facebook.
+          Check our Facebook page for today&rsquo;s specials.
         </p>
       </div>
+      <Button href={business.links.facebook} external variant="outline">
+        <FacebookLogo weight="regular" className="size-4" aria-hidden />
+        Open Facebook
+      </Button>
     </div>
   );
 }
