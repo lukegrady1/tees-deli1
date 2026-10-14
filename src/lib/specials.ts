@@ -16,7 +16,7 @@ const FLYER_KEY = "flyer";
 
 export type Flyer = {
   contentType: string;
-  /** ISO timestamp of when it was posted — also used to cache-bust the image. */
+  /** ISO timestamp of when it was posted — also versions the image URL. */
   postedAt: string;
 };
 
@@ -70,6 +70,23 @@ export async function saveFlyer(
 /** Take the current flyer down. The site reverts to its built-in fallback. */
 export async function clearFlyer(): Promise<void> {
   await flyerStore().delete(FLYER_KEY);
+}
+
+/**
+ * The URL the flyer image is served from — one per post.
+ *
+ * The posted time goes in the path rather than a `?v=` query string because
+ * Netlify's CDN does not key route-handler responses on the query string, and
+ * the image is cached for a year. Trailing slash is canonical here
+ * (next.config trailingSlash), so linking it directly avoids a 308 on every
+ * page view.
+ */
+export function flyerUrl(postedAt: string): string {
+  const stamp = Date.parse(postedAt);
+  const version = Number.isNaN(stamp)
+    ? encodeURIComponent(postedAt)
+    : String(stamp);
+  return `/api/specials/flyer/${version}/`;
 }
 
 /** "July 14" — how a posted date reads on the homepage and in the admin. */

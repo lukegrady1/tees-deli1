@@ -1,6 +1,6 @@
 import { FacebookLogo, Phone } from "@phosphor-icons/react/dist/ssr";
 import { business } from "@/lib/business";
-import { formatPostedLabel, getFlyer } from "@/lib/specials";
+import { flyerUrl, formatPostedLabel, getFlyer } from "@/lib/specials";
 import { Section, Eyebrow, centerOnPhone } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
@@ -89,10 +89,7 @@ async function resolveFlyer(): Promise<ResolvedFlyer | null> {
 
   const postedLabel = formatPostedLabel(posted.postedAt);
   return {
-    // Trailing slash is canonical here (next.config trailingSlash), so linking
-    // it directly avoids a 308 on every page view. postedAt busts the cache so
-    // a replaced flyer shows up immediately.
-    src: `/api/specials/flyer/?v=${encodeURIComponent(posted.postedAt)}`,
+    src: flyerUrl(posted.postedAt),
     alt: `TEE's Deli daily specials flyer for ${postedLabel}.`,
     postedLabel,
   };

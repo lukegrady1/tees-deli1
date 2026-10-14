@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { isAdminConfigured, isSignedIn } from "@/lib/adminAuth";
-import { formatPostedLabel, getFlyer } from "@/lib/specials";
+import { flyerUrl, formatPostedLabel, getFlyer } from "@/lib/specials";
 import { SignInForm } from "./SignInForm";
 import { FlyerUploader } from "./FlyerUploader";
 
@@ -36,8 +36,7 @@ export default async function AdminPage() {
         <FlyerUploader
           current={
             flyer && {
-              // postedAt busts the cache so a replaced flyer shows immediately.
-              url: `/api/specials/flyer/?v=${encodeURIComponent(flyer.postedAt)}`,
+              url: flyerUrl(flyer.postedAt),
               postedLabel: formatPostedLabel(flyer.postedAt),
             }
           }

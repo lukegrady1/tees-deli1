@@ -20,7 +20,9 @@ not in the repo, so posting one needs no commit and no deploy.
 - `src/app/admin/` — the sign-in and upload screens, and their Server Actions.
 - `src/lib/specials.ts` — reads/writes the flyer blob.
 - `src/lib/adminAuth.ts` — the shared-password check.
-- `src/app/api/specials/flyer/route.ts` — serves the flyer image.
+- `src/app/api/specials/flyer/[version]/route.ts` — serves the flyer image. The
+  posted time is in the path because Netlify's CDN ignores query strings when
+  caching route-handler responses; a `?v=` cache-buster did not work.
 - `src/components/sections/DailySpecials.tsx` — renders it on the homepage.
 
 Two Netlify environment variables:
