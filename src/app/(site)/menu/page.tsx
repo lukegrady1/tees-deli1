@@ -9,7 +9,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { WalkInNotice } from "@/components/WalkInNotice";
 
 export const metadata: Metadata = {
-  title: "Menu",
+  title: "Deli Menu — Breakfast & Lunch, West Boylston MA",
   description:
     "TEE's Deli breakfast & lunch menu — made-to-order egg sandwiches, deli classics, hot grill items, salads, and sides. Order online for pickup in West Boylston, MA.",
   alternates: { canonical: "/menu" },

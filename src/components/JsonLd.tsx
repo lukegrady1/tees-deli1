@@ -1,4 +1,4 @@
-import { business, SITE_URL } from "@/lib/business";
+import { business, cateringOfferings, SITE_URL } from "@/lib/business";
 
 /**
  * LocalBusiness / Restaurant structured data with the CORRECT West Boylston
@@ -34,9 +34,36 @@ export function LocalBusinessJsonLd() {
       latitude: business.geo.lat,
       longitude: business.geo.lng,
     },
-    areaServed: business.serviceArea,
+    // Named places rather than one free-text string, so Google can tie the
+    // business to the towns people search from.
+    areaServed: [
+      "West Boylston",
+      "Worcester",
+      "Boylston",
+      "Shrewsbury",
+      "Holden",
+      "Sterling",
+      "Clinton",
+    ].map((name) => ({ "@type": "City", name: `${name}, MA` })),
     sameAs: [business.links.facebook, business.links.toast],
-    hasMenu: `${SITE_URL}/menu`,
+    hasMenu: `${SITE_URL}/menu/`,
+    // Every catering offering as a service with its own page, so the
+    // Restaurant entity is understood as a caterer too — not just a deli.
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Catering",
+      url: `${SITE_URL}/catering/`,
+      itemListElement: cateringOfferings.map((o) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: o.title,
+          description: o.blurb,
+          url: `${SITE_URL}/catering/${o.slug}/`,
+          provider: { "@id": `${SITE_URL}/#business` },
+        },
+      })),
+    },
     acceptsReservations: false,
     openingHoursSpecification: [
       {

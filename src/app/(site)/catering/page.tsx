@@ -18,7 +18,7 @@ import { SocialProof } from "@/components/sections/SocialProof";
 import { QuoteSection } from "@/components/sections/QuoteSection";
 
 export const metadata: Metadata = {
-  title: "Catering",
+  title: "Catering in Worcester & West Boylston, MA",
   description:
     "Full-service catering for offices, colleges, and private events across the Greater Worcester area — corporate breakfasts & lunches, boxed lunches, BBQs, graduations, and more. Get a quote.",
   alternates: { canonical: "/catering" },

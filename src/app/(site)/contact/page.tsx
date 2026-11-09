@@ -6,7 +6,7 @@ import { QuoteSection } from "@/components/sections/QuoteSection";
 import { HoursLocation } from "@/components/sections/HoursLocation";
 
 export const metadata: Metadata = {
-  title: "Contact & Quote",
+  title: "Contact & Catering Quote, West Boylston MA",
   description:
     "Get a catering quote, find our hours, or get directions to TEE's Deli & Catering at 26 West Boylston Street, West Boylston, MA. Call (978) 729-2337.",
   alternates: { canonical: "/contact" },

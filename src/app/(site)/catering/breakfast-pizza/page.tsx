@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Check } from "@phosphor-icons/react/dist/ssr";
-import { business, breakfastPizza } from "@/lib/business";
+import { business, breakfastPizza, SITE_URL } from "@/lib/business";
 import { PageHero } from "@/components/PageHero";
 import { Section, Eyebrow, centerOnPhone } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
@@ -10,15 +10,35 @@ import { MoreCatering } from "@/components/sections/MoreCatering";
 import { QuoteSection } from "@/components/sections/QuoteSection";
 
 export const metadata: Metadata = {
-  title: "Breakfast Pizza",
+  title: "Breakfast Pizza — Half-Sheet Focaccia, Worcester MA",
   description:
     "Our signature half-sheet focaccia Breakfast Pizza feeds 8–12 — House Special, Western, Veggie, Gluten-Free, the new Double, and more. Ready-to-bake or delivered hot. From $29.99.",
   alternates: { canonical: "/catering/breakfast-pizza" },
 };
 
+// Same breadcrumb trail the generic offering pages emit, so Google's
+// Breadcrumbs report treats this hand-built page like its siblings.
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Catering", item: `${SITE_URL}/catering` },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Breakfast Pizza",
+      item: `${SITE_URL}/catering/breakfast-pizza`,
+    },
+  ],
+};
+
 export default function BreakfastPizzaPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
       <PageHero
         eyebrow="Signature product"
         title="The Breakfast Pizza."

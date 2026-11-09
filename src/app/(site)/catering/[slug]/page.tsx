@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const o = getOffering(slug);
   if (!o?.detail) return {};
   return {
-    title: o.title,
+    title: o.detail.metaTitle,
     description: o.detail.metaDescription,
     alternates: { canonical: `/catering/${o.slug}` },
   };

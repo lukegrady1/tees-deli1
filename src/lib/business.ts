@@ -135,6 +135,15 @@ export type CateringDetail = {
   eyebrow: string;
   intro: string;
   photoLabel: string;
+  /**
+   * The <title> for the offering's page, before the " · TEE's Deli & Catering"
+   * suffix the root layout appends. Carries the service plus the place
+   * ("…, Worcester MA") because that is what people type — the Search Console
+   * queries that reach us are "sandwich catering near me", "party sub near
+   * me", "italian catering", never just the offering name. Keep it under
+   * about 45 characters so the suffix still fits in a result.
+   */
+  metaTitle: string;
   metaDescription: string;
   /** Optional real photo, used as the card/gallery lead (else a placeholder). */
   heroImage?: string;
@@ -250,6 +259,7 @@ export const cateringOfferings: CateringOffering[] = [
       intro:
         "Our Corporate Breakfast Meeting catering offers various options to suit your guests, or we can customize something for you. All bagels, muffins, pastries, and doughnuts are made fresh daily. Ideally, please provide a 24-hour notice, but we can handle last-minute requests if needed.",
       photoLabel: "Breakfast pastry platter, made fresh for a morning meeting",
+      metaTitle: "Breakfast Meeting Catering, Worcester MA",
       metaDescription:
         "Corporate breakfast catering in the Greater Worcester area — continental or full breakfasts from $7.99 per person, delivered and set up. Get a quote.",
       heroImage: "/breakfast-pastry-platter.webp",
@@ -304,6 +314,7 @@ export const cateringOfferings: CateringOffering[] = [
         "Corporate luncheons are a specialty at TEE's Deli & Catering. Our Chicken, Tuna, and Cranberry Walnut Chicken salads are prepared daily from scratch. Additionally, we offer a variety of freshly made side dishes, including Red Bliss Potato Salad, Macaroni Salad, Italian Pasta Salad, Cole Slaw, Apple Pear Slaw, and Broccoli/Bacon Salad.",
       photoLabel:
         "Corporate luncheon buffet, hot and cold options laid out for an office",
+      metaTitle: "Corporate Luncheon Catering, Worcester MA",
       metaDescription:
         "Corporate luncheon catering in the Greater Worcester area — hot or cold lunch packages from $10.99 per person, delivered and set up. Get a quote.",
       heroImage: "/office-buffet-line.webp",
@@ -373,6 +384,7 @@ export const cateringOfferings: CateringOffering[] = [
         "TEE's Deli offers boxed lunches for home and visiting teams, serving colleges like Holy Cross and WPI in Worcester. With quality food, great prices, and prompt service, we are the top choice for visiting teams. Order from our menu or customize your own, and we'll provide a quote.",
       photoLabel:
         "Custom boxed lunches packed and labeled for a visiting team",
+      metaTitle: "College Team Boxed Lunches, Worcester MA",
       metaDescription:
         "Boxed lunches for college and visiting sports teams in Worcester — serving teams at Holy Cross, WPI and beyond on quality, price, and prompt service. Build a custom box.",
       heroImage: "/boxed-lunches-open.webp",
@@ -473,6 +485,7 @@ export const cateringOfferings: CateringOffering[] = [
         "All our BBQ set-ups are different depending what and where we have to work with. Corporate and Private Barbecues are a specialty of TEE's Deli.",
       photoLabel:
         "Backyard barbecue spread, trays of grilled favorites ready to serve",
+      metaTitle: "Company & Family BBQ Catering, Worcester MA",
       metaDescription:
         "Company & family barbecue catering in the Greater Worcester area — full-service cookouts, tailgates, and concessions, delivered and set up. Get a quote.",
       heroImage: "/technetics-family-bbq2.webp",
@@ -568,6 +581,7 @@ export const cateringOfferings: CateringOffering[] = [
         "Bereavement meals, delivered and set up with care and on short notice.",
       photoLabel:
         "Bereavement meal, simple and comforting, delivered and set up",
+      metaTitle: "Bereavement Meal Catering, Worcester MA",
       metaDescription:
         "Bereavement meal catering in the Greater Worcester area — thoughtful, fuss-free spreads delivered and set up with care, on short notice. Get a quote.",
       heroImage: "/sandwich-wrap-platters.webp",
@@ -604,6 +618,7 @@ export const cateringOfferings: CateringOffering[] = [
       intro:
         "TEE's Deli & Catering offers full-service catering for private events at homes, offices, or function halls. We cater Baptisms, Weddings, First Communions, Birthday Parties, Fantasy Drafts, Bereavement Meals, and Anniversary Parties. Pick-up options are also available.",
       photoLabel: "Hot entrée trays — chicken, broccoli and rice, ready to serve",
+      metaTitle: "Hot Entrée Catering & Pans, Worcester MA",
       metaDescription:
         "Hot entrée catering in the Greater Worcester area — chicken, sausage, pasta and vegetarian pans for weddings, baptisms, birthdays and private events. Full and half pans.",
       heroImage: "/chicken-broccoli-rice-trays.webp",
@@ -663,6 +678,7 @@ export const cateringOfferings: CateringOffering[] = [
       intro:
         "Having a private party? Yup! We do those too! Our Chicken, Tuna, and Cranberry Walnut Chicken salads are prepared daily from scratch, and we offer a variety of freshly made side dishes including Red Bliss Potato Salad, Macaroni Salad, Italian Pasta Salad, Cole Slaw, Apple Pear Slaw, and Broccoli/Bacon Salad.",
       photoLabel: "Finger sandwich platter, cut and arranged for a party",
+      metaTitle: "Party Platters & Sandwich Trays, Worcester MA",
       metaDescription:
         "Party platters from TEE's Deli in West Boylston — finger sandwiches, pin-wheels, sub-cuts, bulkie rolls, wraps, cannoli and cookie trays, priced by the platter.",
       heroImage: "/platter-finger-tuna.webp",
