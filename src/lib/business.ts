@@ -402,11 +402,17 @@ export const cateringOfferings: CateringOffering[] = [
           caption: "Game-day tailgate, grills fired up",
         },
       ],
-      // No flyer image here on purpose. The printed sheet only exists at the
-      // old $11.50 price — the re-export at $11.99 came back with spelling
-      // errors — so the sheet is off the page and everything it said is
-      // transcribed below. Restore a `flyers` entry only with a clean sheet at
-      // the current price, and check nothing below goes stale when you do.
+      // The owner's Basic Box sheet, re-sent clean at $11.99 in November 2026
+      // (the earlier $11.99 export had spelling errors, so the sheet was off
+      // the page for a while). Everything it says is also transcribed in
+      // `pricing` below — keep the two in step when he sends the next one.
+      flyers: [
+        {
+          image: "/boxed-lunch-basic-box-2026-11.webp",
+          alt: "TEE's Deli Basic Box sheet, $11.99. Each box has a sandwich, a 1 oz bag of chips, a 1.5 oz chocolate chip cookie, and a banana or a 16 oz water. Protein choices: turkey, Italian, chicken salad, roast beef, tuna, grilled chicken, ham and chicken Caesar, with vegan, vegetarian and PBJ sandwiches also available. Bread choices: 7 inch sub roll, bulkie roll, sliced white, wheat or marble rye, gluten-free for $1.00 more, or a 12 inch white, wheat or tomato wrap. Other options: make it a large sub add $2.00, substitute a 4.5 oz cookie for the 1.5 oz add $2.00, substitute a grilled sandwich for the cold one add $3.00, add a 20 oz Poland Springs water $1.25, add a 20 oz Gatorade, Snapple or Vitamin Water $2.00. All lunches come in a 9 by 4 by 3 inch box or a 12 lb paper bag with napkins, mayo and mustard packs, labeled with the sandwich name and the person's name or number.",
+          caption: "The printed Basic Box sheet.",
+        },
+      ],
       pricing: {
         rate: "$11.99 per box",
         rateNote:
@@ -471,8 +477,8 @@ export const cateringOfferings: CateringOffering[] = [
         "Company & family barbecue catering in the Greater Worcester area — full-service cookouts, tailgates, and concessions, delivered and set up. Get a quote.",
       heroImage: "/technetics-family-bbq2.webp",
       gallery: bbqEvents,
-      // The TEE's Basic Barbecue sheet is off the page on purpose, the same
-      // way the Boxed Lunches one is: the printed version exists only at the
+      // The TEE's Basic Barbecue sheet is off the page on purpose, the way
+      // the Boxed Lunches one was: the printed version exists only at the
       // old prices ($18.00 a head, $325.00 set-up, $60.00 rates) and still
       // lists ketchup, mustard and relish, which the owner has since dropped.
       // Everything it said is transcribed below. Restore a `flyers` entry for
