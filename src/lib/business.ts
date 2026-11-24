@@ -873,11 +873,10 @@ export const menuSheets: MenuSheet[] = [
 ];
 
 /**
- * Canonical site URL, used for metadata, sitemap, robots and JSON-LD.
- * Set NEXT_PUBLIC_SITE_URL in Netlify to the live domain — Netlify's own `URL`
- * covers deploys until then. Keep this in sync when a custom domain is added.
+ * Canonical site URL, used for metadata, sitemap, robots, JSON-LD and llms.txt.
+ * The live domain is teesdeli.com. NEXT_PUBLIC_SITE_URL can override it (e.g. a
+ * staging deploy); Netlify's own `URL` is deliberately not used, so canonicals
+ * never point at a *.netlify.app address.
  */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  process.env.URL ??
-  "http://localhost:3000";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://teesdeli.com";
